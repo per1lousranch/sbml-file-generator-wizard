@@ -1,23 +1,45 @@
 import ollama
 from pypdf import PdfReader
+import pymupdf
 import numpy
 import re
 
+"""
 def parse_file(filename):
     reader = PdfReader(filename)
-    page = reader.pages[2]
-    text = page.extract_text()
 
-    clean_text = re.sub(' +', ' ', text)
-    clean_text.strip()
-    
-    sentences_lst = clean_text.split('\n')
+    for i in range(reader.get_num_pages()):
+        page = reader.pages[i]
+        text = page.extract_text()
 
-    for sentence in range(len(sentences_lst)):
-        sentences_lst[sentence] = sentences_lst[sentence].strip()
+        clean_text = re.sub(' +', ' ', text)
+        clean_text.strip()
+        
+        sentences_lst = clean_text.split('\n')
+
+        for sentence in range(len(sentences_lst)):
+            sentences_lst[sentence] = sentences_lst[sentence].strip()
 
     print(sentences_lst)
     print(len(sentences_lst))
+    print(reader.get_num_pages())
+"""
+
+def parse_file(filename):
+    extracted_docs = []
+
+    for file in filename:
+        doc = pymupdf.open(file)
+
+        for i in range(doc.page_count):
+            page = doc[i]
+
+            paragraph_lst = page.get_text("blocks")
+
+            for lst in paragraph_lst:
+                extracted_docs.append(lst[4])
+    
+    print(len(extracted_docs))
 
 
 
@@ -48,7 +70,7 @@ def continuous_chat():
 
 
 def main():
-    parse_file('/Users/ethanzhu/Desktop/Python/Ollama/SBML_Core_Specification.pdf')
+    parse_file(['/Users/ethanzhu/Desktop/Python/Ollama/SBML_Core_Specification.pdf'])
     # continuous_chat()
 
 if __name__ == "__main__":
