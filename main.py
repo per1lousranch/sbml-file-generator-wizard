@@ -1,17 +1,23 @@
 import ollama
 from pypdf import PdfReader
+import numpy
 import re
 
 def parse_file(filename):
     reader = PdfReader(filename)
-    page = reader.pages[0]
+    page = reader.pages[2]
     text = page.extract_text()
 
     clean_text = re.sub(' +', ' ', text)
     clean_text.strip()
     
     sentences_lst = clean_text.split('\n')
+
+    for sentence in range(len(sentences_lst)):
+        sentences_lst[sentence] = sentences_lst[sentence].strip()
+
     print(sentences_lst)
+    print(len(sentences_lst))
 
 
 
@@ -42,7 +48,7 @@ def continuous_chat():
 
 
 def main():
-    parse_file('/Users/ethanzhu/Desktop/Python/Ollama/test_doc_3.pdf')
+    parse_file('/Users/ethanzhu/Desktop/Python/Ollama/SBML_Core_Specification.pdf')
     # continuous_chat()
 
 if __name__ == "__main__":
