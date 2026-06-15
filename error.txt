@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/Users/ethanzhu/Desktop/Python/Ollama/main.py", line 59, in <module>
+    main()
+  File "/Users/ethanzhu/Desktop/Python/Ollama/main.py", line 54, in main
+    embeddings = get_embeddings('qwen3-embedding:4b', paragraphs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ethanzhu/Desktop/Python/Ollama/main.py", line 24, in get_embeddings
+    batch = ollama.embed(model = model_name, input = paragraphs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/ollama/lib/python3.12/site-packages/ollama/_client.py", line 415, in embed
+    return self._request(
+           ^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/ollama/lib/python3.12/site-packages/ollama/_client.py", line 199, in _request
+    return cls(**self._request_raw(*args, **kwargs).json())
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/ollama/lib/python3.12/site-packages/ollama/_client.py", line 143, in _request_raw
+    raise ResponseError(e.response.text, e.response.status_code) from None
+ollama._types.ResponseError: Post "http://127.0.0.1:51336/tokenize": EOF (status code: 400)
