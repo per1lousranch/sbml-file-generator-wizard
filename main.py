@@ -13,7 +13,7 @@ def parse_file(filenames: list[str]):
         for i in range(doc.page_count):
             page = doc[i]
 
-            paragraph_lst = page.get_text("blocks")
+            paragraph_lst = page.get_text("blocks") # 'blocks' parameter allows extraction based on paragraphs
 
             for lst in paragraph_lst:
                 extracted_docs.append(lst[4])
@@ -69,16 +69,18 @@ def continuous_chat(model_name: str, embedding_name: str, embeddings: list[list[
 
                 return similarity
             
-            similarity = cosine_similarity()[:10]
+            similarity = cosine_similarity()[:20]
+
+            # print(type(similarity[0]))
+
+            final = []
 
             for item in similarity:
                 print(item[0], item[1])
                 print("Content: " + paragraphs[item[1]])
+                final.append(paragraphs[item[1]])
             
-
-
-
-            '''
+            message_list[0]['content'] = system_prompt + " ".join(final)
             message_list.append({'role': 'user', 'content': user_prompt})
             response = ollama.chat(model = model_name, messages = message_list, options = {'temperature': 1, 'top_k': 64, 'top_p': 0.95}, stream=True)
 
@@ -91,13 +93,12 @@ def continuous_chat(model_name: str, embedding_name: str, embeddings: list[list[
             print("\n")
             
             message_list.append({'role': 'assistant', 'content': str_response})
-            '''
 
 def main():
     # paragraphs = parse_file(['SBML_Core_Specification.pdf', 'SBML_Multi_Specification.pdf'])
-    paragraphs = parse_file(['2026_NBA_Finals.pdf'])
-    embeddings = get_embeddings('qwen3-embedding:4b', paragraphs)
-    continuous_chat('gemma3:12b', 'qwen3-embedding:4b', embeddings, paragraphs)
+    paragraphs = parse_file(['Aus_Election.pdf'])
+    embeddings = get_embeddings('qwen3-embedding:8b', paragraphs)
+    continuous_chat('gemma3:12b', 'qwen3-embedding:8b', embeddings, paragraphs)
 
 if __name__ == "__main__":
     main()
