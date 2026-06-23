@@ -21,7 +21,10 @@ def parse_file(filenames: list[str]):
             paragraph_lst = page.get_text("blocks") # 'blocks' parameter allows extraction based on paragraphs
 
             for lst in paragraph_lst:
-                extracted_docs.append(lst[4]) # 5th index contains actual text, so we only append what's there
+                chunk = lst[4] # 5th index contains actual text, so we only append what's there
+
+                if len(chunk) >= 56: # used to ensure only sentences and no titles are passed through, calculated from taking the average character per word of 4 with a lower bound of 14 words per sentences (4 x 14 = 56)
+                    extracted_docs.append(chunk) # could also check if there are punctuation in the chunk?
     
     return extracted_docs
 
@@ -92,8 +95,8 @@ def continuous_chat(model_name: str, embedding_name: str, embeddings: list[list[
 
                 return similarity
             
-            # return the best 20 chunks
-            similarity = cosine_similarity()[:20]
+            # return the best 10 chunks
+            similarity = cosine_similarity()[:10]
 
             final = []
             # Uncomment to see what context is getting passed into the model.
