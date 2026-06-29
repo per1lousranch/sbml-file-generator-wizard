@@ -15,7 +15,7 @@ def parse_file(filenames: list[str]):
         doc = pymupdf.open(file) # PyMuPDF allows for text extraction via paragraphs
 
         # iterating through pages of an individual document
-        for i in range(36): # upper limit so far: 36
+        for i in range(35): # upper limit so far: 36
             if i == 2 or i == 3: # NOTE: remove if not using the multi specification or any similar doc with hyperlinked contents pages
                 continue # for some reason code crashes if trying to parse the contents pages of the multi specification
 
@@ -125,22 +125,36 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
             # add model's message into converstaion history (kind of broken)
             message_list.append({'role': 'assistant', 'content': str_response})
 
+def prompt_stuffing_continous_chat(paragraphs: list[str]):
+    joined_paragraphs = " ".join(paragraphs)
+    system_prompt = '''You are an SBML expert. Generate files based on a provided biological model that abide by the
+    following specification: ''' + joined_paragraphs + '''.  '''
+    pass
+
+
 def main():
     # paragraphs = parse_file(['SBML_Core_Specification.pdf', 'SBML_Multi_Specification.pdf'])
-    num = int(input("1. RAG (questions about specifications) \n2. Prompt Stuffing (generating file) \nPlease enter the the number of which technique you wish to use (0 to abort): "))
+    # num = int(input("1. RAG (questions about specifications) \n2. Prompt Stuffing (generating file) \nPlease enter the the number of which technique you wish to use (0 to abort): "))
 
+    paragraphs = parse_file(['SBML_Multi_Correct.pdf'])
+
+    print(len(paragraphs))
+    print(paragraphs[353])
+
+    '''
     while True:
         if num == 1:
             paragraphs = parse_file(['SBML_Multi_Correct.pdf'])
             embeddings = get_embeddings('qwen3-embedding:8b', paragraphs)
             rag_continuous_chat('gemma3:4b', 'qwen3-embedding:8b', embeddings, paragraphs)
-        elif num == 2:
-            print("to be finished")
             break
+        elif num == 2:
+            paragraphs = parse_file(['SBML_Multi_Correct.pdf'])
+            
         elif num == 0:
             print("aborting...")
             break
-
+    '''
 
 if __name__ == "__main__":
     main()
