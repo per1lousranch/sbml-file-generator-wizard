@@ -15,7 +15,10 @@ def parse_file(filenames: list[str]):
         doc = pymupdf.open(file) # PyMuPDF allows for text extraction via paragraphs
 
         # iterating through pages of an individual document
-        for i in range(doc.page_count):
+        for i in range(36): # upper limit so far: 36
+            if i == 2 or i == 3: # NOTE: remove if not using the multi specification or any similar doc with hyperlinked contents pages
+                continue # for some reason code crashes if trying to parse the contents pages of the multi specification
+
             page = doc[i]
 
             paragraph_lst = page.get_text("blocks") # 'blocks' parameter allows extraction based on paragraphs
@@ -56,7 +59,7 @@ def get_embeddings(model_name: str, paragraphs: list[str]):
 # embedding_name: string for the name of the embedding model (calculating embedding for prompt)
 # embeddings: list of list of ints which we will use to compare embedding of prompt against via cosine similarity
 # paragraphs: list of strings that we will index to get information for model
-def continuous_chat(model_name: str, embedding_name: str, embeddings: list[list[int]], paragraphs: list[str]):
+def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[list[int]], paragraphs: list[str]):
     system_prompt = '''You are a RAG AI chatbot named who answers questions; first, search the information provided at the 
     end of this string and do not deviate from it to try and find the answer. If you are unable to answer a question based 
     on the information, use your pre-trained knowledge to answer the question, but explicitly state that your answer is not 
@@ -124,9 +127,20 @@ def continuous_chat(model_name: str, embedding_name: str, embeddings: list[list[
 
 def main():
     # paragraphs = parse_file(['SBML_Core_Specification.pdf', 'SBML_Multi_Specification.pdf'])
-    paragraphs = parse_file(['Aus_Election.pdf'])
-    embeddings = get_embeddings('qwen3-embedding:8b', paragraphs)
-    continuous_chat('gemma3:12b', 'qwen3-embedding:8b', embeddings, paragraphs)
+    num = int(input("1. RAG (questions about specifications) \n2. Prompt Stuffing (generating file) \nPlease enter the the number of which technique you wish to use (0 to abort): "))
+
+    while True:
+        if num == 1:
+            paragraphs = parse_file(['SBML_Multi_Correct.pdf'])
+            embeddings = get_embeddings('qwen3-embedding:8b', paragraphs)
+            rag_continuous_chat('gemma3:4b', 'qwen3-embedding:8b', embeddings, paragraphs)
+        elif num == 2:
+            print("to be finished")
+            break
+        elif num == 0:
+            print("aborting...")
+            break
+
 
 if __name__ == "__main__":
     main()
