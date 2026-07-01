@@ -146,8 +146,9 @@ def sbml_generation_continous_chat(model_name: str):
 
     layout = [
         [sg.Text(text = "SBML Generation Chat Application")],
-        [sg.Text("Enter the path to the image: "), sg.Input(), sg.OK()],
-        [sg.Multiline(key = 'output', size = (90, 30))]
+        [sg.FileBrowse("Select image (or paste path)", target = 'image_input'), sg.Input('Paste image path here.', key = 'image_input'), sg.OK(key = 'input1')],
+        [sg.Multiline('Generated text will appear here...', key = 'output', size = (90, 30))],
+        [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2')]
     ]
 
     window = sg.Window(title = "SBML Generation Chat Application", layout = layout, margins = (300, 150))
@@ -157,14 +158,18 @@ def sbml_generation_continous_chat(model_name: str):
         
         if event == sg.WIN_CLOSED:
             break
-        else:
-            image_path = values[0]
+        elif event == 'image_input' or event == 'input1':
+            print("working 1! :D")
+            # image_path = values['image_input']
 
-            message_list.append({'role': 'user', 'content': "Generate an SBML multi file of the provided image.", 'images': [image_path]})
+            # message_list.append({'role': 'user', 'content': "Generate an SBML multi file of the provided image.", 'images': [image_path]})
 
-            response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
+            # response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
 
-            window['output'].update(response.message.content)
+            # window['output'].update(response.message.content)
+        #elif event == 'FileSaveAs' or event == 'image_output' or event == 'save' or event == 'Paste target save location here.':
+        elif event == 'save_output' or event == 'input2':
+            print("working 2! :)")
 
 def main():
     paragraphs = parse_file(['SBML_Core_Specification.pdf', 'SBML_Multi_Specification.pdf'])
