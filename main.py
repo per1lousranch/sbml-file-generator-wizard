@@ -163,9 +163,12 @@ def sbml_generation_continous_chat(model_name: str):
             if window.find_element_with_focus().key == 'save_output':
                 with open(values['save'], 'w') as file:
                     file.write(values['output'].get())
+
                 window['save_status'].update("Saved successfully!")
                 window.refresh()
+
                 time.sleep(3)
+                
                 window['save_status'].update("")
                 window.refresh()
             else:
@@ -179,14 +182,17 @@ def sbml_generation_continous_chat(model_name: str):
         elif event == 'save_output' or event == 'input2':
             with open(values['save'], 'w') as file:
                 file.write(values['output'])
+
             window['save_status'].update("Saved successfully!")
             window.refresh()
+
             time.sleep(3)
+
             window['save_status'].update("")
             window.refresh()
 
 def main():
-    paragraphs = parse_file(['SBML_Core_Specification.pdf', 'SBML_Multi_Specification.pdf'])
+    # paragraphs = parse_file(['SBML_Core_Specification.pdf', 'SBML_Multi_Specification.pdf'])
 
     layout = [
         [sg.Text(text = "SBML File Generator Wizard")],
@@ -206,7 +212,7 @@ def main():
             embeddings = get_embeddings('qwen3-embedding:8b', paragraphs)
             rag_continuous_chat('gemma3:4b', 'qwen3-embedding:8b', embeddings, paragraphs)
         elif event == "2. SBML Generation (generating file)":
-            sbml_generation_continous_chat("minimax-m3:cloud")
+            sbml_generation_continous_chat("minimax-m3:cloud") 
 
 if __name__ == "__main__":
     main()
