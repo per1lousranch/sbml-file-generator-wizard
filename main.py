@@ -5,6 +5,7 @@ import json
 import os.path
 import PySimpleGUI as sg
 import time
+from libsbml import *
 
 # function for extracting paragraphs
 # PARAMETERS:
@@ -55,7 +56,7 @@ def get_embeddings(model_name: str, paragraphs: list[str]):
 
     return embeddings
 
-# function for executing the chat for RAG
+# function for executing the chat
 # PARAMETERS:
 # model_name: string for the name of the converstaional model
 # embedding_name: string for the name of the embedding model (calculating embedding for prompt)
@@ -139,41 +140,39 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
             # add model's message into converstaion history (kind of broken)
             message_list.append({'role': 'assistant', 'content': str_response})
     
-# function for executing the chat for SBML file generation
-# PARAMETERS:
-# model_name: string for the name of the converstaional model
+            
 def sbml_generation_continous_chat(model_name: str):
-    system_prompt = '''You are an SBML Multi expert; generate SBML Multi XML files based on the following image provided. 
+    system_prompt = '''You are an SBML Multi expert. generate SBML Multi XML files based on the following image provided. 
     Only provide the completed file, no other text.'''
     message_list = [{'role': 'system', 'content': system_prompt}]
 
-    layout = [ # defining elements for PySimpleGUI window
+    layout = [
         [sg.Text(text = "SBML Generation Chat Application")],
         [sg.FileBrowse("Select image (or paste path)", target = 'image_input'), sg.Input('Paste image path here.', key = 'image_input'), sg.OK(key = 'input1')],
-        [sg.Multiline('Generated text will appear here...', key = 'output', size = (90, 30))],
-        [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2'), sg.Text(text = '', key = 'save_status')]
+        [sg.Multiline('Generated text will appear here.', key = 'output', size = (90, 30)), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30))],
+        [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2'), sg.Text(text = '                                                       ', key = 'save_status'), sg.Button("Validate SBML file", key = 'validate'), sg.Button("Submit validations to LLM", key = 'submit_validations')]
     ]
 
-    window = sg.Window(title = "SBML Generation Chat Application", layout = layout, margins = (300, 150)) # setting up the window
+    window = sg.Window(title = "SBML Generation Chat Application", layout = layout, margins = (225, 150))
 
     while True:
-        event, values = window.read() # event holds which event was executed, values is a dict which holds the values of your elements at the time of event in the window
+        event, values = window.read()
         
         if event == sg.WIN_CLOSED:
-            break # break out of loop
-        elif event == 'image_input' or event == 'input1': # upon user presssing enter on file path text box or 'OK' button
-            if window.find_element_with_focus().key == 'save_output': # prevents enter key from firing the load image event when pressed on the file save as path box
+            break
+        elif event == 'image_input' or event == 'input1':
+            if window.find_element_with_focus().key == 'save_output':
                 with open(values['save'], 'w') as file:
                     file.write(values['output'].get())
 
-                window['save_status'].update("Saved successfully!")
-                window.refresh() # refresh window to show updated text
+                window['save_status'].update("Saved successfully!                        ")
+                window.refresh()
 
-                time.sleep(3) # wait 3 seconds
+                time.sleep(3)
 
-                window['save_status'].update("")
-                window.refresh() # back to original
-            else: # load image event
+                window['save_status'].update("                                                       ")
+                window.refresh()
+            else:
                 image_path = values['image_input']
 
                 message_list.append({'role': 'user', 'content': "Generate an SBML multi file of the provided image.", 'images': [image_path]})
@@ -181,21 +180,54 @@ def sbml_generation_continous_chat(model_name: str):
                 response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
 
                 window['output'].update(response.message.content)
-        elif event == 'save_output' or event == 'input2': # file save event
+        elif event == 'save_output' or event == 'input2':
             with open(values['save'], 'w') as file:
                 file.write(values['output'])
 
-            window['save_status'].update("Saved successfully!")
+            window['save_status'].update("Saved successfully!                        ")
             window.refresh()
 
             time.sleep(3)
 
-            window['save_status'].update("")
+            window['save_status'].update("                                                       ")
             window.refresh()
+        elif event == 'validate':
+            pass
+        elif event == 'submit_validations':
+            print("i am submitting validations")
 
-def main():
-    # paragraphs = parse_file(['SBML_Core_Specification.pdf', 'SBML_Multi_Specification.pdf'])
+'''
+def sbml_validation():
+    # print("Version: " + libsbml.getLibSBMLDottedVersion())
+    # example files to use:
+    # errors.xml -> il6 pathway generated by this app and has 2 errors (says 1) when imported into Multi Importer
+    # noerrors.xml -> toy protein example generated by ChatGPT and has no errors when imported into Multi Importer
 
+    # use:
+    # read content into SBMLDocument format
+    # then do validation by using checkConsistency and checkInternalConsistency
+    # look at validator too to see if it can work, but Multi Importer used checkConsistency and checkInternalConsistency
+
+    reader = SBMLReader()
+
+    doc = reader.readSBML("/Users/ethanzhu/Desktop/Python/Ollama/il6-gui-app-file.xml")
+
+    # print(doc.getError(0).getMessage())
+
+    # for i in range(doc.getNumErrors()):
+    #    error = doc.getError(i)
+
+    errors = doc.printErrors()
+
+    print("NEW NEW NEW NEW NEW\n")
+
+    print(errors)
+'''
+
+
+
+
+def main():    
     layout = [
         [sg.Text(text = "SBML File Generator Wizard")],
         [sg.Button(button_text = "1. RAG (questions about specifications)")],
@@ -214,7 +246,8 @@ def main():
             embeddings = get_embeddings('qwen3-embedding:8b', paragraphs)
             rag_continuous_chat('gemma3:4b', 'qwen3-embedding:8b', embeddings, paragraphs)
         elif event == "2. SBML Generation (generating file)":
-            sbml_generation_continous_chat("minimax-m3:cloud") 
+            sbml_generation_continous_chat("minimax-m3:cloud")
 
+            
 if __name__ == "__main__":
     main()
