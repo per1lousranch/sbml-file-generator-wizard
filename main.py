@@ -167,13 +167,7 @@ def sbml_generation_continous_chat(model_name: str):
                 with open(values['save'], 'w') as file:
                     file.write(values['output'].get())
 
-                window['save_status'].update("Saved successfully!                        ")
-                window.refresh()
-
-                time.sleep(3)
-
-                window['save_status'].update("                                                       ")
-                window.refresh()
+                update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3)
             else:
                 image_path = values['image_input']
 
@@ -186,13 +180,7 @@ def sbml_generation_continous_chat(model_name: str):
             with open(values['save'], 'w') as file:
                 file.write(values['output'])
 
-            window['save_status'].update("Saved successfully!                        ")
-            window.refresh()
-
-            time.sleep(3)
-
-            window['save_status'].update("                                                       ")
-            window.refresh()
+            update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3)
         elif event == 'validate':
             reader = SBMLReader()
 
@@ -210,13 +198,7 @@ def sbml_generation_continous_chat(model_name: str):
             window.refresh()
         elif event == 'submit_validations':
             if values['errors'] == 'Errors found during validation will appear here.' or values['errors'] == 'No errors found.':
-                window['validation_status'].update("No errors found to fix.")
-                window.refresh()
-
-                time.sleep(3)
-
-                window['validation_status'].update("")
-                window.refresh()
+                update_text_element(window, "validation_status", "", "No errors found to fix.", 3)
             else:
                 message_list.append({'role': 'user', 'content': values['errors']})
 
@@ -224,6 +206,14 @@ def sbml_generation_continous_chat(model_name: str):
 
                 window['output'].update(response.message.content)
 
+def update_text_element(window, target: str, before: str, after: str, wait: int):
+    window[target].update(after)
+    window.refresh()
+
+    time.sleep(wait)
+
+    window[target].update(before)
+    window.refresh()
 
 def main():    
     layout = [
