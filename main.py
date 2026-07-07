@@ -142,10 +142,10 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
     
             
 def sbml_generation_continous_chat(model_name: str):
-    system_prompt = '''You are an SBML Multi expert. generate SBML Multi XML files based on the following image provided. 
+    system_prompt = '''You are an SBML Multi expert. If provided with an image, enerate a SBML Multi XML file based on the image. 
     If provided with a list of errors, try to fix the errors in the previosuly generated file and generate the entire fixed
-    file again. Do not change anything else in the file when fixing errors apart from what is outlined in the errors. 
-    Only provide the completed file, no other text in all cases.'''
+    file again; do not change anything else in the file when fixing errors apart from what is outlined in the errors. 
+    Only provide the completed file, no other text in both the image and error cases.'''
     message_list = [{'role': 'system', 'content': system_prompt}]
 
     layout = [
