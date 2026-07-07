@@ -143,9 +143,10 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
             
 def sbml_generation_continous_chat(model_name: str):
     system_prompt = '''You are an SBML Multi expert. If provided with an image, enerate a SBML Multi XML file based on the image. 
-    If provided with a list of errors, try to fix the errors in the previosuly generated file and generate the entire fixed
-    file again; do not change anything else in the file when fixing errors apart from what is outlined in the errors. 
-    Only provide the completed file, no other text in both the image and error cases.'''
+    If provided with a list of errors, try to fix the errors in the file to abide by SBML Multi specification and generate 
+    the entire fixed file again; do not change anything else in the file when fixing errors apart from what is outlined in 
+    the errors. Only provide the completed file and no other text in both the image and error cases. Do not use markdown, 
+    code block formatting, or backticks anywhere; Generated files must be outputted in raw text.'''
     message_list = [{'role': 'system', 'content': system_prompt}]
 
     layout = [
@@ -200,11 +201,18 @@ def sbml_generation_continous_chat(model_name: str):
             if values['errors'] == 'Errors found during validation will appear here.' or values['errors'] == 'No errors found.':
                 update_text_element(window, "validation_status", "", "No errors found to fix.", 3)
             else:
-                message_list.append({'role': 'user', 'content': values['errors']})
+                window['validation_status'].update("Fixing errors...")
+                window.refresh()
+
+                message_list.append({'role': 'user', 'content': "Errors: " + values['errors'] + ". File: " + values['output']})
 
                 response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
 
                 window['output'].update(response.message.content)
+
+                update_text_element(window, "validation_status", "", "Finished!", 3)
+
+
 
 def update_text_element(window, target: str, before: str, after: str, wait: int):
     window[target].update(after)
