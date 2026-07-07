@@ -56,7 +56,7 @@ def get_embeddings(model_name: str, paragraphs: list[str]):
 
     return embeddings
 
-# function for executing the chat
+# function for executing the RAG question asking chat
 # PARAMETERS:
 # model_name: string for the name of the converstaional model
 # embedding_name: string for the name of the embedding model (calculating embedding for prompt)
@@ -140,29 +140,31 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
             # add model's message into converstaion history (kind of broken)
             message_list.append({'role': 'assistant', 'content': str_response})
     
-            
+# function for executing the SBML generation feature
+# PARAMETERS:
+# model_name: string which contins the model name to be used for generating the file and fixing errors
 def sbml_generation_continous_chat(model_name: str):
     system_prompt = '''You are an SBML Multi expert. If provided with an image, enerate a SBML Multi XML file based on the image. 
     If provided with a list of errors, try to fix the errors in the file to abide by SBML Multi specification and generate 
     the entire fixed file again; do not change anything else in the file when fixing errors apart from what is outlined in 
     the errors. Only provide the completed file and no other text in both the image and error cases. Do not use markdown, 
-    code block formatting, or backticks anywhere; generated files must be outputted in raw text.'''
+    code block formatting, or backticks anywhere; generated files must be outputted in raw text.''' # system prompt
     message_list = [{'role': 'system', 'content': system_prompt}]
 
-    layout = [
+    layout = [ # layout for defining elements in the GUI window
         [sg.Text(text = "SBML Generation Chat Application")],
         [sg.FileBrowse("Select image (or paste path)", target = 'image_input'), sg.Input('Paste image path here.', key = 'image_input'), sg.OK(key = 'input1')],
         [sg.Multiline('Generated text will appear here.', key = 'output', size = (90, 30)), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30))],
         [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2'), sg.Text(text = '                                                       ', key = 'save_status'), sg.Button("Validate SBML file", key = 'validate'), sg.Button("Submit validations to LLM", key = 'submit_validations'), sg.Text("", key = 'validation_status')]
     ]
 
-    window = sg.Window(title = "SBML Generation Chat Application", layout = layout, margins = (240, 150))
+    window = sg.Window(title = "SBML Generation Chat Application", layout = layout, margins = (240, 150)) # defining the window
 
-    while True:
-        event, values = window.read()
+    while True: # loop for running the window
+        event, values = window.read() # event records what event occured, values record the values of elements at the time of the event
         
-        if event == sg.WIN_CLOSED:
-            break
+        if event == sg.WIN_CLOSED: # when the window is closed
+            break # break out of while True loop
         elif event == 'image_input' or event == 'input1':
             if window.find_element_with_focus().key == 'save_output':
                 with open(values['save'], 'w') as file:
