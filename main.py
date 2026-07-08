@@ -144,11 +144,9 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
 # PARAMETERS:
 # model_name: string which contins the model name to be used for generating the file and fixing errors
 def sbml_generation_continous_chat(model_name: str):
-    system_prompt = '''You are an SBML Multi expert. If provided with an image, enerate a SBML Multi XML file based on the image. 
-    If provided with a list of errors, try to fix the errors in the file to abide by SBML Multi specification and generate 
-    the entire fixed file again; do not change anything else in the file when fixing errors apart from what is outlined in 
-    the errors. Only provide the completed file and no other text in both the image and error cases. Do not use markdown, 
-    code block formatting, or backticks anywhere; generated files must be outputted in raw text.''' # system prompt
+    system_prompt = '''If provided with an image, enerate a SBML Multi XML file based on the image. If provided with a list 
+    of errors, try to fix the errors in the file to abide by SBML Multi specification and generate the entire fixed file 
+    again; do not change anything else in the file when fixing errors apart from what is outlined in the errors.''' # system prompt
     message_list = [{'role': 'system', 'content': system_prompt}]
 
     layout = [ # layout for defining elements in the GUI window
