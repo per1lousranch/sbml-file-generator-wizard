@@ -83,7 +83,7 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
         if event == sg.WIN_CLOSED:
             break
         else:
-            # window['output'].update("Thinking... please wait...") # doesn't work???
+            # window['output'].update("Generating... please wait...") # doesn't work???
 
             user_prompt = values[0]
 
@@ -153,7 +153,7 @@ def sbml_generation_continous_chat(model_name: str):
 
     layout = [ # layout for defining elements in the GUI window
         [sg.Text(text = "SBML Generation Chat Application")],
-        [sg.FileBrowse("Select image (or paste path)", target = 'image_input'), sg.Input('Paste image path here.', key = 'image_input'), sg.OK(key = 'input1')],
+        [sg.FileBrowse("Select image (or paste path)", target = 'image_input'), sg.Input('Paste image path here.', key = 'image_input'), sg.OK(key = 'input1'), sg.Text("", key = 'thinking_status')],
         [sg.Multiline('Generated text will appear here.', key = 'output', size = (90, 30)), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30))],
         [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2'), sg.Text(text = '                                                       ', key = 'save_status'), sg.Button("Validate SBML file", key = 'validate'), sg.Button("Submit validations to LLM", key = 'submit_validations'), sg.Text("", key = 'validation_status')]
     ]
@@ -165,20 +165,25 @@ def sbml_generation_continous_chat(model_name: str):
         
         if event == sg.WIN_CLOSED: # when the window is closed
             break # break out of while True loop
-        elif event == 'image_input' or event == 'input1':
-            if window.find_element_with_focus().key == 'save_output':
-                with open(values['save'], 'w') as file:
-                    file.write(values['output'].get())
+        elif event == 'image_input' or event == 'input1': # event for hitting 'enter' on image input box or OK button next to it
+            if window.find_element_with_focus().key == 'save_output': # for some reason, hitting 'enter' on the save file input box triggers this event
+                with open(values['save'], 'w') as file: # so this if statement ensures that whatever input box has focus is properly triggered 
+                    file.write(values['output'].get()) # writing result to file
 
-                update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3)
+                update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3) # status message
             else:
-                image_path = values['image_input']
+                image_path = values['image_input'] # taking the file path
 
-                message_list.append({'role': 'user', 'content': "Generate an SBML multi file of the provided image.", 'images': [image_path]})
+                message_list.append({'role': 'user', 'content': "Generate an SBML multi file of the provided image.", 'images': [image_path]}) # feeding image to LLM
+
+                window['thinking_status'].update("Generating...")
+                window.refresh()
 
                 response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
 
-                window['output'].update(response.message.content)
+                window['output'].update(response.message.content) # updating the box with the 
+
+                update_text_element(window, 'thinking_status', "", "Finished!", 3)
         elif event == 'save_output' or event == 'input2':
             with open(values['save'], 'w') as file:
                 file.write(values['output'])
