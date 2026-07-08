@@ -7,6 +7,7 @@ import PySimpleGUI as sg
 import time
 from libsbml import *
 
+
 # function for extracting paragraphs
 # PARAMETERS:
 # filenames: a list of strings which are filenames for information to be extracted from
@@ -55,6 +56,7 @@ def get_embeddings(model_name: str, paragraphs: list[str]):
             json.dump(embeddings, file)
 
     return embeddings
+
 
 # function for executing the RAG question asking chat
 # PARAMETERS:
@@ -140,6 +142,7 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
             # add model's message into converstaion history (kind of broken)
             message_list.append({'role': 'assistant', 'content': str_response})
     
+
 # function for executing the SBML generation feature
 # PARAMETERS:
 # model_name: string which contins the model name to be used for generating the file and fixing errors
@@ -163,7 +166,7 @@ def sbml_generation_continous_chat(model_name: str):
         
         if event == sg.WIN_CLOSED: # when the window is closed
             break # break out of while True loop
-        elif event == 'image_input' or event == 'input1': # event for hitting 'enter' on image input box or OK button next to it
+        elif event == 'image_input' or event == 'input1': # event for hitting enter on image input box or OK button next to it
             if window.find_element_with_focus().key == 'save_output': # for some reason, hitting 'enter' on the save file input box triggers this event
                 with open(values['save'], 'w') as file: # so this if statement ensures that whatever input box has focus is properly triggered 
                     file.write(values['output'].get()) # writing result to file
@@ -182,34 +185,34 @@ def sbml_generation_continous_chat(model_name: str):
                 window['output'].update(response.message.content) # updating the box with the 
 
                 update_text_element(window, 'thinking_status', "", "Finished!", 3)
-        elif event == 'save_output' or event == 'input2':
+        elif event == 'save_output' or event == 'input2': # event for hitting enter on save file path box or OK button next to it
             with open(values['save'], 'w') as file:
-                file.write(values['output'])
+                file.write(values['output']) # saving what's in output to file
 
-            update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3)
-        elif event == 'validate':
-            reader = SBMLReader()
+            update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3) # updating status message
+        elif event == 'validate': # event for pressing 'Validate SBML file'
+            reader = SBMLReader() # initialize SBMLReader
 
-            doc = reader.readSBMLFromString(values['output'])
+            doc = reader.readSBMLFromString(values['output']) # read from string in output
 
             error_log = doc.getErrorLog()
 
             errors = error_log.toString()
 
-            if errors == "":
+            if errors == "": # errors empty
                 window['errors'].update("No errors found.")
             else:
                 window['errors'].update(errors)
 
             window.refresh()
-        elif event == 'submit_validations':
-            if values['errors'] == 'Errors found during validation will appear here.' or values['errors'] == 'No errors found.':
+        elif event == 'submit_validations': # event for pressing 'Submit validations to LLM'
+            if values['errors'] == 'Errors found during validation will appear here.' or values['errors'] == 'No errors found.': # case where no errors found or validation not ran yet
                 update_text_element(window, "validation_status", "", "No errors found to fix.", 3)
             else:
                 window['validation_status'].update("Fixing errors...")
                 window.refresh()
 
-                message_list.append({'role': 'user', 'content': "Errors: " + values['errors'] + ". File: " + values['output']})
+                message_list.append({'role': 'user', 'content': "Errors: " + values['errors'] + ". File: " + values['output']}) # sending errors to model
 
                 response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
 
@@ -218,7 +221,13 @@ def sbml_generation_continous_chat(model_name: str):
                 update_text_element(window, "validation_status", "", "Finished!", 3)
 
 
-
+# function for updating certain text elements to show current status of application
+# PARAMETERS:
+# window: current PySimpleGUI window
+# target: string for the key of the target element to be updated
+# before: string of original state of the text element that should be restored after it changes
+# after: string of state to temporarily change elemnet to
+# wait: integer for how many seconds the change should be shown before reverting back
 def update_text_element(window, target: str, before: str, after: str, wait: int):
     window[target].update(after)
     window.refresh()
@@ -227,6 +236,7 @@ def update_text_element(window, target: str, before: str, after: str, wait: int)
 
     window[target].update(before)
     window.refresh()
+
 
 def main():    
     layout = [
