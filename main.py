@@ -175,7 +175,7 @@ def sbml_generation_continous_chat(model_name: str):
 
     layout = [ # layout for defining elements in the GUI window
         [sg.Text(text = "SBML Generation Chat Application")],
-        [sg.FileBrowse("Select image (or paste path)", target = 'image_input'), sg.Input('Paste image path here.', key = 'image_input'), sg.OK(key = 'input1'), sg.Text("", key = 'thinking_status')],
+        [sg.FileBrowse("Select image or SBML (or paste path)", target = 'path_input'), sg.Input('Paste image path here.', key = 'path_input'), sg.OK(key = 'input1'), sg.Text("", key = 'thinking_status')],
         [sg.Multiline('Generated text will appear here.', key = 'output', size = (90, 30), horizontal_scroll = True), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30), horizontal_scroll = True)],
         [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2'), sg.Text(text = '                                                       ', key = 'save_status'), sg.Button("Validate SBML file", key = 'validate'), sg.Button("Submit validations to LLM", key = 'submit_validations'), sg.Text("", key = 'validation_status')]
     ]
@@ -187,36 +187,42 @@ def sbml_generation_continous_chat(model_name: str):
         
         if event == sg.WIN_CLOSED: # when the window is closed
             break # break out of while True loop
-        elif event == 'image_input' or event == 'input1': # event for hitting enter on image input box or OK button next to it
+        elif event == 'path_input' or event == 'input1': # event for hitting enter on image input box or OK button next to it
             if window.find_element_with_focus().key == 'save_output': # for some reason, hitting 'enter' on the save file input box triggers this event
                 with open(values['save'], 'w') as file: # so this if statement ensures that whatever input box has focus is properly triggered 
                     file.write(values['output'].get()) # writing result to file
 
                 update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3) # status message
             else:
-                image_path = values['image_input'] # taking the file path
+                path = values['path_input'] # taking the file path
 
-                with open(image_path, "rb") as image_file:
-                    encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
+                extension = path[-3:]
 
-                command = [
-                    {"type": "text", "text": "Generate an SBML multi file of the provided image."},
-                    {
-                        "type": "image_url",
-                        "image_url": {"url": f"data:image/jpeg;base64,{encoded_string}"}, # data URI
-                    },
-                ]
+                if extension == "xml":
+                    with open(path, "r") as file:
+                        window['output'].update(file.read())
+                else:
+                    with open(path, "rb") as image_file:
+                        encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
 
-                message_list.append(HumanMessage(content = command))
+                    command = [
+                        {"type": "text", "text": "Generate an SBML multi file of the provided image."},
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:image/jpeg;base64,{encoded_string}"}, # data URI
+                        },
+                    ]
 
-                window['thinking_status'].update("Generating...")
-                window.refresh()
+                    message_list.append(HumanMessage(content = command))
 
-                response = lc_llm.invoke(message_list)
+                    window['thinking_status'].update("Generating...")
+                    window.refresh()
 
-                window['output'].update(response.content) # updating the box with the 
+                    response = lc_llm.invoke(message_list)
 
-                update_text_element(window, 'thinking_status', "", "Finished!", 3)
+                    window['output'].update(response.content) # updating the box with the 
+
+                    update_text_element(window, 'thinking_status', "", "Finished!", 3)
         elif event == 'save_output' or event == 'input2': # event for hitting enter on save file path box or OK button next to it
             with open(values['save'], 'w') as file:
                 file.write(values['output']) # saving what's in output to file
