@@ -85,7 +85,7 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
         [sg.Multiline(key = 'output', size = (60, 30))]
     ]
 
-    window = sg.Window(title = "RAG Chat Application", layout = layout, margins = (300, 150))
+    window = sg.Window(title = "RAG Chat Application", layout = layout, margins = (300, 150), resizable = True)
 
     while True:
         event, values = window.read()
@@ -158,7 +158,7 @@ def sbml_generation_continous_chat(model_name: str):
     server_connection=ai_server.ServerClient(
         access_key = os.getenv('access_key'), 
         secret_key = os.getenv('secret_key'),
-        base="https://genai.niaid.nih.gov/Monolith/api"
+        base = "https://genai.niaid.nih.gov/Monolith/api"
     )
 
     # currently connected to GPT 5.5
@@ -176,11 +176,11 @@ def sbml_generation_continous_chat(model_name: str):
     layout = [ # layout for defining elements in the GUI window
         [sg.Text(text = "SBML Generation Chat Application")],
         [sg.FileBrowse("Select image (or paste path)", target = 'image_input'), sg.Input('Paste image path here.', key = 'image_input'), sg.OK(key = 'input1'), sg.Text("", key = 'thinking_status')],
-        [sg.Multiline('Generated text will appear here.', key = 'output', size = (90, 30)), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30))],
+        [sg.Multiline('Generated text will appear here.', key = 'output', size = (90, 30), horizontal_scroll = True), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30), horizontal_scroll = True)],
         [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2'), sg.Text(text = '                                                       ', key = 'save_status'), sg.Button("Validate SBML file", key = 'validate'), sg.Button("Submit validations to LLM", key = 'submit_validations'), sg.Text("", key = 'validation_status')]
     ]
 
-    window = sg.Window(title = "SBML Generation Chat Application", layout = layout, margins = (240, 150)) # defining the window
+    window = sg.Window(title = "SBML Generation Chat Application", layout = layout, margins = (240, 150), resizable = False) # defining the window, resizable false for now...
 
     while True: # loop for running the window
         event, values = window.read() # event records what event occured, values record the values of elements at the time of the event
@@ -278,12 +278,12 @@ def main():
     configure()
 
     layout = [
-        [sg.Text(text = "SBML File Generator Wizard")],
-        [sg.Button(button_text = "1. Questions about specifications", key = '1')],
-        [sg.Button(button_text = "2. SBML generation", key = '2')],
+        [sg.Text(text = "SBML File Generator Wizard", expand_x = True, expand_y = True, justification = 'center')],
+        [sg.Button(button_text = "1. Questions about specifications", key = '1', expand_x = True, expand_y = True)],
+        [sg.Button(button_text = "2. SBML generation", key = '2', expand_x = True, expand_y = True)],
     ]
 
-    window = sg.Window(title = "SBML File Generator Wizard", layout = layout, margins = (100, 100))
+    window = sg.Window(title = "SBML File Generator Wizard", layout = layout, margins = (100, 100), resizable = True)
 
     while True:
         event, values = window.read()
