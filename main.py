@@ -6,7 +6,15 @@ import os.path
 import PySimpleGUI as sg
 import time
 from libsbml import *
+import ai_server
+from langchain_core.messages import *
+import base64
+from dotenv import load_dotenv
+import os
 
+
+def configure():
+    load_dotenv()
 
 # function for extracting paragraphs
 # PARAMETERS:
@@ -147,10 +155,23 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
 # PARAMETERS:
 # model_name: string which contins the model name to be used for generating the file and fixing errors
 def sbml_generation_continous_chat(model_name: str):
+    server_connection=ai_server.ServerClient(
+        access_key = os.getenv('access_key'), 
+        secret_key = os.getenv('secret_key'),
+        base="https://genai.niaid.nih.gov/Monolith/api"
+    )
+
+    # currently connected to GPT 5.5
+    model = ai_server.ModelEngine(engine_id = os.getenv('engine_id'))
+
+    lc_llm = model.to_langchain_chat_model()
+
     system_prompt = '''If provided with an image, enerate a SBML Multi XML file based on the image. If provided with a list 
     of errors, try to fix the errors in the file to abide by SBML Multi specification and generate the entire fixed file 
     again; do not change anything else in the file when fixing errors apart from what is outlined in the errors.''' # system prompt
-    message_list = [{'role': 'system', 'content': system_prompt}]
+
+    message_list = []
+    message_list.append(SystemMessage(content = system_prompt))
 
     layout = [ # layout for defining elements in the GUI window
         [sg.Text(text = "SBML Generation Chat Application")],
@@ -175,14 +196,25 @@ def sbml_generation_continous_chat(model_name: str):
             else:
                 image_path = values['image_input'] # taking the file path
 
-                message_list.append({'role': 'user', 'content': "Generate an SBML multi file of the provided image.", 'images': [image_path]}) # feeding image to LLM
+                with open(image_path, "rb") as image_file:
+                    encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
+
+                command = [
+                    {"type": "text", "text": "Generate an SBML multi file of the provided image."},
+                    {
+                        "type": "image_url",
+                        "image_url": {"url": f"data:image/jpeg;base64,{encoded_string}"}, # data URI
+                    },
+                ]
+
+                message_list.append(HumanMessage(content = command))
 
                 window['thinking_status'].update("Generating...")
                 window.refresh()
 
-                response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
+                response = lc_llm.invoke(message_list)
 
-                window['output'].update(response.message.content) # updating the box with the 
+                window['output'].update(response.content) # updating the box with the 
 
                 update_text_element(window, 'thinking_status', "", "Finished!", 3)
         elif event == 'save_output' or event == 'input2': # event for hitting enter on save file path box or OK button next to it
@@ -212,11 +244,15 @@ def sbml_generation_continous_chat(model_name: str):
                 window['validation_status'].update("Fixing errors...")
                 window.refresh()
 
-                message_list.append({'role': 'user', 'content': "Errors: " + values['errors'] + ". File: " + values['output']}) # sending errors to model
+                command = [
+                    {"type": "text", "text": "Errors: " + values['errors'] + ". File: " + values['output']}, # WHAT IS THE FILE SECTION??? CHECK THIS ONE
+                ]
 
-                response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
+                message_list.append(HumanMessage(content = command))
 
-                window['output'].update(response.message.content)
+                response = lc_llm.invoke(message_list)
+
+                window['output'].update(response.content)
 
                 update_text_element(window, "validation_status", "", "Finished!", 3)
 
@@ -238,7 +274,9 @@ def update_text_element(window, target: str, before: str, after: str, wait: int)
     window.refresh()
 
 
-def main():    
+def main():
+    configure()
+
     layout = [
         [sg.Text(text = "SBML File Generator Wizard")],
         [sg.Button(button_text = "1. Questions about specifications", key = '1')],
