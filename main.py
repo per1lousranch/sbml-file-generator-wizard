@@ -196,9 +196,9 @@ def sbml_generation_continous_chat(model_name: str):
             else:
                 path = values['path_input'] # taking the file path
 
-                extension = path[-3:]
+                extension = path[-4:]
 
-                if extension == "xml":
+                if extension == ".xml" or extension == "sbml":
                     with open(path, "r") as file:
                         window['output'].update(file.read())
                 else:
