@@ -168,7 +168,9 @@ def sbml_generation_continous_chat():
     system_prompt = '''If provided with an image, enerate a SBML Multi XML file based on the image. If provided with a list 
     of errors, try to fix the errors in the file to abide by SBML Multi specification and generate the entire fixed file 
     again; do not change anything else in the file when fixing errors apart from what is outlined in the errors.
-    Output the final result in raw text. Do not use markdown, code blocks, or any other formatting.''' # system prompt
+    Output the final result in raw text. Do not use markdown, code blocks, or any other formatting. Every molecule 
+    must have 1 or more binding sites. Reactions should have at most 2 reactants. Remember to include mcp tags when necessary.
+    Comparments should have the isType attribute.''' # system prompt
 
     message_list = []
     message_list.append(SystemMessage(content = system_prompt))
