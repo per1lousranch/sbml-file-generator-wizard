@@ -1,0 +1,18 @@
+
+ 1277 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error found, can't identify interaction for dissociation:  "rxn_SOCS3_mRNA_transcription"
+
+ 1277 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error found, can't identify interaction for dissociation:  "rxn_SOCS3_translation"
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"trn_p7" "\" name = \"actRcomplex mediated STAT3 phosphorylation  (id:trn_p7)" "
+
+ 1277 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error found, can't identify interaction for dissociation:  "trn_p9"
+
+ 1277 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error found, can't identify interaction for dissociation:  "trn_p11"
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"trn_p13" "\" name = \"SOCS3 negative feedback on actRcomplex  (id:trn_p13)" "
