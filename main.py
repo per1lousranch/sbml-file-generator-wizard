@@ -168,7 +168,8 @@ def sbml_generation_continous_chat(model_name: str):
 
     system_prompt = '''If provided with an image, enerate a SBML Multi XML file based on the image. If provided with a list 
     of errors, try to fix the errors in the file to abide by SBML Multi specification and generate the entire fixed file 
-    again; do not change anything else in the file when fixing errors apart from what is outlined in the errors.''' # system prompt
+    again; do not change anything else in the file when fixing errors apart from what is outlined in the errors.
+    Output the final result in raw text. Do not use markdown, code blocks, or any other formatting.''' # system prompt
 
     message_list = []
     message_list.append(SystemMessage(content = system_prompt))
@@ -251,7 +252,7 @@ def sbml_generation_continous_chat(model_name: str):
                 window.refresh()
 
                 command = [
-                    {"type": "text", "text": "Errors: " + values['errors'] + ". File: " + values['output']}, # WHAT IS THE FILE SECTION??? CHECK THIS ONE
+                    {"type": "text", "text": "Errors: " + values['errors'] + ". File: " + values['output']},
                 ]
 
                 message_list.append(HumanMessage(content = command))
