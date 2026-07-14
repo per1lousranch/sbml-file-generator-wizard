@@ -153,7 +153,7 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
 # function for executing the SBML generation feature
 # PARAMETERS:
 # model_name: string which contins the model name to be used for generating the file and fixing errors
-def sbml_generation_continous_chat(model_name: str):
+def sbml_generation_continous_chat():
     server_connection=ai_server.ServerClient(
         access_key = os.getenv('access_key'), 
         secret_key = os.getenv('secret_key'),
@@ -301,7 +301,7 @@ def main():
             embeddings = get_embeddings('qwen3-embedding:8b', paragraphs)
             rag_continuous_chat('gemma3:4b', 'qwen3-embedding:8b', embeddings, paragraphs)
         elif event == "2":
-            sbml_generation_continous_chat("minimax-m3:cloud")
+            sbml_generation_continous_chat()
 
             
 if __name__ == "__main__":
