@@ -1,0 +1,51 @@
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_EGFR"  --  "EGFR"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_IGF1R"  --  "IGF1R"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_SOS"  --  "SOS"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_PIK3"  --  "PIK3"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_Ras"  --  "Ras"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_RasGAP"  --  "RasGAP"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_Raf"  --  "Raf"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_MEK"  --  "MEK"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_ERK"  --  "ERK"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_Akt"  --  "Akt"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_p90Rsk"  --  "p90Rsk"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_Ptase"  --  "Ptase"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_PP2A"  --  "PP2A"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_TranscriptionFactors"  --  "Transcription factors"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_SurvivalProgram"  --  "Tumor cell survival proliferation and invasion"
+
+ 818 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error found: can't find mcptag
+
+ 819 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : qSpeciesFeatureType:  "activity_EGFR"
