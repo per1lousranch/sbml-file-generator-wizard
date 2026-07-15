@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="EGFR_IGF1R_MAPK_PI3K_network" name="Schematic of EGFR and IGF1R pathways">
+    <listOfCompartments>
+      <compartment id="cell" name="Tumor cell" spatialDimensions="3" size="1" constant="true" multi:isType="false"/>
+    </listOfCompartments>
+    <multi:listOfSpeciesTypes>
+      <multi:speciesType multi:id="st_EGFR" multi:name="EGFR">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_EGFR" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_EGFR_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_EGFR_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_EGFR" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_EGFR_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_EGFR_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IGF1R" multi:name="IGF1R">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_IGF1R" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_IGF1R_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_IGF1R_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_IGF1R" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_IGF1R_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_IGF1R_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_SOS" multi:name="SOS">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_SOS" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_SOS_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_SOS_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_SOS" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_SOS_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_SOS_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_PIK3" multi:name="PIK3">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_PIK3" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_PIK3_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_PIK3_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_PIK3" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_PIK3_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_PIK3_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_Ras" multi:name="Ras">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_Ras" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Ras_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Ras_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_Ras" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Ras_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Ras_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_RasGAP" multi:name="RasGAP">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_RasGAP" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_RasGAP_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_RasGAP_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_RasGAP" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_RasGAP_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_RasGAP_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_Raf" multi:name="Raf">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_Raf" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Raf_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Raf_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_Raf" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Raf_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Raf_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_MEK" multi:name="MEK">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_MEK" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_MEK_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_MEK_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_MEK" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_MEK_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_MEK_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_ERK" multi:name="ERK">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_ERK" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_ERK_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_ERK_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_ERK" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_ERK_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_ERK_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_Akt" multi:name="Akt">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_Akt" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Akt_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Akt_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_Akt" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Akt_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Akt_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_p90Rsk" multi:name="p90Rsk">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_p90Rsk" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_p90Rsk_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_p90Rsk_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_p90Rsk" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_p90Rsk_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_p90Rsk_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_Ptase" multi:name="Ptase">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_Ptase" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Ptase_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Ptase_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_Ptase" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Ptase_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_Ptase_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_PP2A" multi:name="PP2A">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_PP2A" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_PP2A_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_PP2A_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_PP2A" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_PP2A_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_PP2A_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TranscriptionFactors" multi:name="Transcription factors">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_TranscriptionFactors" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_TF_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_TF_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_TranscriptionFactors" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_TF_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_TF_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_SurvivalProgram" multi:name="Tumor cell survival proliferation and invasion">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="activity_SurvivalProgram" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_SurvivalProgram_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_SurvivalProgram_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+          <multi:speciesFeatureType multi:id="binding_site_SurvivalProgram" multi:name="binding_site" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_SurvivalProgram_site_free" multi:name="free"/>
+              <multi:possibleSpeciesFeatureValue multi:id="pv_SurvivalProgram_site_bound" multi:name="bound"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+    <listOfSpecies>
+      <species id="EGFR_active" name="active EGFR" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_EGFR">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_EGFR_active_activity" multi:speciesFeatureType="activity_EGFR" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_EGFR_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_EGFR_active_site" multi:speciesFeatureType="binding_site_EGFR" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_EGFR_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="IGF1R_active" name="active IGF1R" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_IGF1R">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_IGF1R_active_activity" multi:speciesFeatureType="activity_IGF1R" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_IGF1R_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_IGF1R_active_site" multi:speciesFeatureType="binding_site_IGF1R" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_IGF1R_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="SOS_inactive" name="inactive SOS" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_SOS">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOS_inactive_activity" multi:speciesFeatureType="activity_SOS" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_SOS_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_SOS_inactive_site" multi:speciesFeatureType="binding_site_SOS" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_SOS_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="SOS_active" name="active SOS" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_SOS">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOS_active_activity" multi:speciesFeatureType="activity_SOS" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_SOS_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_SOS_active_site" multi:speciesFeatureType="binding_site_SOS" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_SOS_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="PIK3_inactive" name="inactive PIK3" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_PIK3">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_PIK3_inactive_activity" multi:speciesFeatureType="activity_PIK3" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_PIK3_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_PIK3_inactive_site" multi:speciesFeatureType="binding_site_PIK3" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_PIK3_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="PIK3_active" name="active PIK3" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_PIK3">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_PIK3_active_activity" multi:speciesFeatureType="activity_PIK3" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_PIK3_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_PIK3_active_site" multi:speciesFeatureType="binding_site_PIK3" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_PIK3_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="Ras_inactive" name="inactive Ras" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_Ras">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Ras_inactive_activity" multi:speciesFeatureType="activity_Ras" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Ras_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_Ras_inactive_site" multi:speciesFeatureType="binding_site_Ras" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Ras_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="Ras_active" name="active Ras" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_Ras">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Ras_active_activity" multi:speciesFeatureType="activity_Ras" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Ras_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_Ras_active_site" multi:speciesFeatureType="binding_site_Ras" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Ras_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="RasGAP_active" name="active RasGAP" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_RasGAP">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_RasGAP_active_activity" multi:speciesFeatureType="activity_RasGAP" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_RasGAP_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_RasGAP_active_site" multi:speciesFeatureType="binding_site_RasGAP" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_RasGAP_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="Raf_inactive" name="inactive Raf" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_Raf">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Raf_inactive_activity" multi:speciesFeatureType="activity_Raf" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Raf_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_Raf_inactive_site" multi:speciesFeatureType="binding_site_Raf" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Raf_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="Raf_active" name="active Raf" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_Raf">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Raf_active_activity" multi:speciesFeatureType="activity_Raf" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Raf_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_Raf_active_site" multi:speciesFeatureType="binding_site_Raf" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Raf_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="MEK_inactive" name="inactive MEK" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_MEK">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_MEK_inactive_activity" multi:speciesFeatureType="activity_MEK" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_MEK_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_MEK_inactive_site" multi:speciesFeatureType="binding_site_MEK" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_MEK_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="MEK_active" name="active MEK" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_MEK">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_MEK_active_activity" multi:speciesFeatureType="activity_MEK" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_MEK_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_MEK_active_site" multi:speciesFeatureType="binding_site_MEK" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_MEK_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="ERK_inactive" name="inactive ERK" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_ERK">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_ERK_inactive_activity" multi:speciesFeatureType="activity_ERK" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_ERK_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_ERK_inactive_site" multi:speciesFeatureType="binding_site_ERK" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_ERK_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="ERK_active" name="active ERK" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_ERK">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_ERK_active_activity" multi:speciesFeatureType="activity_ERK" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_ERK_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_ERK_active_site" multi:speciesFeatureType="binding_site_ERK" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_ERK_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="Akt_inactive" name="inactive Akt" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_Akt">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Akt_inactive_activity" multi:speciesFeatureType="activity_Akt" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Akt_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_Akt_inactive_site" multi:speciesFeatureType="binding_site_Akt" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Akt_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="Akt_active" name="active Akt" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_Akt">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Akt_active_activity" multi:speciesFeatureType="activity_Akt" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Akt_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_Akt_active_site" multi:speciesFeatureType="binding_site_Akt" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Akt_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="p90Rsk_inactive" name="inactive p90Rsk" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_p90Rsk">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_p90Rsk_inactive_activity" multi:speciesFeatureType="activity_p90Rsk" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_p90Rsk_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_p90Rsk_inactive_site" multi:speciesFeatureType="binding_site_p90Rsk" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_p90Rsk_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="p90Rsk_active" name="active p90Rsk" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_p90Rsk">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_p90Rsk_active_activity" multi:speciesFeatureType="activity_p90Rsk" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_p90Rsk_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_p90Rsk_active_site" multi:speciesFeatureType="binding_site_p90Rsk" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_p90Rsk_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="Ptase_active" name="active phosphatase" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_Ptase">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Ptase_active_activity" multi:speciesFeatureType="activity_Ptase" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Ptase_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_Ptase_active_site" multi:speciesFeatureType="binding_site_Ptase" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_Ptase_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="PP2A_active" name="active PP2A" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_PP2A">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_PP2A_active_activity" multi:speciesFeatureType="activity_PP2A" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_PP2A_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_PP2A_active_site" multi:speciesFeatureType="binding_site_PP2A" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_PP2A_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="TF_inactive" name="inactive transcription factors" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_TranscriptionFactors">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_TF_inactive_activity" multi:speciesFeatureType="activity_TranscriptionFactors" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_TF_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_TF_inactive_site" multi:speciesFeatureType="binding_site_TranscriptionFactors" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_TF_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="TF_active" name="active transcription factors" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_TranscriptionFactors">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_TF_active_activity" multi:speciesFeatureType="activity_TranscriptionFactors" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_TF_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_TF_active_site" multi:speciesFeatureType="binding_site_TranscriptionFactors" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_TF_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="SurvivalProgram_inactive" name="inactive survival proliferation invasion program" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_SurvivalProgram">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SurvivalProgram_inactive_activity" multi:speciesFeatureType="activity_SurvivalProgram" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_SurvivalProgram_inactive"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_SurvivalProgram_inactive_site" multi:speciesFeatureType="binding_site_SurvivalProgram" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_SurvivalProgram_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="SurvivalProgram_active" name="active survival proliferation invasion program" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" multi:speciesType="st_SurvivalProgram">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SurvivalProgram_active_activity" multi:speciesFeatureType="activity_SurvivalProgram" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_SurvivalProgram_active"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+          <multi:speciesFeature multi:id="sf_SurvivalProgram_active_site" multi:speciesFeatureType="binding_site_SurvivalProgram" multi:occur="1"><multi:listOfSpeciesFeatureValues><multi:speciesFeatureValue multi:value="pv_SurvivalProgram_site_free"/></multi:listOfSpeciesFeatureValues></multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="r_EGFR_activates_SOS" name="EGFR activates SOS" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_SOS_i_EGFR" species="SOS_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_SOS_a_EGFR" species="SOS_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_EGFR_for_SOS" species="EGFR_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_IGF1R_activates_SOS" name="IGF1R activates SOS" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_SOS_i_IGF1R" species="SOS_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_SOS_a_IGF1R" species="SOS_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_IGF1R_for_SOS" species="IGF1R_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_EGFR_activates_PIK3" name="EGFR activates PIK3" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_PIK3_i_EGFR" species="PIK3_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_PIK3_a_EGFR" species="PIK3_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_EGFR_for_PIK3" species="EGFR_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_IGF1R_activates_PIK3" name="IGF1R activates PIK3" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_PIK3_i_IGF1R" species="PIK3_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_PIK3_a_IGF1R" species="PIK3_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_IGF1R_for_PIK3" species="IGF1R_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_SOS_activates_Ras" name="SOS activates Ras" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_Ras_i_SOS" species="Ras_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_Ras_a_SOS" species="Ras_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_SOS_for_Ras" species="SOS_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_Ras_activates_PIK3" name="Ras activates PIK3" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_PIK3_i_Ras" species="PIK3_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_PIK3_a_Ras" species="PIK3_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_Ras_for_PIK3" species="Ras_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_PIK3_activates_Akt" name="PIK3 activates Akt" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_Akt_i_PIK3" species="Akt_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_Akt_a_PIK3" species="Akt_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_PIK3_for_Akt" species="PIK3_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_Ras_activates_Raf" name="Ras activates Raf" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_Raf_i_Ras" species="Raf_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_Raf_a_Ras" species="Raf_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_Ras_for_Raf" species="Ras_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_Raf_activates_MEK" name="Raf activates MEK" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_MEK_i_Raf" species="MEK_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_MEK_a_Raf" species="MEK_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_Raf_for_MEK" species="Raf_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_MEK_activates_ERK" name="MEK activates ERK" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_ERK_i_MEK" species="ERK_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_ERK_a_MEK" species="ERK_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_MEK_for_ERK" species="MEK_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_ERK_activates_p90Rsk" name="ERK activates p90Rsk" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_p90Rsk_i_ERK" species="p90Rsk_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_p90Rsk_a_ERK" species="p90Rsk_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_ERK_for_p90Rsk" species="ERK_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_ERK_activates_TF" name="ERK activates transcription factors" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_TF_i_ERK" species="TF_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_TF_a_ERK" species="TF_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_ERK_for_TF" species="ERK_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_TF_activates_SurvivalProgram" name="Transcription factors activate tumor survival proliferation invasion" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_SP_i_TF" species="SurvivalProgram_inactive" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_SP_a_TF" species="SurvivalProgram_active" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_TF_for_SP" species="TF_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_RasGAP_deactivates_Ras" name="RasGAP inhibits Ras" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_Ras_a_RasGAP" species="Ras_active" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_Ras_i_RasGAP" species="Ras_inactive" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_RasGAP_for_Ras" species="RasGAP_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_Akt_deactivates_Raf" name="Akt inhibits Raf" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_Raf_a_Akt" species="Raf_active" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_Raf_i_Akt" species="Raf_inactive" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_Akt_for_Raf" species="Akt_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_Ptase_deactivates_Raf" name="Phosphatase inhibits Raf" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_Raf_a_Ptase" species="Raf_active" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_Raf_i_Ptase" species="Raf_inactive" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_Ptase_for_Raf" species="Ptase_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_PP2A_deactivates_MEK" name="PP2A inhibits MEK" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_MEK_a_PP2A" species="MEK_active" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_MEK_i_PP2A" species="MEK_inactive" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_PP2A_for_MEK" species="PP2A_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_PP2A_deactivates_ERK" name="PP2A inhibits ERK" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_ERK_a_PP2A" species="ERK_active" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_ERK_i_PP2A" species="ERK_inactive" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_PP2A_for_ERK" species="PP2A_active"/></listOfModifiers>
+      </reaction>
+      <reaction id="r_p90Rsk_deactivates_SOS" name="p90Rsk inhibits SOS" reversible="false" fast="false">
+        <listOfReactants><speciesReference id="sr_SOS_a_p90Rsk" species="SOS_active" stoichiometry="1" constant="true"/></listOfReactants>
+        <listOfProducts><speciesReference id="sr_SOS_i_p90Rsk" species="SOS_inactive" stoichiometry="1" constant="true"/></listOfProducts>
+        <listOfModifiers><modifierSpeciesReference id="mod_p90Rsk_for_SOS" species="p90Rsk_active"/></listOfModifiers>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
