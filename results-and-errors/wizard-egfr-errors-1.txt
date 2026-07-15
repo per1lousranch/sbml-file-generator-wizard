@@ -1,0 +1,57 @@
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_egfr_activates_sos" "\" name = \"EGFR activates SOS  (id:rxn_egfr_activates_sos)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_igf1r_activates_sos" "\" name = \"IGF1R activates SOS  (id:rxn_igf1r_activates_sos)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_egfr_activates_pik3" "\" name = \"EGFR activates PIK3  (id:rxn_egfr_activates_pik3)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_igf1r_activates_pik3" "\" name = \"IGF1R activates PIK3  (id:rxn_igf1r_activates_pik3)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_sos_activates_ras" "\" name = \"SOS activates Ras  (id:rxn_sos_activates_ras)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_rasgap_inactivates_ras" "\" name = \"RasGAP inactivates Ras  (id:rxn_rasgap_inactivates_ras)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_ras_activates_raf" "\" name = \"Ras activates Raf  (id:rxn_ras_activates_raf)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_ras_activates_pik3" "\" name = \"Ras activates PIK3  (id:rxn_ras_activates_pik3)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_pik3_activates_akt" "\" name = \"PIK3 activates Akt  (id:rxn_pik3_activates_akt)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_akt_inhibits_raf" "\" name = \"Akt inhibits Raf  (id:rxn_akt_inhibits_raf)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_ptase_inhibits_raf" "\" name = \"Phosphatase inactivates Raf  (id:rxn_ptase_inhibits_raf)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_raf_activates_mek" "\" name = \"Raf activates MEK  (id:rxn_raf_activates_mek)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_pp2a_inhibits_mek" "\" name = \"PP2A inactivates MEK  (id:rxn_pp2a_inhibits_mek)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_mek_activates_erk" "\" name = \"MEK activates ERK  (id:rxn_mek_activates_erk)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_pp2a_inhibits_erk" "\" name = \"PP2A inactivates ERK  (id:rxn_pp2a_inhibits_erk)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_erk_activates_p90rsk" "\" name = \"ERK activates p90Rsk  (id:rxn_erk_activates_p90rsk)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_p90rsk_feedback_inhibits_sos" "\" name = \"p90Rsk negative feedback inhibits SOS  (id:rxn_p90rsk_feedback_inhibits_sos)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_erk_activates_transcription_factors" "\" name = \"ERK activates transcription factors  (id:rxn_erk_activates_transcription_factors)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"rxn_transcription_factors_drive_tumor_response" "\" name = \"Transcription factors drive tumor cell survival proliferation and invasion  (id:rxn_transcription_factors_drive_tumor_response)" "
