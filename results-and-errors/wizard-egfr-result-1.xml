@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="EGFR_IGF1R_MAPK_PI3K_network" name="EGFR and IGF1R signaling network">
+    <listOfCompartments>
+      <compartment id="membrane" name="plasma membrane" spatialDimensions="2" constant="true" multi:isType="true"/>
+      <compartment id="cytosol" name="cytosol" spatialDimensions="3" constant="true" multi:isType="true"/>
+      <compartment id="nucleus" name="nucleus" spatialDimensions="3" constant="true" multi:isType="true"/>
+      <compartment id="cell" name="cell" spatialDimensions="3" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="cpx_egfr_active" name="EGFR_active" compartment="membrane" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_egfr">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_egfr_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_egfr_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_egfr_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_igf1r_active" name="IGF1R_active" compartment="membrane" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_igf1r">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_igf1r_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_igf1r_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_igf1r_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_sos_inactive" name="SOS_inactive" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_sos">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_sos_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_sos_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_sos_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_sos_active" name="SOS_active" compartment="cytosol" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_sos">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_sos_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_sos_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_sos_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_pik3_inactive" name="PIK3_inactive" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_pik3">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_pik3_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_pik3_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_pik3_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_pik3_active" name="PIK3_active" compartment="cytosol" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_pik3">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_pik3_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_pik3_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_pik3_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_ras_inactive" name="Ras_inactive" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_ras">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_ras_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_ras_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_ras_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_ras_active" name="Ras_active" compartment="cytosol" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_ras">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_ras_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_ras_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_ras_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_rasgap_active" name="RasGAP_active" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_rasgap">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_rasgap_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_rasgap_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_rasgap_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_raf_inactive" name="Raf_inactive" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_raf">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_raf_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_raf_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_raf_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_raf_active" name="Raf_active" compartment="cytosol" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_raf">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_raf_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_raf_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_raf_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_mek_inactive" name="MEK_inactive" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_mek">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_mek_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_mek_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_mek_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_mek_active" name="MEK_active" compartment="cytosol" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_mek">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_mek_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_mek_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_mek_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_erk_inactive" name="ERK_inactive" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_erk">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_erk_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_erk_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_erk_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_erk_active" name="ERK_active" compartment="cytosol" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_erk">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_erk_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_erk_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_erk_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_akt_inactive" name="Akt_inactive" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_akt">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_akt_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_akt_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_akt_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_akt_active" name="Akt_active" compartment="cytosol" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_akt">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_akt_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_akt_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_akt_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_pp2a_active" name="PP2A_active" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_pp2a">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_pp2a_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_pp2a_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_pp2a_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_p90rsk_inactive" name="p90Rsk_inactive" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_p90rsk">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_p90rsk_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_p90rsk_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_p90rsk_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_p90rsk_active" name="p90Rsk_active" compartment="cytosol" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_p90rsk">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_p90rsk_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_p90rsk_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_p90rsk_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_ptase_active" name="Phosphatase_active" compartment="cytosol" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_ptase">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_ptase_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_ptase_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_ptase_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_tf_inactive" name="TranscriptionFactors_inactive" compartment="nucleus" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_tf">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_tf_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_tf_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_tf_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_tf_active" name="TranscriptionFactors_active" compartment="nucleus" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_tf">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_tf_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_tf_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_tf_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_tumor_inactive" name="TumorCellSurvivalProliferationInvasion_inactive" compartment="cell" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_tumor">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_tumor_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_tumor_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_tumor_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_tumor_active" name="TumorCellSurvivalProliferationInvasion_active" compartment="cell" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_tumor">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_tumor_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_tumor_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_tumor_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="rxn_egfr_activates_sos" name="EGFR activates SOS" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_egfr_active" constant="false"/>
+          <speciesReference species="cpx_sos_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_egfr_active" constant="false"/>
+          <speciesReference species="cpx_sos_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_igf1r_activates_sos" name="IGF1R activates SOS" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_igf1r_active" constant="false"/>
+          <speciesReference species="cpx_sos_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_igf1r_active" constant="false"/>
+          <speciesReference species="cpx_sos_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_egfr_activates_pik3" name="EGFR activates PIK3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_egfr_active" constant="false"/>
+          <speciesReference species="cpx_pik3_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_egfr_active" constant="false"/>
+          <speciesReference species="cpx_pik3_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_igf1r_activates_pik3" name="IGF1R activates PIK3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_igf1r_active" constant="false"/>
+          <speciesReference species="cpx_pik3_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_igf1r_active" constant="false"/>
+          <speciesReference species="cpx_pik3_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_sos_activates_ras" name="SOS activates Ras" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_sos_active" constant="false"/>
+          <speciesReference species="cpx_ras_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_sos_active" constant="false"/>
+          <speciesReference species="cpx_ras_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_rasgap_inactivates_ras" name="RasGAP inactivates Ras" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_rasgap_active" constant="false"/>
+          <speciesReference species="cpx_ras_active" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_rasgap_active" constant="false"/>
+          <speciesReference species="cpx_ras_inactive" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_ras_activates_raf" name="Ras activates Raf" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_ras_active" constant="false"/>
+          <speciesReference species="cpx_raf_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_ras_active" constant="false"/>
+          <speciesReference species="cpx_raf_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_ras_activates_pik3" name="Ras activates PIK3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_ras_active" constant="false"/>
+          <speciesReference species="cpx_pik3_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_ras_active" constant="false"/>
+          <speciesReference species="cpx_pik3_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_pik3_activates_akt" name="PIK3 activates Akt" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_pik3_active" constant="false"/>
+          <speciesReference species="cpx_akt_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_pik3_active" constant="false"/>
+          <speciesReference species="cpx_akt_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_akt_inhibits_raf" name="Akt inhibits Raf" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_akt_active" constant="false"/>
+          <speciesReference species="cpx_raf_active" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_akt_active" constant="false"/>
+          <speciesReference species="cpx_raf_inactive" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_ptase_inhibits_raf" name="Phosphatase inactivates Raf" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_ptase_active" constant="false"/>
+          <speciesReference species="cpx_raf_active" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_ptase_active" constant="false"/>
+          <speciesReference species="cpx_raf_inactive" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_raf_activates_mek" name="Raf activates MEK" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_raf_active" constant="false"/>
+          <speciesReference species="cpx_mek_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_raf_active" constant="false"/>
+          <speciesReference species="cpx_mek_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_pp2a_inhibits_mek" name="PP2A inactivates MEK" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_pp2a_active" constant="false"/>
+          <speciesReference species="cpx_mek_active" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_pp2a_active" constant="false"/>
+          <speciesReference species="cpx_mek_inactive" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_mek_activates_erk" name="MEK activates ERK" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_mek_active" constant="false"/>
+          <speciesReference species="cpx_erk_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_mek_active" constant="false"/>
+          <speciesReference species="cpx_erk_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_pp2a_inhibits_erk" name="PP2A inactivates ERK" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_pp2a_active" constant="false"/>
+          <speciesReference species="cpx_erk_active" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_pp2a_active" constant="false"/>
+          <speciesReference species="cpx_erk_inactive" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_erk_activates_p90rsk" name="ERK activates p90Rsk" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_erk_active" constant="false"/>
+          <speciesReference species="cpx_p90rsk_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_erk_active" constant="false"/>
+          <speciesReference species="cpx_p90rsk_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_p90rsk_feedback_inhibits_sos" name="p90Rsk negative feedback inhibits SOS" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_p90rsk_active" constant="false"/>
+          <speciesReference species="cpx_sos_active" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_p90rsk_active" constant="false"/>
+          <speciesReference species="cpx_sos_inactive" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_erk_activates_transcription_factors" name="ERK activates transcription factors" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_erk_active" constant="false"/>
+          <speciesReference species="cpx_tf_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_erk_active" constant="false"/>
+          <speciesReference species="cpx_tf_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="rxn_transcription_factors_drive_tumor_response" name="Transcription factors drive tumor cell survival proliferation and invasion" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="cpx_tf_active" constant="false"/>
+          <speciesReference species="cpx_tumor_inactive" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_tf_active" constant="false"/>
+          <speciesReference species="cpx_tumor_active" constant="false"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+    <multi:listOfSpeciesTypes>
+      <multi:speciesType multi:id="mol_egfr" multi:name="EGFR" multi:compartment="membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_egfr" multi:name="EGFR_component" multi:speciesType="mcp_egfr"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_egfr" multi:name="EGFR_component" multi:compartment="membrane">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_egfr_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_egfr_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_egfr_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_egfr_site" multi:name="EGFR_signaling_site" multi:speciesType="bst_egfr_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_egfr_site" multi:name="EGFR_signaling_site"/>
+      <multi:speciesType multi:id="cps_egfr" multi:name="EGFR">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_egfr_mol_egfr" multi:name="EGFR" multi:speciesType="mol_egfr"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_igf1r" multi:name="IGF1R" multi:compartment="membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_igf1r" multi:name="IGF1R_component" multi:speciesType="mcp_igf1r"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_igf1r" multi:name="IGF1R_component" multi:compartment="membrane">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_igf1r_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_igf1r_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_igf1r_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_igf1r_site" multi:name="IGF1R_signaling_site" multi:speciesType="bst_igf1r_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_igf1r_site" multi:name="IGF1R_signaling_site"/>
+      <multi:speciesType multi:id="cps_igf1r" multi:name="IGF1R">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_igf1r_mol_igf1r" multi:name="IGF1R" multi:speciesType="mol_igf1r"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_sos" multi:name="SOS" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_sos" multi:name="SOS_component" multi:speciesType="mcp_sos"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_sos" multi:name="SOS_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_sos_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_sos_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_sos_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_sos_site" multi:name="SOS_signaling_site" multi:speciesType="bst_sos_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_sos_site" multi:name="SOS_signaling_site"/>
+      <multi:speciesType multi:id="cps_sos" multi:name="SOS">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_sos_mol_sos" multi:name="SOS" multi:speciesType="mol_sos"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_pik3" multi:name="PIK3" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_pik3" multi:name="PIK3_component" multi:speciesType="mcp_pik3"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_pik3" multi:name="PIK3_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_pik3_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_pik3_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_pik3_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_pik3_site" multi:name="PIK3_signaling_site" multi:speciesType="bst_pik3_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_pik3_site" multi:name="PIK3_signaling_site"/>
+      <multi:speciesType multi:id="cps_pik3" multi:name="PIK3">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_pik3_mol_pik3" multi:name="PIK3" multi:speciesType="mol_pik3"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_ras" multi:name="Ras" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_ras" multi:name="Ras_component" multi:speciesType="mcp_ras"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_ras" multi:name="Ras_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_ras_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_ras_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_ras_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_ras_site" multi:name="Ras_signaling_site" multi:speciesType="bst_ras_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_ras_site" multi:name="Ras_signaling_site"/>
+      <multi:speciesType multi:id="cps_ras" multi:name="Ras">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_ras_mol_ras" multi:name="Ras" multi:speciesType="mol_ras"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_rasgap" multi:name="RasGAP" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_rasgap" multi:name="RasGAP_component" multi:speciesType="mcp_rasgap"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_rasgap" multi:name="RasGAP_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_rasgap_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_rasgap_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_rasgap_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_rasgap_site" multi:name="RasGAP_signaling_site" multi:speciesType="bst_rasgap_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_rasgap_site" multi:name="RasGAP_signaling_site"/>
+      <multi:speciesType multi:id="cps_rasgap" multi:name="RasGAP">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_rasgap_mol_rasgap" multi:name="RasGAP" multi:speciesType="mol_rasgap"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_raf" multi:name="Raf" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_raf" multi:name="Raf_component" multi:speciesType="mcp_raf"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_raf" multi:name="Raf_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_raf_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_raf_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_raf_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_raf_site" multi:name="Raf_signaling_site" multi:speciesType="bst_raf_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_raf_site" multi:name="Raf_signaling_site"/>
+      <multi:speciesType multi:id="cps_raf" multi:name="Raf">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_raf_mol_raf" multi:name="Raf" multi:speciesType="mol_raf"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_mek" multi:name="MEK" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_mek" multi:name="MEK_component" multi:speciesType="mcp_mek"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_mek" multi:name="MEK_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_mek_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_mek_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_mek_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_mek_site" multi:name="MEK_signaling_site" multi:speciesType="bst_mek_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_mek_site" multi:name="MEK_signaling_site"/>
+      <multi:speciesType multi:id="cps_mek" multi:name="MEK">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_mek_mol_mek" multi:name="MEK" multi:speciesType="mol_mek"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_erk" multi:name="ERK" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_erk" multi:name="ERK_component" multi:speciesType="mcp_erk"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_erk" multi:name="ERK_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_erk_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_erk_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_erk_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_erk_site" multi:name="ERK_signaling_site" multi:speciesType="bst_erk_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_erk_site" multi:name="ERK_signaling_site"/>
+      <multi:speciesType multi:id="cps_erk" multi:name="ERK">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_erk_mol_erk" multi:name="ERK" multi:speciesType="mol_erk"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_akt" multi:name="Akt" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_akt" multi:name="Akt_component" multi:speciesType="mcp_akt"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_akt" multi:name="Akt_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_akt_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_akt_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_akt_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_akt_site" multi:name="Akt_signaling_site" multi:speciesType="bst_akt_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_akt_site" multi:name="Akt_signaling_site"/>
+      <multi:speciesType multi:id="cps_akt" multi:name="Akt">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_akt_mol_akt" multi:name="Akt" multi:speciesType="mol_akt"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_pp2a" multi:name="PP2A" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_pp2a" multi:name="PP2A_component" multi:speciesType="mcp_pp2a"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_pp2a" multi:name="PP2A_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_pp2a_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_pp2a_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_pp2a_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_pp2a_site" multi:name="PP2A_signaling_site" multi:speciesType="bst_pp2a_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_pp2a_site" multi:name="PP2A_signaling_site"/>
+      <multi:speciesType multi:id="cps_pp2a" multi:name="PP2A">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_pp2a_mol_pp2a" multi:name="PP2A" multi:speciesType="mol_pp2a"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_p90rsk" multi:name="p90Rsk" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_p90rsk" multi:name="p90Rsk_component" multi:speciesType="mcp_p90rsk"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_p90rsk" multi:name="p90Rsk_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_p90rsk_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_p90rsk_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_p90rsk_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_p90rsk_site" multi:name="p90Rsk_signaling_site" multi:speciesType="bst_p90rsk_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_p90rsk_site" multi:name="p90Rsk_signaling_site"/>
+      <multi:speciesType multi:id="cps_p90rsk" multi:name="p90Rsk">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_p90rsk_mol_p90rsk" multi:name="p90Rsk" multi:speciesType="mol_p90rsk"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_ptase" multi:name="Phosphatase" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_ptase" multi:name="Phosphatase_component" multi:speciesType="mcp_ptase"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_ptase" multi:name="Phosphatase_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_ptase_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_ptase_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_ptase_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_ptase_site" multi:name="Phosphatase_signaling_site" multi:speciesType="bst_ptase_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_ptase_site" multi:name="Phosphatase_signaling_site"/>
+      <multi:speciesType multi:id="cps_ptase" multi:name="Phosphatase">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_ptase_mol_ptase" multi:name="Phosphatase" multi:speciesType="mol_ptase"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_tf" multi:name="TranscriptionFactors" multi:compartment="nucleus">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_tf" multi:name="TranscriptionFactors_component" multi:speciesType="mcp_tf"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_tf" multi:name="TranscriptionFactors_component" multi:compartment="nucleus">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_tf_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_tf_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_tf_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_tf_site" multi:name="TranscriptionFactors_signaling_site" multi:speciesType="bst_tf_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_tf_site" multi:name="TranscriptionFactors_signaling_site"/>
+      <multi:speciesType multi:id="cps_tf" multi:name="TranscriptionFactors">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_tf_mol_tf" multi:name="TranscriptionFactors" multi:speciesType="mol_tf"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+
+      <multi:speciesType multi:id="mol_tumor" multi:name="TumorCellSurvivalProliferationInvasion" multi:compartment="cell">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_tumor" multi:name="TumorResponse_component" multi:speciesType="mcp_tumor"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_tumor" multi:name="TumorResponse_component" multi:compartment="cell">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_tumor_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_tumor_activity_active" multi:name="active"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_tumor_activity_inactive" multi:name="inactive"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_tumor_site" multi:name="TumorResponse_signaling_site" multi:speciesType="bst_tumor_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_tumor_site" multi:name="TumorResponse_signaling_site"/>
+      <multi:speciesType multi:id="cps_tumor" multi:name="TumorCellSurvivalProliferationInvasion">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_tumor_mol_tumor" multi:name="TumorCellSurvivalProliferationInvasion" multi:speciesType="mol_tumor"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>
