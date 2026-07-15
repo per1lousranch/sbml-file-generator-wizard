@@ -1,0 +1,34 @@
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "ST_IL6"  --  "IL-6"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "ST_sIL6Ra"  --  "soluble IL-6 receptor alpha"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "ST_gp130"  --  "gp130"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "ST_ReceptorComplex"  --  "IL-6/sIL-6Ralpha/gp130 receptor complex"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "ST_STAT3"  --  "STAT3"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "ST_SOCS3_mRNA"  --  "SOCS3 mRNA"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "ST_SOCS3"  --  "SOCS3 protein"
+
+ 818 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error found: can't find mcptag
+
+ 819 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : qSpeciesFeatureType:  "receptor_activity"
+
+ 1423 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"R1_receptor_complex_formation" "\" name = \"IL-6, sIL-6Ralpha, and gp130 form Rcomplex  (id:R1_receptor_complex_formation)" "
+
+ 1423 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"R2_receptor_complex_dissociation" "\" name = \"Rcomplex dissociation  (id:R2_receptor_complex_dissociation)" "
+terminate called after throwing an instance of 'std::logic_error'
+  what():  basic_string: construction from null is not valid

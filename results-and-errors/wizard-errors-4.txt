@@ -1,0 +1,47 @@
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "IL6_ST"  --  "IL-6"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "sIL6Ra_ST"  --  "soluble IL-6 receptor alpha"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "IL6_sIL6Ra_ST"  --  "IL-6:sIL-6R alpha complex"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "gp130_ST"  --  "gp130"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "Rcomplex_ST"  --  "receptor complex"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "actRcomplex_ST"  --  "active receptor complex"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "STAT3_ST"  --  "STAT3"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "pSTAT3_ST"  --  "phosphorylated STAT3"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "SOCS3_mRNA_1_ST"  --  "SOCS3 mRNA delay state 1"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "SOCS3_mRNA_2_ST"  --  "SOCS3 mRNA delay state 2"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "SOCS3_mRNA_ST"  --  "SOCS3 mRNA"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "SOCS3_1_ST"  --  "SOCS3 delay state 1"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "SOCS3_2_ST"  --  "SOCS3 delay state 2"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "SOCS3_ST"  --  "SOCS3"
+
+ 875 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ SpeciesFeatureType ( "IL6_sIL6Ra_binding_site" ) has num of possible values less than 2. Need check.
+terminate called after throwing an instance of 'std::logic_error'
+  what():  basic_string: construction from null is not valid

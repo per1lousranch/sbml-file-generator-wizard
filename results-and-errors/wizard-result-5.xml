@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="IL6_trans_signalling_model" name="IL-6 trans-signalling">
+    <listOfUnitDefinitions>
+      <unitDefinition id="per_sec">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="litre_per_mole_per_sec">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="micron_square_per_sec">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="-6" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="extracellular" name="extracellular" spatialDimensions="3" constant="true" multi:isType="true"/>
+      <compartment id="membrane" name="membrane" spatialDimensions="2" constant="true" multi:isType="true">
+        <multi:listOfCompartmentReferences>
+          <multi:compartmentReference multi:compartment="extracellular"/>
+          <multi:compartmentReference multi:compartment="cytosol"/>
+        </multi:listOfCompartmentReferences>
+      </compartment>
+      <compartment id="cytosol" name="cytosol" spatialDimensions="3" constant="true" multi:isType="true"/>
+      <compartment id="nucleus" name="nucleus" spatialDimensions="3" constant="true" multi:isType="true"/>
+      <compartment id="any" name="any" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="cpx_000001" name="IL6_sIL6Ralpha" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000001">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000003"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000002" name="gp130" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000002">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000004"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000003_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000003_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000003" name="Rcomplex" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000003_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000003_activity_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000004" name="actRcomplex" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000003_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000003_activity_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000005" name="STAT3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000004">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000006"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_phosphorylation" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_phosphorylation_unphosphorylated"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000006" name="pSTAT3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000004">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000006"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_phosphorylation" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_phosphorylation_phosphorylated"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000007" name="SOCS3_mRNA_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000007"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000005_maturation" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000005_maturation_nascent"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000008" name="SOCS3_mRNA_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000007"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000005_maturation" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000005_maturation_intermediate"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000009" name="SOCS3_mRNA" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000007"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000005_maturation" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000005_maturation_mature"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000010" name="SOCS3_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000006_maturation" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000006_maturation_new"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000011" name="SOCS3_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000006_maturation" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000006_maturation_intermediate"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000012" name="SOCS3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000008"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000006_maturation" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000006_maturation_mature"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="par_diff_extracellular" value="10" units="micron_square_per_sec" constant="true"/>
+      <parameter id="par_diff_membrane" value="0.1" units="micron_square_per_sec" constant="true"/>
+      <parameter id="par_diff_cytosol" value="5" units="micron_square_per_sec" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="trn_p3tr" name="IL6_sIL6Ralpha binds gp130 to form Rcomplex" reversible="false" fast="false" compartment="membrane">
+        <listOfReactants>
+          <speciesReference id="spr_p3tr_1" species="cpx_000001" constant="false"/>
+          <speciesReference id="spr_p3tr_2" species="cpx_000002" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_p3tr_1" species="cpx_000003" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000001 </ci>
+              <ci> cpx_000002 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p4tr" name="Rcomplex dissociation to IL6_sIL6Ralpha and gp130" reversible="false" fast="false" compartment="membrane">
+        <listOfReactants>
+          <speciesReference id="spr_p4tr_1" species="cpx_000003" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_p4tr_1" species="cpx_000001" constant="false"/>
+          <speciesReference id="spp_p4tr_2" species="cpx_000002" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000003 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p6" name="Rcomplex activation" reversible="false" fast="false" compartment="membrane">
+        <listOfReactants>
+          <speciesReference id="spr_p6_1" species="cpx_000003" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_p6_1" species="cpx_000004" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000003 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p5" name="actRcomplex basal inactivation" reversible="false" fast="false" compartment="membrane">
+        <listOfReactants>
+          <speciesReference id="spr_p5_1" species="cpx_000004" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_p5_1" species="cpx_000003" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000004 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.05" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p7" name="actRcomplex mediated STAT3 phosphorylation" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="spr_p7_1" species="cpx_000004" constant="false"/>
+          <speciesReference id="spr_p7_2" species="cpx_000005" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_p7_1" species="cpx_000004" constant="false"/>
+          <speciesReference id="spp_p7_2" species="cpx_000006" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000004 </ci>
+              <ci> cpx_000005 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p8" name="pSTAT3 dephosphorylation" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="spr_p8_1" species="cpx_000006" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_p8_1" species="cpx_000005" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000006 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p9" name="pSTAT3 induced SOCS3 mRNA transcription" reversible="false" fast="false" compartment="nucleus">
+        <listOfReactants>
+          <speciesReference id="spr_p9_1" species="cpx_000006" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_p9_1" species="cpx_000006" constant="false"/>
+          <speciesReference id="spp_p9_2" species="cpx_000007" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000006 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.2" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_pdelay1_1" name="SOCS3 mRNA delay 1 first step" reversible="false" fast="false" compartment="nucleus">
+        <listOfReactants>
+          <speciesReference id="spr_pdelay1_1" species="cpx_000007" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_pdelay1_1" species="cpx_000008" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000007 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_pdelay1_2" name="SOCS3 mRNA delay 1 second step" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="spr_pdelay1_2" species="cpx_000008" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_pdelay1_2" species="cpx_000009" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000008 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p10" name="SOCS3 mRNA degradation" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="spr_p10_1" species="cpx_000009" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000009 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.02" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p11" name="SOCS3 translation from SOCS3 mRNA" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="spr_p11_1" species="cpx_000009" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_p11_1" species="cpx_000009" constant="false"/>
+          <speciesReference id="spp_p11_2" species="cpx_000010" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000009 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_pdelay2_1" name="SOCS3 protein delay 2 first step" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="spr_pdelay2_1" species="cpx_000010" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_pdelay2_1" species="cpx_000011" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000010 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_pdelay2_2" name="SOCS3 protein delay 2 second step" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="spr_pdelay2_2" species="cpx_000011" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_pdelay2_2" species="cpx_000012" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000011 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p12" name="SOCS3 degradation" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="spr_p12_1" species="cpx_000012" constant="false"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000012 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.02" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_p13" name="SOCS3 negative feedback on actRcomplex" reversible="false" fast="false" compartment="membrane">
+        <listOfReactants>
+          <speciesReference id="spr_p13_1" species="cpx_000012" constant="false"/>
+          <speciesReference id="spr_p13_2" species="cpx_000004" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="spp_p13_1" species="cpx_000012" constant="false"/>
+          <speciesReference id="spp_p13_2" species="cpx_000003" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000012 </ci>
+              <ci> cpx_000004 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <multi:listOfSpeciesTypes>
+      <multi:speciesType multi:id="mol_000001" multi:name="IL6" multi:compartment="extracellular">
+        <annotation>diffusionCoefficient:par_diff_extracellular</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000001" multi:name="IL6_component" multi:speciesType="mcp_000001"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000001" multi:name="IL6_component" multi:compartment="extracellular">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000001" multi:name="sIL6Ralpha_binding_site" multi:speciesType="bst_000001"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000001" multi:name="sIL6Ralpha_binding_site"/>
+      <multi:speciesType multi:id="mol_000002" multi:name="sIL6Ralpha" multi:compartment="extracellular">
+        <annotation>diffusionCoefficient:par_diff_extracellular</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000002" multi:name="sIL6Ralpha_component" multi:speciesType="mcp_000002"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000002" multi:name="sIL6Ralpha_component" multi:compartment="extracellular">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000002" multi:name="IL6_binding_site" multi:speciesType="bst_000002"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000003" multi:name="gp130_binding_site" multi:speciesType="bst_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000002" multi:name="IL6_binding_site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_000003" multi:name="gp130_binding_site"/>
+      <multi:speciesType multi:id="mol_000003" multi:name="gp130" multi:compartment="membrane">
+        <annotation>diffusionCoefficient:par_diff_membrane</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000003" multi:name="gp130_component" multi:speciesType="mcp_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000003" multi:name="gp130_component" multi:compartment="membrane">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_000003_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000003_activity_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000003_activity_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000004" multi:name="sIL6Ralpha_binding_site" multi:speciesType="bst_000004"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000005" multi:name="SOCS3_inhibitory_site" multi:speciesType="bst_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000004" multi:name="sIL6Ralpha_binding_site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_000005" multi:name="SOCS3_inhibitory_site"/>
+      <multi:speciesType multi:id="mol_000004" multi:name="STAT3" multi:compartment="cytosol">
+        <annotation>diffusionCoefficient:par_diff_cytosol</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000004" multi:name="STAT3_component" multi:speciesType="mcp_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000004" multi:name="STAT3_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_000004_phosphorylation" multi:name="phosphorylation" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000004_phosphorylation_unphosphorylated" multi:name="unphosphorylated"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000004_phosphorylation_phosphorylated" multi:name="phosphorylated"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000006" multi:name="receptor_or_DNA_binding_site" multi:speciesType="bst_000006"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000006" multi:name="receptor_or_DNA_binding_site"/>
+      <multi:speciesType multi:id="mol_000005" multi:name="SOCS3_mRNA" multi:compartment="cytosol">
+        <annotation>diffusionCoefficient:par_diff_cytosol</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000005" multi:name="SOCS3_mRNA_component" multi:speciesType="mcp_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000005" multi:name="SOCS3_mRNA_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_000005_maturation" multi:name="maturation" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000005_maturation_nascent" multi:name="nascent"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000005_maturation_intermediate" multi:name="intermediate"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000005_maturation_mature" multi:name="mature"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000007" multi:name="ribosome_or_decay_binding_site" multi:speciesType="bst_000007"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000007" multi:name="ribosome_or_decay_binding_site"/>
+      <multi:speciesType multi:id="mol_000006" multi:name="SOCS3" multi:compartment="cytosol">
+        <annotation>diffusionCoefficient:par_diff_cytosol</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000006" multi:name="SOCS3_component" multi:speciesType="mcp_000006"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000006" multi:name="SOCS3_component" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_000006_maturation" multi:name="maturation" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000006_maturation_new" multi:name="new"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000006_maturation_intermediate" multi:name="intermediate"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000006_maturation_mature" multi:name="mature"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000008" multi:name="gp130_inhibitory_binding_site" multi:speciesType="bst_000008"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000008" multi:name="gp130_inhibitory_binding_site"/>
+      <multi:speciesType multi:id="cps_000001" multi:name="IL6_sIL6Ralpha">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000001_1_mol_000001" multi:name="IL6" multi:speciesType="mol_000001"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000001_2_mol_000002" multi:name="sIL6Ralpha" multi:speciesType="mol_000002"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000001" multi:bindingSite2="sti_bst_000002"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000002" multi:name="gp130">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000002_1_mol_000003" multi:name="gp130" multi:speciesType="mol_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000003" multi:name="IL6_sIL6Ralpha_gp130_Rcomplex">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000003_1_mol_000001" multi:name="IL6" multi:speciesType="mol_000001"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000003_2_mol_000002" multi:name="sIL6Ralpha" multi:speciesType="mol_000002"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000003_3_mol_000003" multi:name="gp130" multi:speciesType="mol_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000001" multi:bindingSite2="sti_bst_000002"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000003" multi:bindingSite2="sti_bst_000004"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000004" multi:name="STAT3">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000004_1_mol_000004" multi:name="STAT3" multi:speciesType="mol_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000005" multi:name="SOCS3_mRNA">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000005_1_mol_000005" multi:name="SOCS3_mRNA" multi:speciesType="mol_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000006" multi:name="SOCS3">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000006_1_mol_000006" multi:name="SOCS3" multi:speciesType="mol_000006"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>

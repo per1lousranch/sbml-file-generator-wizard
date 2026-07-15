@@ -6,7 +6,14 @@ import os.path
 import PySimpleGUI as sg
 import time
 from libsbml import *
+import ai_server
+from langchain_core.messages import *
+import base64
+from dotenv import load_dotenv
+import os
 
+def configure():
+    load_dotenv()
 
 # function for extracting paragraphs
 # PARAMETERS:
@@ -77,7 +84,7 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
         [sg.Multiline(key = 'output', size = (60, 30))]
     ]
 
-    window = sg.Window(title = "RAG Chat Application", layout = layout, margins = (300, 150))
+    window = sg.Window(title = "RAG Chat Application", layout = layout, margins = (300, 150), resizable = True)
 
     while True:
         event, values = window.read()
@@ -146,45 +153,661 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
 # function for executing the SBML generation feature
 # PARAMETERS:
 # model_name: string which contins the model name to be used for generating the file and fixing errors
-def sbml_generation_continous_chat(model_name: str):
+def sbml_generation_continous_chat():
+    server_connection=ai_server.ServerClient(
+        access_key = os.getenv('access_key'), 
+        secret_key = os.getenv('secret_key'),
+        base = "https://genai.niaid.nih.gov/Monolith/api"
+    )
+
+    # currently connected to GPT 5.5
+    model = ai_server.ModelEngine(engine_id = os.getenv('engine_id'))
+
+    lc_llm = model.to_langchain_chat_model()
+
     system_prompt = '''If provided with an image, enerate a SBML Multi XML file based on the image. If provided with a list 
     of errors, try to fix the errors in the file to abide by SBML Multi specification and generate the entire fixed file 
-    again; do not change anything else in the file when fixing errors apart from what is outlined in the errors.''' # system prompt
-    message_list = [{'role': 'system', 'content': system_prompt}]
+    again; do not change anything else in the file when fixing errors apart from what is outlined in the errors.
+    
+    Output the final result in raw text. Do not use markdown, code blocks, or any other formatting.
+    
+    Every molecule and speciesType must have 1 or more binding sites. Reactions should have at most 2 reactants. Remember to include mcp tags when necessary.
+    Compartments must have the isType attribute. SpecieisFeatureType must have 2 or more possible values. Below is an example of an ideal SBML Multi file,
+    please refer to it and try to replicate how it structures things in accordance with SBML Multi specification and the requirements above:
+    
+    <?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model>
+    <listOfUnitDefinitions>
+      <unitDefinition id="micron_square_per_sec">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="-6" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_sec">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="litre_per_mole_per_sec">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="membrane" name="membrane" spatialDimensions="2" constant="true" multi:isType="true">
+        <multi:listOfCompartmentReferences>
+          <multi:compartmentReference multi:compartment="outside_membrane"/>
+          <multi:compartmentReference multi:compartment="inside_membrane"/>
+        </multi:listOfCompartmentReferences>
+      </compartment>
+      <compartment id="outside_membrane" name="Outside membrane" constant="true" multi:isType="true"/>
+      <compartment id="inside_membrane" name="inside membrane" constant="true" multi:isType="true"/>
+      <compartment id="free_diffusing" name="free diffusing" spatialDimensions="3" constant="true" multi:isType="true"/>
+      <compartment id="any" name="any" constant="true" multi:isType="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="cpx_000001" name="Receptor_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000001">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000001"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000002"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000002" name="Ligand_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000002">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000003"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000003" name="Ligand.Receptor_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000001"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000004" name="Galpha_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000004"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000005" name="Gbetagamma_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000004">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000006"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000006" name="Galpha.Gbetagamma_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000007" name="Galpha.Gbetagamma_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000008" name="Galpha_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000004"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000009" name="Galpha.Gbetagamma_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000010" name="Receptor_unbnd" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000005">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000001"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000011" name="Galpha.Gbetagamma_unbnd" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000006">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000004"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000012" name="Galpha.Gbetagamma.Ligand.Receptor_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000007"/>
+      <species id="cpx_000013" name="Galpha.Receptor_1" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000008">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000002"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000014" name="Receptor_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000001">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000001"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000002"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000015" name="Galpha_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000004"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="cpx_000016" name="Galpha.Receptor_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000008">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000002"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000017" name="Galpha.Gbetagamma.Ligand.Receptor_2" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000007">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000018" name="Galpha.Gbetagamma.Ligand.Receptor_3" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000007">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000019" name="Galpha_4" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000004"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000020" name="Galpha_5" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000004"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000021" name="Galpha_GTP_all" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000004"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_on"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="cpx_000022" name="Galpha_7" compartment="any" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="cps_000003">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000004"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="bst_000005"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:speciesFeatureType="mcp_000004_GTP" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="mcp_000004_GTP_off"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="par_1" value="0.1" units="micron_square_per_sec" constant="true"/>
+      <parameter id="par_2" value="100" units="micron_square_per_sec" constant="true"/>
+      <parameter id="par_3" value="0.001" units="micron_square_per_sec" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="trn_000002" name="Galpha auto-GTPase" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000019" species="cpx_000019" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_000020" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000019 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.3" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="trn_000001" name="Rec mediated Galpha GDP GTP exchange" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000017" species="cpx_000017" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_000018" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000017 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="3" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="cpi_000002" name="G protein recombination" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000004" name="Galpha_1" species="cpx_000004" constant="false"/>
+          <speciesReference id="spr2_cpx_000005" name="Gbetagamma_1" species="cpx_000005" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_000006" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000004 </ci>
+              <ci> cpx_000005 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="cpi_000003" name="G protein recruitment" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000010" name="Receptor_unbnd" species="cpx_000010" constant="false"/>
+          <speciesReference id="spr2_cpx_000011" species="cpx_000011" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_000012" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000010 </ci>
+              <ci> cpx_000011 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="cpi_000001" name="Receptor ligation" reversible="false" fast="false" compartment="free_diffusing">
+        <listOfReactants>
+          <speciesReference id="spr1_cpx_000001" name="Receptor_1" species="cpx_000001" constant="false"/>
+          <speciesReference id="spr2_cpx_000002" name="Ligand_1" species="cpx_000002" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="cpx_000003" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000001 </ci>
+              <ci> cpx_000002 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10000000" units="litre_per_mole_per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="cpd_000002" name="[Galpha.Gbetagamma_1]-dissociation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000007" species="cpx_000007" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Galpha_2" species="cpx_000008" constant="false"/>
+          <speciesReference name="Gbetagamma_1" species="cpx_000005" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000007 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.01" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="cpd_000003" name="[Galpha.Gbetagamma_3]-dissociation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000009" species="cpx_000009" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Galpha_2" species="cpx_000008" constant="false"/>
+          <speciesReference name="Gbetagamma_1" species="cpx_000005" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000009 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="cpd_000005" name="[Galpha.Receptor_2]-dissociation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000016" species="cpx_000016" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Receptor_2" species="cpx_000014" constant="false"/>
+          <speciesReference name="Galpha_3" species="cpx_000015" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000016 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.01" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="cpd_000001" name="[Ligand.Receptor_1]-dissociation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000003" species="cpx_000003" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Receptor_1" species="cpx_000001" constant="false"/>
+          <speciesReference name="Ligand_1" species="cpx_000002" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000003 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="cpd_000004" name="Rec GalphaGTP dissoc" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="spr_cpx_000013" species="cpx_000013" constant="false"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference name="Receptor_2" species="cpx_000014" constant="false"/>
+          <speciesReference name="Galpha_3" species="cpx_000015" constant="false"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k </ci>
+              <ci> cpx_000013 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="10" units="per_sec"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <multi:listOfSpeciesTypes>
+      <multi:speciesType multi:id="mol_000003" multi:name="Galpha" multi:compartment="membrane">
+        <annotation>diffusionCoefficient:par_1</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000004" multi:name="Galpha_inside-membrane" multi:speciesType="mcp_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000004" multi:name="Galpha_inside-membrane" multi:compartment="inside_membrane">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="mcp_000004_GTP" multi:name="GTP" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000004_GTP_on" multi:name="on"/>
+              <multi:possibleSpeciesFeatureValue multi:id="mcp_000004_GTP_off" multi:name="off"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000004" multi:name="Receptor binding site" multi:speciesType="bst_000004"/>
+          <multi:speciesTypeInstance multi:id="sti_bst_000005" multi:name="Gbetagamma binding site" multi:speciesType="bst_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000004" multi:name="Receptor binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_000005" multi:name="Gbetagamma binding site"/>
+      <multi:speciesType multi:id="mol_000004" multi:name="Gbetagamma" multi:compartment="membrane">
+        <annotation>diffusionCoefficient:par_1</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000005" multi:name="Gbetagamma_inside-membrane" multi:speciesType="mcp_000005"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000005" multi:name="Gbetagamma_inside-membrane" multi:compartment="inside_membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000006" multi:name="Gbetagamma_site_1" multi:speciesType="bst_000006"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000006" multi:name="Gbetagamma_site_1"/>
+      <multi:speciesType multi:id="mol_000002" multi:name="Ligand" multi:compartment="free_diffusing">
+        <annotation>diffusionCoefficient:par_2</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000003" multi:name="Ligand_component_1" multi:speciesType="mcp_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000003" multi:name="Ligand_component_1" multi:compartment="free_diffusing">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000003" multi:name="Ligand_site_1" multi:speciesType="bst_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000003" multi:name="Ligand_site_1"/>
+      <multi:speciesType multi:id="mol_000001" multi:name="Receptor" multi:compartment="membrane">
+        <annotation>diffusionCoefficient:par_3</annotation>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000001" multi:name="Intracellular Domain" multi:speciesType="mcp_000001"/>
+          <multi:speciesTypeInstance multi:id="sti_mcp_000002" multi:name="Extracellular Domain" multi:speciesType="mcp_000002"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="mcp_000001" multi:name="Intracellular Domain" multi:compartment="inside_membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000001" multi:name="G protein recruitment site" multi:speciesType="bst_000001"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000001" multi:name="G protein recruitment site"/>
+      <multi:speciesType multi:id="mcp_000002" multi:name="Extracellular Domain" multi:compartment="outside_membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_bst_000002" multi:name="Ligand site" multi:speciesType="bst_000002"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_000002" multi:name="Ligand site"/>
+      <multi:speciesType multi:id="cps_000003" multi:name="Galpha">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000003_1_mol_000003" multi:name="Galpha" multi:speciesType="mol_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000006" multi:name="Galpha.Gbetagamma">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000006_1_mol_000003" multi:name="Galpha" multi:speciesType="mol_000003"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000006_2_mol_000004" multi:name="Gbetagamma" multi:speciesType="mol_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000006" multi:bindingSite2="sti_bst_000005"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000007" multi:name="Galpha.Gbetagamma.Ligand.Receptor">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000007_1_mol_000001" multi:name="Receptor" multi:speciesType="mol_000001"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000007_2_mol_000002" multi:name="Ligand" multi:speciesType="mol_000002"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000007_3_mol_000003" multi:name="Galpha" multi:speciesType="mol_000003"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000007_4_mol_000004" multi:name="Gbetagamma" multi:speciesType="mol_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000003" multi:bindingSite2="sti_bst_000002"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000006" multi:bindingSite2="sti_bst_000005"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000004" multi:bindingSite2="sti_bst_000001"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000008" multi:name="Galpha.Receptor">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000008_1_mol_000001" multi:name="Receptor" multi:speciesType="mol_000001"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000008_2_mol_000003" multi:name="Galpha" multi:speciesType="mol_000003"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000004" multi:bindingSite2="sti_bst_000001"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000004" multi:name="Gbetagamma">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000004_1_mol_000004" multi:name="Gbetagamma" multi:speciesType="mol_000004"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000002" multi:name="Ligand">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000002_1_mol_000002" multi:name="Ligand" multi:speciesType="mol_000002"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000005" multi:name="Ligand.Receptor">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000005_1_mol_000001" multi:name="Receptor" multi:speciesType="mol_000001"/>
+          <multi:speciesTypeInstance multi:id="sti_cps_000005_2_mol_000002" multi:name="Ligand" multi:speciesType="mol_000002"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_bst_000003" multi:bindingSite2="sti_bst_000002"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="cps_000001" multi:name="Receptor">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_cps_000001_1_mol_000001" multi:name="Receptor" multi:speciesType="mol_000001"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>''' # system prompt
+
+    message_list = []
+    message_list.append(SystemMessage(content = system_prompt))
 
     layout = [ # layout for defining elements in the GUI window
         [sg.Text(text = "SBML Generation Chat Application")],
-        [sg.FileBrowse("Select image (or paste path)", target = 'image_input'), sg.Input('Paste image path here.', key = 'image_input'), sg.OK(key = 'input1'), sg.Text("", key = 'thinking_status')],
-        [sg.Multiline('Generated text will appear here.', key = 'output', size = (90, 30)), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30))],
+        [sg.FileBrowse("Select image or SBML (or paste path)", target = 'path_input'), sg.Input('Paste image path here.', key = 'path_input'), sg.OK(key = 'input1'), sg.Text("", key = 'thinking_status')],
+        [sg.Multiline('Generated text/imported file will appear here.', key = 'output', size = (90, 30), horizontal_scroll = True), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30), horizontal_scroll = True)],
         [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2'), sg.Text(text = '                                                       ', key = 'save_status'), sg.Button("Validate SBML file", key = 'validate'), sg.Button("Submit validations to LLM", key = 'submit_validations'), sg.Text("", key = 'validation_status')]
     ]
 
-    window = sg.Window(title = "SBML Generation Chat Application", layout = layout, margins = (240, 150)) # defining the window
+    window = sg.Window(title = "SBML Generation Chat Application", layout = layout, margins = (240, 150), resizable = False) # defining the window, resizable false for now...
 
     while True: # loop for running the window
         event, values = window.read() # event records what event occured, values record the values of elements at the time of the event
         
         if event == sg.WIN_CLOSED: # when the window is closed
             break # break out of while True loop
-        elif event == 'image_input' or event == 'input1': # event for hitting enter on image input box or OK button next to it
+        elif event == 'path_input' or event == 'input1': # event for hitting enter on image input box or OK button next to it
             if window.find_element_with_focus().key == 'save_output': # for some reason, hitting 'enter' on the save file input box triggers this event
                 with open(values['save'], 'w') as file: # so this if statement ensures that whatever input box has focus is properly triggered 
                     file.write(values['output'].get()) # writing result to file
 
                 update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3) # status message
             else:
-                image_path = values['image_input'] # taking the file path
+                path = values['path_input'] # taking the file path
 
-                message_list.append({'role': 'user', 'content': "Generate an SBML multi file of the provided image.", 'images': [image_path]}) # feeding image to LLM
+                extension = path[-4:]
 
-                window['thinking_status'].update("Generating...")
-                window.refresh()
+                if extension == ".xml" or extension == "sbml":
+                    with open(path, "r") as file:
+                        window['output'].update(file.read())
+                else:
+                    with open(path, "rb") as image_file:
+                        encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
 
-                response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
+                    command = [
+                        {"type": "text", "text": "Generate an SBML multi file of the provided image."},
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:image/jpeg;base64,{encoded_string}"}, # data URI
+                        },
+                    ]
 
-                window['output'].update(response.message.content) # updating the box with the 
+                    message_list.append(HumanMessage(content = command))
 
-                update_text_element(window, 'thinking_status', "", "Finished!", 3)
+                    window['thinking_status'].update("Generating...")
+                    window.refresh()
+
+                    response = lc_llm.invoke(message_list)
+
+                    window['output'].update(response.content) # updating the box with the 
+
+                    update_text_element(window, 'thinking_status', "", "Finished!", 3)
         elif event == 'save_output' or event == 'input2': # event for hitting enter on save file path box or OK button next to it
             with open(values['save'], 'w') as file:
                 file.write(values['output']) # saving what's in output to file
@@ -212,11 +835,15 @@ def sbml_generation_continous_chat(model_name: str):
                 window['validation_status'].update("Fixing errors...")
                 window.refresh()
 
-                message_list.append({'role': 'user', 'content': "Errors: " + values['errors'] + ". File: " + values['output']}) # sending errors to model
+                command = [
+                    {"type": "text", "text": "Errors: " + values['errors'] + ". File: " + values['output']},
+                ]
 
-                response = ollama.chat(model = model_name, messages = message_list, think = True, stream = False) # get model's response, thinking set to true
+                message_list.append(HumanMessage(content = command))
 
-                window['output'].update(response.message.content)
+                response = lc_llm.invoke(message_list)
+
+                window['output'].update(response.content)
 
                 update_text_element(window, "validation_status", "", "Finished!", 3)
 
@@ -238,14 +865,16 @@ def update_text_element(window, target: str, before: str, after: str, wait: int)
     window.refresh()
 
 
-def main():    
+def main():
+    configure()
+
     layout = [
-        [sg.Text(text = "SBML File Generator Wizard")],
-        [sg.Button(button_text = "1. Questions about specifications", key = '1')],
-        [sg.Button(button_text = "2. SBML generation", key = '2')],
+        [sg.Text(text = "SBML File Generator Wizard", expand_x = True, expand_y = True, justification = 'center')],
+        [sg.Button(button_text = "1. Questions about specifications", key = '1', expand_x = True, expand_y = True)],
+        [sg.Button(button_text = "2. SBML generation", key = '2', expand_x = True, expand_y = True)],
     ]
 
-    window = sg.Window(title = "SBML File Generator Wizard", layout = layout, margins = (100, 100))
+    window = sg.Window(title = "SBML File Generator Wizard", layout = layout, margins = (100, 100), resizable = True)
 
     while True:
         event, values = window.read()
@@ -257,7 +886,7 @@ def main():
             embeddings = get_embeddings('qwen3-embedding:8b', paragraphs)
             rag_continuous_chat('gemma3:4b', 'qwen3-embedding:8b', embeddings, paragraphs)
         elif event == "2":
-            sbml_generation_continous_chat("minimax-m3:cloud")
+            sbml_generation_continous_chat()
 
             
 if __name__ == "__main__":

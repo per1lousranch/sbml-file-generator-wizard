@@ -1,0 +1,449 @@
+line 3: (99506 [Warning]) In situations where a mathematical expression refers to time, the units of time should be consistent with the global time units of the model. In models where the 'timeUnits' attribute has not been declared, libSBML does not yet have the functionality to verify accurately the consistency of the units in such expressions.
+
+line 3: (99507 [Warning]) In situations where a mathematical expression refers to extent, the units of extent should be consistent with the global extent units of the model. In models where the 'extentUnits' attribute has not been declared, libSBML does not yet have the functionality to verify accurately the consistency of the units in such expressions.
+
+line 5: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <compartment> 'cell' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 5: (20513 [Warning]) If the attribute 'units' on a Compartment object having a 'spatialDimensions' attribute value of '3' has not been set, then the unit of measurement associated with the compartment's size is determined by the value of the enclosing Model object's 'volumeUnits' attribute. If neither the Compartment object's 'units' nor the enclosing Model object's 'volumeUnits' attributes are set, the unit of compartment size is undefined.
+Reference: L3V1 Section 4.5.4
+
+line 191: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'IL6' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 191: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'IL6' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 200: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'sIL6Ra' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 200: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'sIL6Ra' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 209: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'gp130' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 209: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'gp130' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 218: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'IL6_sIL6Ra_complex' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 218: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'IL6_sIL6Ra_complex' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 237: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'Rcomplex' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 237: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'Rcomplex' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 256: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'actRcomplex' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 256: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'actRcomplex' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 275: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'STAT3' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 275: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'STAT3' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 289: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'pSTAT3' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 289: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'pSTAT3' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 303: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'SOCS3_mRNA_1' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 303: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'SOCS3_mRNA_1' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 312: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'SOCS3_mRNA_2' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 312: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'SOCS3_mRNA_2' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 321: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'SOCS3_mRNA' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 321: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'SOCS3_mRNA' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 330: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'SOCS3_1' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 330: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'SOCS3_1' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 339: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'SOCS3_2' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 339: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'SOCS3_2' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 348: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <species> 'SOCS3' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 348: (20616 [Warning]) If the attribute 'substanceUnits' in a Species object has not been set, then the unit of measurement associated with the species' quantity is determined by the value of the enclosing Model object's 'substanceUnits' attribute. If neither the Species object's 'substanceUnits' attribute nor the enclosing Model object's 'substanceUnits' attribute are set, then the unit of that species' quantity is undefined.
+Reference: L3V1 Section 4.6.5
+ The <species> with id 'SOCS3' does not have a substanceUnits attribute, nor does its enclosing <model>.
+
+line 359: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p4tr' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 359: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p4tr' does not have a 'units' attribute.
+
+line 360: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p3tr' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 360: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p3tr' does not have a 'units' attribute.
+
+line 361: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p6f' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 361: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p6f' does not have a 'units' attribute.
+
+line 362: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p6r' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 362: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p6r' does not have a 'units' attribute.
+
+line 363: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p5' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 363: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p5' does not have a 'units' attribute.
+
+line 364: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p7' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 364: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p7' does not have a 'units' attribute.
+
+line 365: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p8' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 365: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p8' does not have a 'units' attribute.
+
+line 366: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p9' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 366: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p9' does not have a 'units' attribute.
+
+line 367: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'pdelay1' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 367: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'pdelay1' does not have a 'units' attribute.
+
+line 368: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p10' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 368: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p10' does not have a 'units' attribute.
+
+line 369: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p11' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 369: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p11' does not have a 'units' attribute.
+
+line 370: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'pdelay2' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 370: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'pdelay2' does not have a 'units' attribute.
+
+line 371: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p12' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 371: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p12' does not have a 'units' attribute.
+
+line 372: (99508 [Warning]) In situations where a mathematical expression refers to a compartment, species or parameter, it is necessary to know the units of the object to establish unit consistency. In models where the units of an object have not been declared, libSBML does not yet have the functionality to accurately verify the consistency of the units in mathematical expressions referring to that object. 
+ The units of the <parameter> 'p13' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 372: (20702 [Warning]) If the attribute 'units' on a given Parameter object has not been set, then the unit of measurement associated with that parameter's value is undefined.
+Reference: L3V1 Section 4.7.3
+ The <parameter> with id 'p13' does not have a 'units' attribute.
+
+line 388: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p4tr * IL6 * sIL6Ra' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 412: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p3tr * IL6_sIL6Ra_complex * gp130' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 438: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p6f * Rcomplex / (1 + p13 * SOCS3)' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 472: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p6r * actRcomplex' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 486: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p5 * actRcomplex' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 513: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p7 * actRcomplex * STAT3' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 535: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p8 * pSTAT3' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 552: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p9 * pSTAT3' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 573: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'pdelay1 * SOCS3_mRNA_1' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 594: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'pdelay1 * SOCS3_mRNA_2' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 608: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p10 * SOCS3_mRNA' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 630: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p11 * SOCS3_mRNA' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 651: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'pdelay2 * SOCS3_1' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 672: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'pdelay2 * SOCS3_2' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 686: (99505 [Warning]) In situations where a mathematical expression contains literal numbers or parameters whose units have not been declared, it is not possible to verify accurately the consistency of the units in the expression. 
+ The units of the <kineticLaw> <math> expression 'p12 * SOCS3' cannot be fully checked. Unit consistency reported as either no errors or further unit errors related to this object may not be accurate.
+
+line 359: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p4tr' does not have a 'units' attribute.
+
+line 360: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p3tr' does not have a 'units' attribute.
+
+line 361: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p6f' does not have a 'units' attribute.
+
+line 362: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p6r' does not have a 'units' attribute.
+
+line 363: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p5' does not have a 'units' attribute.
+
+line 364: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p7' does not have a 'units' attribute.
+
+line 365: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p8' does not have a 'units' attribute.
+
+line 366: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p9' does not have a 'units' attribute.
+
+line 367: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'pdelay1' does not have a 'units' attribute.
+
+line 368: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p10' does not have a 'units' attribute.
+
+line 369: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p11' does not have a 'units' attribute.
+
+line 370: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'pdelay2' does not have a 'units' attribute.
+
+line 371: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p12' does not have a 'units' attribute.
+
+line 372: (80701 [Warning]) As a principle of best modeling practice, the units of a <parameter> should be declared rather than be left undefined. Doing so improves the ability of software to check the consistency of units and helps make it easier to detect potential errors in models.
+ The <parameter> with the id 'p13' does not have a 'units' attribute.
+
+line 383: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 383: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 384: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 384: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 407: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 407: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 408: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 408: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 430: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 430: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 431: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 431: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 467: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 467: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 468: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 468: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 504: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 504: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 509: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 509: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 531: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 531: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 569: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 569: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 590: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 590: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 625: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 625: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 647: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 647: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+line 668: (multi-21905 [Error]) The value of the 'multi:reactantComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.3
+
+line 668: (multi-21906 [Error]) The value of the 'multi:productComponent' attribute on a given SpeciesTypeComponentMapInProduct object must be the identifier of an object of SpeciesTypeInstance, SpeciesTypeComponentIndex or SpeciesType.
+Reference: L3V1 Multi V1.1 Section 3.24.4
+
+ERROR: encountered 32 validation errors in model 'IL6_trans_signalling_multi_model'.
+
+
+_____________________________________
+
+
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_IL6"  --  "IL-6"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_sIL6Ra"  --  "soluble IL-6 receptor alpha"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_gp130"  --  "gp130"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_IL6_sIL6Ra_complex"  --  "IL-6:sIL-6R alpha complex"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_Rcomplex"  --  "receptor complex"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_actRcomplex"  --  "activated receptor complex"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_STAT3"  --  "STAT3"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_pSTAT3"  --  "phosphorylated STAT3"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_SOCS3_mRNA_1"  --  "SOCS3 mRNA delay intermediate 1"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_SOCS3_mRNA_2"  --  "SOCS3 mRNA delay intermediate 2"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_SOCS3_mRNA"  --  "SOCS3 mRNA"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_SOCS3_1"  --  "SOCS3 delay intermediate 1"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_SOCS3_2"  --  "SOCS3 delay intermediate 2"
+
+ 611 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error? No binding site in speciesType:  "st_SOCS3"  --  "SOCS3"
+
+ 818 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error found: can't find mcptag
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"p7_STAT3_phosphorylation" "\" name = \"p7: actRcomplex phosphorylates STAT3  (id:p7_STAT3_phosphorylation)" "
+
+ 1422 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ "Reaction found not supported to import to simmune: id = \"p9_SOCS3_mRNA_transcription" "\" name = \"p9: pSTAT3-dependent SOCS3 mRNA transcription  (id:p9_SOCS3_mRNA_transcription)" "
+
+ 1277 /home/ethanzhu/eclipse-workspace/SimGA2026Ethan/simSBML/SimSBML_MultiToSimmune.cpp  
+ : Error found, can't identify interaction for dissociation:  "p11_SOCS3_translation"
