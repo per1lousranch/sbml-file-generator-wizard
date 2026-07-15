@@ -12,8 +12,10 @@ import base64
 from dotenv import load_dotenv
 import os
 
+
 def configure():
     load_dotenv()
+
 
 # function for extracting paragraphs
 # PARAMETERS:
@@ -41,6 +43,7 @@ def parse_file(filenames: list[str]):
                     extracted_docs.append(chunk) # could also check if there are punctuation in the chunk?
     
     return extracted_docs
+
 
 # function for getting embeddings of extracted text
 # PARAMETERS:
@@ -171,9 +174,16 @@ def sbml_generation_continous_chat():
     
     Output the final result in raw text. Do not use markdown, code blocks, or any other formatting.
     
-    Every molecule and speciesType must have 1 or more binding sites. Reactions should have at most 2 reactants. Remember to include mcp tags when necessary.
-    Compartments must have the isType attribute. SpecieisFeatureType must have 2 or more possible values. Below is an example of an ideal SBML Multi file,
-    please refer to it and try to replicate how it structures things in accordance with SBML Multi specification and the requirements above:
+    Every molecule and speciesType must have 1 or more binding sites. Remember to include mcp tags when necessary.
+    Compartments must have the isType attribute. SpecieisFeatureType must have 2 or more possible values. Reactions must have either:
+    
+    - 2 reactants and 1 product
+    - 1 reactant and 2 products
+    - 1 reactant and 1 product
+    - 1 reactant and no products
+    
+    Below is an example of an ideal SBML Multi file,
+    refer to it and try to replicate how it structures things in accordance with SBML Multi specification and the requirements above:
     
     <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
