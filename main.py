@@ -849,7 +849,7 @@ def sbml_generation_continous_chat():
                     window['thinking_status'].update("Generating...")
                     window.refresh()
 
-                    response = lc_llm.invoke(message_list, thinking = True, thinking_budget = "xhigh")
+                    response = lc_llm.invoke(message_list, thinking = True, thinking_budget = "medium")
 
                     window['output'].update(response.content) # updating the box with the 
 
