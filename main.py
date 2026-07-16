@@ -20,7 +20,7 @@ def configure():
 # function for extracting paragraphs
 # PARAMETERS:
 # filenames: a list of strings which are filenames for information to be extracted from
-def parse_file(filenames: list[str]):
+def rag_parse_file(filenames: list[str]):
     extracted_docs = [] 
 
     # iterating through filenames
@@ -770,7 +770,8 @@ def sbml_generation_continous_chat():
 
     layout = [ # layout for defining elements in the GUI window
         [sg.Text(text = "SBML Generation Chat Application")],
-        [sg.FileBrowse("Select image or SBML (or paste path)", target = 'path_input'), sg.Input('Paste image path here.', key = 'path_input'), sg.OK(key = 'input1'), sg.Text("", key = 'thinking_status')],
+        [sg.FileBrowse("Select image or SBML (or paste path)", target = 'path_input'), sg.Input('Paste image path here.', key = 'path_input')],
+        [sg.FileBrowse("Select manuscript (or paste path)", target = 'manuscript_input'), sg.Input('Paste manuscript path here.', key = 'manuscript_input'), sg.OK(key = 'input1'), sg.Text("", key = 'thinking_status')],
         [sg.Multiline('Generated text/imported file will appear here.', key = 'output', size = (90, 30), horizontal_scroll = True), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30), horizontal_scroll = True)],
         [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2'), sg.Text(text = '                                                       ', key = 'save_status'), sg.Button("Validate SBML file", key = 'validate'), sg.Button("Submit validations to LLM", key = 'submit_validations'), sg.Text("", key = 'validation_status')]
     ]
@@ -789,6 +790,10 @@ def sbml_generation_continous_chat():
 
                 update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3) # status message
             else:
+                context = parse_file([values['manuscript_input']])
+
+                print(context)
+                '''
                 path = values['path_input'] # taking the file path
 
                 extension = path[-4:]
@@ -813,11 +818,12 @@ def sbml_generation_continous_chat():
                     window['thinking_status'].update("Generating...")
                     window.refresh()
 
-                    response = lc_llm.invoke(message_list)
+                    response = lc_llm.invoke(message_list, thinking = True, thinking_budget = "high")
 
                     window['output'].update(response.content) # updating the box with the 
 
                     update_text_element(window, 'thinking_status', "", "Finished!", 3)
+                    '''
         elif event == 'save_output' or event == 'input2': # event for hitting enter on save file path box or OK button next to it
             with open(values['save'], 'w') as file:
                 file.write(values['output']) # saving what's in output to file
@@ -892,7 +898,7 @@ def main():
         if event == sg.WIN_CLOSED:
             break
         elif event == "1":
-            paragraphs = parse_file(['SBML_Multi_Correct.pdf'])
+            paragraphs = rag_parse_file(['SBML_Multi_Correct.pdf'])
             embeddings = get_embeddings('qwen3-embedding:8b', paragraphs)
             rag_continuous_chat('gemma3:4b', 'qwen3-embedding:8b', embeddings, paragraphs)
         elif event == "2":
