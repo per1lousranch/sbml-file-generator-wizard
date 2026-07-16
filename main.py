@@ -17,7 +17,7 @@ def configure():
     load_dotenv()
 
 
-# function for extracting paragraphs
+# function for extracting paragraphs for SBML multi specifically
 # PARAMETERS:
 # filenames: a list of strings which are filenames for information to be extracted from
 def rag_parse_file(filenames: list[str]):
@@ -41,6 +41,30 @@ def rag_parse_file(filenames: list[str]):
 
                 if len(chunk) >= 56: # used to ensure only sentences and no titles are passed through, calculated from taking the average character per word of 4 with a lower bound of 14 words per sentences (4 x 14 = 56)
                     extracted_docs.append(chunk) # could also check if there are punctuation in the chunk?
+    
+    return extracted_docs
+
+# function for extracting paragraphs in general
+# PARAMETERS:
+# filenames: a list of strings which are filenames for information to be extracted from
+def parse_file(filenames: list[str]):
+    extracted_docs = ""
+
+    # iterating through filenames
+    for file in filenames:
+        doc = pymupdf.open(file) # PyMuPDF allows for text extraction via paragraphs
+
+        # iterating through pages of an individual document
+        for i in range(doc.page_count): # upper limit so far: 36
+            page = doc[i]
+
+            paragraph_lst = page.get_text("blocks") # 'blocks' parameter allows extraction based on paragraphs
+
+            for lst in paragraph_lst:
+                chunk = lst[4] # 5th index contains actual text, so we only append what's there
+
+                #if len(chunk) >= 56: # used to ensure only sentences and no titles are passed through, calculated from taking the average character per word of 4 with a lower bound of 14 words per sentences (4 x 14 = 56)
+                extracted_docs += chunk # could also check if there are punctuation in the chunk?
     
     return extracted_docs
 
@@ -790,10 +814,13 @@ def sbml_generation_continous_chat():
 
                 update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3) # status message
             else:
-                context = parse_file([values['manuscript_input']])
+                manuscript_present = True
 
-                print(context)
-                '''
+                try:
+                  context = parse_file([values['manuscript_input']])
+                except:
+                  manuscript_present = False
+
                 path = values['path_input'] # taking the file path
 
                 extension = path[-4:]
@@ -805,6 +832,7 @@ def sbml_generation_continous_chat():
                     with open(path, "rb") as image_file:
                         encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
 
+
                     command = [
                         {"type": "text", "text": "Generate an SBML multi file of the provided image."},
                         {
@@ -813,17 +841,19 @@ def sbml_generation_continous_chat():
                         },
                     ]
 
+                    if manuscript_present:
+                        command.append({"type": "text", "text": "Use the additional information to assist in creating more detailed and accuarate SBML files. Indicate whether or not you used the additional information in the 1st line with an XML comment. The information is here: " + context})
+
                     message_list.append(HumanMessage(content = command))
 
                     window['thinking_status'].update("Generating...")
                     window.refresh()
 
-                    response = lc_llm.invoke(message_list, thinking = True, thinking_budget = "high")
+                    response = lc_llm.invoke(message_list, thinking = True, thinking_budget = "xhigh")
 
                     window['output'].update(response.content) # updating the box with the 
 
                     update_text_element(window, 'thinking_status', "", "Finished!", 3)
-                    '''
         elif event == 'save_output' or event == 'input2': # event for hitting enter on save file path box or OK button next to it
             with open(values['save'], 'w') as file:
                 file.write(values['output']) # saving what's in output to file
