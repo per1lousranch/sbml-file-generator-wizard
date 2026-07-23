@@ -8,4 +8,4 @@ Uses a local Ollama model (embeddings: qwen3-embedding:8b, conversational: Gemma
 
 2. SBML generation
 
-Uses GPT 5.5 (NIAID GENESIS API) to generate an SBML file from an image provided. Users can upload their own image, save the results to disk, run validation for SBML & SBML Multi specification, and import existing .xml or .sbml files to run validation on.
+Uses GPT 5.5 (via NIAID GENESIS API & LangChain) to generate an SBML file from an image provided. Users can upload their own image, save the results to disk, run validation for SBML & SBML Multi specification, and import existing .xml or .sbml files to run validation on.
