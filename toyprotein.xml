@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
+      xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1"
+      level="3" version="1" multi:required="true">
+
+  <model id="multi_phosphorylation_example"
+         name="Toy SBML Multi phosphorylation example"
+         substanceUnits="mole" timeUnits="second" extentUnits="mole">
+
+    <listOfUnitDefinitions>
+      <unitDefinition id="per_second">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+
+    <listOfCompartments>
+      <compartment id="cytosol"
+                   name="cytosol"
+                   spatialDimensions="3"
+                   size="1"
+                   units="litre"
+                   constant="true"
+                   multi:isType="false"/>
+    </listOfCompartments>
+
+    <!-- Multi package: species-type definitions. -->
+    <multi:listOfSpeciesTypes>
+      <!-- A binding/site species type with a discrete feature: phosphorylation state. -->
+      <multi:bindingSiteSpeciesType multi:id="st_Protein_site_Y" multi:name="Y site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_phosphorylation" multi:name="phosphorylation" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="U" multi:name="unphosphorylated"/>
+              <multi:possibleSpeciesFeatureValue multi:id="P" multi:name="phosphorylated"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+
+      <!-- A protein species type containing the Y site as a component. -->
+      <multi:speciesType multi:id="st_Protein" multi:name="Protein">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="Y" multi:name="Y" multi:speciesType="st_Protein_site_Y"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+
+    <listOfSpecies>
+      <species id="prot_U"
+               name="Protein(Y~U)"
+               compartment="cytosol"
+               initialAmount="1e-6"
+               substanceUnits="mole"
+               hasOnlySubstanceUnits="true"
+               boundaryCondition="false"
+               constant="false"
+               multi:speciesType="st_Protein">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_prot_U_phosphorylation"
+                                multi:speciesFeatureType="sft_phosphorylation"
+                                multi:occur="1"
+                                multi:component="Y">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="U"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+
+      <species id="prot_P"
+               name="Protein(Y~P)"
+               compartment="cytosol"
+               initialAmount="0"
+               substanceUnits="mole"
+               hasOnlySubstanceUnits="true"
+               boundaryCondition="false"
+               constant="false"
+               multi:speciesType="st_Protein">
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_prot_P_phosphorylation"
+                                multi:speciesFeatureType="sft_phosphorylation"
+                                multi:occur="1"
+                                multi:component="Y">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="P"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+    </listOfSpecies>
+
+    <listOfReactions>
+      <reaction id="phosphorylation" name="phosphorylation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_prot_U" species="prot_U" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_prot_P" species="prot_P" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_phos </ci>
+              <ci> prot_U </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_phos" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
