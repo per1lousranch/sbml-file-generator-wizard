@@ -181,7 +181,7 @@ def rag_continuous_chat(model_name: str, embedding_name: str, embeddings: list[l
 # PARAMETERS:
 # model_name: string which contins the model name to be used for generating the file and fixing errors
 def sbml_generation_continous_chat():
-    server_connection=ai_server.ServerClient(
+    server_connection = ai_server.ServerClient(
         access_key = os.getenv('access_key'), 
         secret_key = os.getenv('secret_key'),
         base = "https://genai.niaid.nih.gov/Monolith/api"
@@ -832,7 +832,6 @@ def sbml_generation_continous_chat():
                     with open(path, "rb") as image_file:
                         encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
 
-
                     command = [
                         {"type": "text", "text": "Generate an SBML multi file of the provided image."},
                         {
@@ -841,15 +840,15 @@ def sbml_generation_continous_chat():
                         },
                     ]
 
-                    if manuscript_present:
-                        command.append({"type": "text", "text": "Use the additional information to assist in creating more detailed and accuarate SBML files. Indicate whether or not you used the additional information in the 1st line with an XML comment. The information is here: " + context})
+                    # if manuscript_present:
+                    #    command.append({"type": "text", "text": "Use the additional information to assist in creating more detailed and accuarate SBML files. Indicate whether or not you used the additional information in the 1st line with an XML comment. The information is here: " + context})
 
                     message_list.append(HumanMessage(content = command))
 
                     window['thinking_status'].update("Generating...")
                     window.refresh()
 
-                    response = lc_llm.invoke(message_list, thinking = True, thinking_budget = "medium")
+                    response = lc_llm.invoke(message_list, thinking = True, thinking_budget = "high")
 
                     window['output'].update(response.content) # updating the box with the 
 
