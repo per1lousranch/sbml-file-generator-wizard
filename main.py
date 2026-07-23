@@ -837,7 +837,7 @@ def sbml_generation_continous_chat():
                         </sbml>
                         
                         FILE 2: toy protein with one site, Y, whose phosphorylation state can be U or P, plus one reaction
-                        
+
                         <?xml version="1.0" encoding="UTF-8"?>
                         <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core"
                               xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1"
