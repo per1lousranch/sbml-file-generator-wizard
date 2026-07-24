@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="egfr_igf1r_mapk_pi3k_model" name="EGFR and IGF1R MAPK PI3K signaling pathway" substanceUnits="mole" timeUnits="second" extentUnits="mole">
+    <listOfUnitDefinitions>
+      <unitDefinition id="per_second">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="cytosol" name="cytosol" spatialDimensions="3" size="1" units="litre" constant="true" multi:isType="false"/>
+    </listOfCompartments>
+    <multi:listOfSpeciesTypes>
+      <multi:bindingSiteSpeciesType multi:id="bst_EGFR_site" multi:name="EGFR regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_EGFR_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_EGFR_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_EGFR_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_EGFR" multi:name="EGFR">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_EGFR" multi:name="EGFR regulatory site" multi:speciesType="bst_EGFR_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_IGF1R_site" multi:name="IGF1R regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_IGF1R_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_IGF1R_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_IGF1R_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_IGF1R" multi:name="IGF1R">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_IGF1R" multi:name="IGF1R regulatory site" multi:speciesType="bst_IGF1R_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_SOS_site" multi:name="SOS regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_SOS_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_SOS_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_SOS_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_SOS" multi:name="SOS">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_SOS" multi:name="SOS regulatory site" multi:speciesType="bst_SOS_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_Ras_site" multi:name="Ras regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_Ras_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_Ras_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_Ras_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_Ras" multi:name="Ras">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_Ras" multi:name="Ras regulatory site" multi:speciesType="bst_Ras_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_PIK3_site" multi:name="PIK3 regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_PIK3_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_PIK3_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_PIK3_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_PIK3" multi:name="PIK3">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_PIK3" multi:name="PIK3 regulatory site" multi:speciesType="bst_PIK3_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_Akt_site" multi:name="Akt regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_Akt_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_Akt_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_Akt_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_Akt" multi:name="Akt">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_Akt" multi:name="Akt regulatory site" multi:speciesType="bst_Akt_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_Raf_site" multi:name="Raf regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_Raf_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_Raf_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_Raf_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_Raf" multi:name="Raf">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_Raf" multi:name="Raf regulatory site" multi:speciesType="bst_Raf_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_MEK_site" multi:name="MEK regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_MEK_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_MEK_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_MEK_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_MEK" multi:name="MEK">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_MEK" multi:name="MEK regulatory site" multi:speciesType="bst_MEK_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_ERK_site" multi:name="ERK regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_ERK_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_ERK_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_ERK_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_ERK" multi:name="ERK">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_ERK" multi:name="ERK regulatory site" multi:speciesType="bst_ERK_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_p90Rsk_site" multi:name="p90Rsk regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_p90Rsk_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_p90Rsk_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_p90Rsk_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_p90Rsk" multi:name="p90Rsk">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_p90Rsk" multi:name="p90Rsk regulatory site" multi:speciesType="bst_p90Rsk_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_RasGAP_site" multi:name="RasGAP regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_RasGAP_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_RasGAP_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_RasGAP_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_RasGAP" multi:name="RasGAP">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_RasGAP" multi:name="RasGAP regulatory site" multi:speciesType="bst_RasGAP_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_Phosphatase_site" multi:name="Phosphatase regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_Phosphatase_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_Phosphatase_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_Phosphatase_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_Phosphatase" multi:name="P'tase">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_Phosphatase" multi:name="Phosphatase regulatory site" multi:speciesType="bst_Phosphatase_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_PP2A_site" multi:name="PP2A regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_PP2A_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_PP2A_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_PP2A_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_PP2A" multi:name="PP2A">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_PP2A" multi:name="PP2A regulatory site" multi:speciesType="bst_PP2A_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_TF_site" multi:name="transcription factor regulatory site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_TF_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="val_TF_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="val_TF_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:speciesType multi:id="st_TF" multi:name="Transcription factors">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="site_TF" multi:name="transcription factor regulatory site" multi:speciesType="bst_TF_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+    <listOfSpecies>
+      <species id="sp_EGFR_active" name="EGFR(active)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_EGFR">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_EGFR"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_EGFR_active" multi:speciesFeatureType="sft_EGFR_activity" multi:occur="1" multi:component="site_EGFR">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_EGFR_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_IGF1R_active" name="IGF1R(active)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IGF1R">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_IGF1R"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_IGF1R_active" multi:speciesFeatureType="sft_IGF1R_activity" multi:occur="1" multi:component="site_IGF1R">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_IGF1R_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_SOS_inactive" name="SOS(inactive)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_SOS">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_SOS"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOS_inactive" multi:speciesFeatureType="sft_SOS_activity" multi:occur="1" multi:component="site_SOS">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_SOS_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_SOS_active" name="SOS(active)" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_SOS">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_SOS"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOS_active" multi:speciesFeatureType="sft_SOS_activity" multi:occur="1" multi:component="site_SOS">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_SOS_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_Ras_inactive" name="Ras(inactive)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Ras">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_Ras"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Ras_inactive" multi:speciesFeatureType="sft_Ras_activity" multi:occur="1" multi:component="site_Ras">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_Ras_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_Ras_active" name="Ras(active)" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Ras">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_Ras"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Ras_active" multi:speciesFeatureType="sft_Ras_activity" multi:occur="1" multi:component="site_Ras">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_Ras_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_PIK3_inactive" name="PIK3(inactive)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_PIK3">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_PIK3"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_PIK3_inactive" multi:speciesFeatureType="sft_PIK3_activity" multi:occur="1" multi:component="site_PIK3">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_PIK3_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_PIK3_active" name="PIK3(active)" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_PIK3">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_PIK3"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_PIK3_active" multi:speciesFeatureType="sft_PIK3_activity" multi:occur="1" multi:component="site_PIK3">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_PIK3_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_Akt_inactive" name="Akt(inactive)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Akt">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_Akt"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Akt_inactive" multi:speciesFeatureType="sft_Akt_activity" multi:occur="1" multi:component="site_Akt">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_Akt_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_Akt_active" name="Akt(active)" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Akt">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_Akt"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Akt_active" multi:speciesFeatureType="sft_Akt_activity" multi:occur="1" multi:component="site_Akt">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_Akt_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_Raf_inactive" name="Raf(inactive)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Raf">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_Raf"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Raf_inactive" multi:speciesFeatureType="sft_Raf_activity" multi:occur="1" multi:component="site_Raf">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_Raf_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_Raf_active" name="Raf(active)" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Raf">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_Raf"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Raf_active" multi:speciesFeatureType="sft_Raf_activity" multi:occur="1" multi:component="site_Raf">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_Raf_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_MEK_inactive" name="MEK(inactive)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MEK">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_MEK"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_MEK_inactive" multi:speciesFeatureType="sft_MEK_activity" multi:occur="1" multi:component="site_MEK">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_MEK_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_MEK_active" name="MEK(active)" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MEK">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_MEK"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_MEK_active" multi:speciesFeatureType="sft_MEK_activity" multi:occur="1" multi:component="site_MEK">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_MEK_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_ERK_inactive" name="ERK(inactive)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_ERK">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_ERK"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_ERK_inactive" multi:speciesFeatureType="sft_ERK_activity" multi:occur="1" multi:component="site_ERK">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_ERK_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_ERK_active" name="ERK(active)" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_ERK">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_ERK"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_ERK_active" multi:speciesFeatureType="sft_ERK_activity" multi:occur="1" multi:component="site_ERK">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_ERK_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_p90Rsk_inactive" name="p90Rsk(inactive)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_p90Rsk">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_p90Rsk"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_p90Rsk_inactive" multi:speciesFeatureType="sft_p90Rsk_activity" multi:occur="1" multi:component="site_p90Rsk">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_p90Rsk_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_p90Rsk_active" name="p90Rsk(active)" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_p90Rsk">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_p90Rsk"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_p90Rsk_active" multi:speciesFeatureType="sft_p90Rsk_activity" multi:occur="1" multi:component="site_p90Rsk">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_p90Rsk_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_RasGAP_active" name="RasGAP(active)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_RasGAP">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_RasGAP"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_RasGAP_active" multi:speciesFeatureType="sft_RasGAP_activity" multi:occur="1" multi:component="site_RasGAP">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_RasGAP_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_Phosphatase_active" name="P'tase(active)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Phosphatase">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_Phosphatase"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Phosphatase_active" multi:speciesFeatureType="sft_Phosphatase_activity" multi:occur="1" multi:component="site_Phosphatase">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_Phosphatase_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_PP2A_active" name="PP2A(active)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_PP2A">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_PP2A"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_PP2A_active" multi:speciesFeatureType="sft_PP2A_activity" multi:occur="1" multi:component="site_PP2A">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_PP2A_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_TF_inactive" name="Transcription_factors(inactive)" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TF">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_TF"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_TF_inactive" multi:speciesFeatureType="sft_TF_activity" multi:occur="1" multi:component="site_TF">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_TF_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="sp_TF_active" name="Transcription_factors(active)" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TF">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="site_TF"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_TF_active" multi:speciesFeatureType="sft_TF_activity" multi:occur="1" multi:component="site_TF">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="val_TF_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="activation_SOS_by_EGFR" name="EGFR activates SOS" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_SOS_i_EGFR" species="sp_SOS_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_SOS_a_EGFR" species="sp_SOS_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_EGFR_for_SOS" species="sp_EGFR_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_SOS_inactive</ci><ci>sp_EGFR_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_SOS_by_IGF1R" name="IGF1R activates SOS" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_SOS_i_IGF1R" species="sp_SOS_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_SOS_a_IGF1R" species="sp_SOS_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_IGF1R_for_SOS" species="sp_IGF1R_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_SOS_inactive</ci><ci>sp_IGF1R_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_PIK3_by_EGFR" name="EGFR activates PIK3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_PIK3_i_EGFR" species="sp_PIK3_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_PIK3_a_EGFR" species="sp_PIK3_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_EGFR_for_PIK3" species="sp_EGFR_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_PIK3_inactive</ci><ci>sp_EGFR_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_PIK3_by_IGF1R" name="IGF1R activates PIK3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_PIK3_i_IGF1R" species="sp_PIK3_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_PIK3_a_IGF1R" species="sp_PIK3_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_IGF1R_for_PIK3" species="sp_IGF1R_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_PIK3_inactive</ci><ci>sp_IGF1R_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_Ras_by_SOS" name="SOS activates Ras" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_Ras_i_SOS" species="sp_Ras_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_Ras_a_SOS" species="sp_Ras_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_SOS_for_Ras" species="sp_SOS_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_Ras_inactive</ci><ci>sp_SOS_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.2" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_PIK3_by_Ras" name="Ras activates PIK3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_PIK3_i_Ras" species="sp_PIK3_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_PIK3_a_Ras" species="sp_PIK3_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_Ras_for_PIK3" species="sp_Ras_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_PIK3_inactive</ci><ci>sp_Ras_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.15" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_Akt_by_PIK3" name="PIK3 activates Akt" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_Akt_i_PIK3" species="sp_Akt_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_Akt_a_PIK3" species="sp_Akt_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_PIK3_for_Akt" species="sp_PIK3_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_Akt_inactive</ci><ci>sp_PIK3_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.2" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_Raf_by_Ras" name="Ras activates Raf" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_Raf_i_Ras" species="sp_Raf_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_Raf_a_Ras" species="sp_Raf_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_Ras_for_Raf" species="sp_Ras_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_Raf_inactive</ci><ci>sp_Ras_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.2" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_MEK_by_Raf" name="Raf activates MEK" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_MEK_i_Raf" species="sp_MEK_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_MEK_a_Raf" species="sp_MEK_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_Raf_for_MEK" species="sp_Raf_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_MEK_inactive</ci><ci>sp_Raf_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.2" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_ERK_by_MEK" name="MEK activates ERK" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_ERK_i_MEK" species="sp_ERK_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_ERK_a_MEK" species="sp_ERK_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_MEK_for_ERK" species="sp_MEK_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_ERK_inactive</ci><ci>sp_MEK_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.2" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_p90Rsk_by_ERK" name="ERK activates p90Rsk" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_p90Rsk_i_ERK" species="sp_p90Rsk_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_p90Rsk_a_ERK" species="sp_p90Rsk_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_ERK_for_p90Rsk" species="sp_ERK_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_p90Rsk_inactive</ci><ci>sp_ERK_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="activation_TF_by_ERK" name="ERK activates transcription factors" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_TF_i_ERK" species="sp_TF_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_TF_a_ERK" species="sp_TF_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_ERK_for_TF" species="sp_ERK_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_TF_inactive</ci><ci>sp_ERK_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="inhibition_SOS_by_p90Rsk" name="p90Rsk inhibits SOS by inactivation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_SOS_a_p90Rsk" species="sp_SOS_active" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_SOS_i_p90Rsk" species="sp_SOS_inactive" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_p90Rsk_for_SOS" species="sp_p90Rsk_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_SOS_active</ci><ci>sp_p90Rsk_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="inhibition_Ras_by_RasGAP" name="RasGAP inactivates Ras" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_Ras_a_RasGAP" species="sp_Ras_active" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_Ras_i_RasGAP" species="sp_Ras_inactive" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_RasGAP_for_Ras" species="sp_RasGAP_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_Ras_active</ci><ci>sp_RasGAP_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="inhibition_Raf_by_Akt" name="Akt inhibits Raf by inactivation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_Raf_a_Akt" species="sp_Raf_active" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_Raf_i_Akt" species="sp_Raf_inactive" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_Akt_for_Raf" species="sp_Akt_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_Raf_active</ci><ci>sp_Akt_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="dephosphorylation_Raf_by_Phosphatase" name="P'tase inactivates Raf" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_Raf_a_Phosphatase" species="sp_Raf_active" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_Raf_i_Phosphatase" species="sp_Raf_inactive" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_Phosphatase_for_Raf" species="sp_Phosphatase_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_Raf_active</ci><ci>sp_Phosphatase_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="dephosphorylation_MEK_by_PP2A" name="PP2A inactivates MEK" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_MEK_a_PP2A" species="sp_MEK_active" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_MEK_i_PP2A" species="sp_MEK_inactive" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_PP2A_for_MEK" species="sp_PP2A_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_MEK_active</ci><ci>sp_PP2A_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="dephosphorylation_ERK_by_PP2A" name="PP2A inactivates ERK" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_ERK_a_PP2A" species="sp_ERK_active" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_ERK_i_PP2A" species="sp_ERK_inactive" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_PP2A_for_ERK" species="sp_PP2A_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>sp_ERK_active</ci><ci>sp_PP2A_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
