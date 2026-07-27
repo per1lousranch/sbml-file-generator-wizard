@@ -11,6 +11,8 @@ from langchain_core.messages import *
 import base64
 from dotenv import load_dotenv
 import os
+import libsbml
+import sys
 
 
 def configure():
@@ -192,19 +194,27 @@ def sbml_generation_continous_chat():
 
     lc_llm = model.to_langchain_chat_model()
 
-    system_prompt = '''If provided with an image, enerate a SBML Multi XML file based on the image. If provided with a list 
+    system_prompt = '''
+    ### OVERALL BEHAVIOR:
+    If provided with an image, generate a Level 3 Version 1 Release 1 SBML Multi XML file based on the image. If provided with a list 
     of errors, try to fix the errors in the file to abide by SBML Multi specification and generate the entire fixed file 
     again; do not change anything else in the file when fixing errors apart from what is outlined in the errors.
     
+    ### FORMATTING:
     Output the final result in raw text. Do not use markdown, code blocks, or any other formatting.
     
+    ### SBML MULTI REQUIREMENTS:
     Every molecule and speciesType must have 1 or more binding sites. Remember to include mcp tags when necessary.
     Compartments must have the isType attribute. SpecieisFeatureType must have 2 or more possible values. Reactions must have either:
     
     - 2 reactants and 1 product
     - 1 reactant and 2 products
     - 1 reactant and 1 product
-    - 1 reactant and no products''' # system prompt
+    - 1 reactant and no products
+    
+    If a species in a reaction appears in both the reactants and the product, that species should be a modifier.
+    
+    2 different species types cannot share the exact same speciesTypeInstances and InSpeciesTypeBonds.''' # system prompt
 
     message_list = []
     message_list.append(SystemMessage(content = system_prompt))
@@ -213,7 +223,7 @@ def sbml_generation_continous_chat():
         [sg.Text(text = "SBML Generation Chat Application")],
         [sg.FileBrowse("Select image or SBML (or paste path)", target = 'path_input'), sg.Input('Paste image path here.', key = 'path_input')],
         [sg.FileBrowse("Select manuscript (or paste path)", target = 'manuscript_input'), sg.Input('Paste manuscript path here.', key = 'manuscript_input'), sg.OK(key = 'input1'), sg.Text("", key = 'thinking_status')],
-        [sg.Multiline('Generated text/imported file will appear here.', key = 'output', size = (90, 30), horizontal_scroll = True), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30), horizontal_scroll = True)],
+        [sg.Multiline('Generated text/imported file will appear here.', key = 'output', size = (90, 30), horizontal_scroll = True), sg.Multiline("Errors found during validation will appear here.", key = 'errors', size = (60, 30), horizontal_scroll = True), sg.Multiline("Chat will appear here.", key = 'chat', size = (60, 30), horizontal_scroll = True)],
         [sg.FileSaveAs(target = 'save_output', key = 'save'), sg.Input('Paste target save location here.', key = 'save_output'), sg.OK(key = 'input2'), sg.Text(text = '                                                       ', key = 'save_status'), sg.Button("Validate SBML file", key = 'validate'), sg.Button("Submit validations to LLM", key = 'submit_validations'), sg.Text("", key = 'validation_status')]
     ]
 
@@ -232,7 +242,6 @@ def sbml_generation_continous_chat():
                 update_text_element(window, "save_status", "                                                       ", "Saved successfully!                        ", 3) # status message
             else:
                 manuscript_present = True
-
 
                 try:
                   context = parse_file([values['manuscript_input']])
@@ -932,8 +941,9 @@ def sbml_generation_continous_chat():
                         },
                     ]
 
-                    # if manuscript_present:
-                    #    command.append({"type": "text", "text": "Use the additional information to assist in creating more detailed and accuarate SBML files. Indicate whether or not you used the additional information in the 1st line with an XML comment. The information is here: " + context})
+                    if manuscript_present:
+                        print("extra context used")
+                        command.append({"type": "text", "text": "Use the additional information from a document to assist in creating a more detailed SBML Multi file. Indicate whether or not you used the additional information in the 1st line with an XML comment. Do not take in any information from the document if it is not relevant to the information in the image. The information from the document is here: " + context})
 
                     message_list.append(HumanMessage(content = command))
 
@@ -955,14 +965,19 @@ def sbml_generation_continous_chat():
 
             doc = reader.readSBMLFromString(values['output']) # read from string in output
 
-            error_log = doc.getErrorLog()
+            print("Internal consistency: " + str(doc.checkInternalConsistency()))
+            print("Consistency: " + str(doc.checkConsistency()))
 
-            errors = error_log.toString()
+            stream = libsbml.ostringstream()
+            doc.printErrors(stream)
+            output = stream.str()
 
-            if errors == "": # errors empty
+            print(output)
+
+            if output == "": # errors empty
                 window['errors'].update("No errors found.")
             else:
-                window['errors'].update(errors)
+                window['errors'].update(output)
 
             window.refresh()
         elif event == 'submit_validations': # event for pressing 'Submit validations to LLM'
