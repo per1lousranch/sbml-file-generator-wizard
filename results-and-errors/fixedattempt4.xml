@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="il6_trans_signalling_multi" name="IL-6 trans-signalling pathway" substanceUnits="mole" timeUnits="second" extentUnits="mole">
+    <listOfUnitDefinitions>
+      <unitDefinition id="per_second">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="litre_per_mole_per_second">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="extracellular" name="extracellular space" spatialDimensions="3" size="1" units="litre" constant="true" multi:isType="false"/>
+      <compartment id="plasma_membrane" name="plasma membrane" spatialDimensions="2" size="1" constant="true" multi:isType="false"/>
+      <compartment id="cytosol" name="cytosol" spatialDimensions="3" size="1" units="litre" constant="true" multi:isType="false"/>
+      <compartment id="nucleus" name="nucleus" spatialDimensions="3" size="1" units="litre" constant="true" multi:isType="false"/>
+    </listOfCompartments>
+    <multi:listOfSpeciesTypes>
+      <multi:bindingSiteSpeciesType multi:id="bst_il6_sil6ra_contact" multi:name="IL-6 contact site for sIL-6Ralpha"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_sil6ra_il6_contact" multi:name="sIL-6Ralpha contact site for IL-6"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_sil6ra_gp130_contact" multi:name="sIL-6Ralpha contact site for gp130"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_gp130_ligand_contact" multi:name="gp130 contact site for IL-6/sIL-6Ralpha"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_gp130_signal_switch" multi:name="gp130 signalling switch">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_gp130_activity" multi:name="gp130 activity state" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_gp130_inactive" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_gp130_active" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_stat3_y705" multi:name="STAT3 Y705 phosphorylation site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_stat3_phosphorylation" multi:name="STAT3 phosphorylation state" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_stat3_U" multi:name="unphosphorylated"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_stat3_P" multi:name="phosphorylated"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_socs3_mrna_stage_site" multi:name="SOCS3 mRNA maturation site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_socs3_mrna_stage" multi:name="SOCS3 mRNA processing stage" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_socs3_mrna_1" multi:name="SOCS3 mRNA 1"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_socs3_mrna_2" multi:name="SOCS3 mRNA 2"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_socs3_mrna_mature" multi:name="mature SOCS3 mRNA"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_socs3_protein_stage_site" multi:name="SOCS3 protein maturation and gp130 binding site">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_socs3_protein_stage" multi:name="SOCS3 protein processing stage" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_socs3_1" multi:name="SOCS3 1"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_socs3_2" multi:name="SOCS3 2"/>
+              <multi:possibleSpeciesFeatureValue multi:id="psv_socs3_mature" multi:name="mature SOCS3"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+      </multi:bindingSiteSpeciesType>
+      <multi:bindingSiteSpeciesType multi:id="bst_transcription_source_site" multi:name="transcription source site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_translation_source_site" multi:name="translation source site"/>
+      <multi:speciesType multi:id="st_IL6_sIL6Ra" multi:name="IL-6/sIL-6Ralpha trans-signalling ligand complex">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_il6_sil6ra_site" multi:name="IL-6 site bound to sIL-6Ralpha" multi:speciesType="bst_il6_sil6ra_contact"/>
+          <multi:speciesTypeInstance multi:id="sti_sil6ra_il6_site" multi:name="sIL-6Ralpha site bound to IL-6" multi:speciesType="bst_sil6ra_il6_contact"/>
+          <multi:speciesTypeInstance multi:id="sti_sil6ra_gp130_site" multi:name="sIL-6Ralpha gp130 recruitment site" multi:speciesType="bst_sil6ra_gp130_contact"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_il6_sil6ra_site" multi:bindingSite2="sti_sil6ra_il6_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_gp130" multi:name="gp130">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_gp130_ligand_site" multi:name="gp130 ligand-complex binding site" multi:speciesType="bst_gp130_ligand_contact"/>
+          <multi:speciesTypeInstance multi:id="sti_gp130_signal_site" multi:name="gp130 signalling site" multi:speciesType="bst_gp130_signal_switch"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_ReceptorComplex" multi:name="gp130/IL-6/sIL-6Ralpha receptor complex">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_rc_il6_sil6ra_site" multi:name="receptor-complex IL-6 site" multi:speciesType="bst_il6_sil6ra_contact"/>
+          <multi:speciesTypeInstance multi:id="sti_rc_sil6ra_il6_site" multi:name="receptor-complex sIL-6Ralpha IL-6 site" multi:speciesType="bst_sil6ra_il6_contact"/>
+          <multi:speciesTypeInstance multi:id="sti_rc_sil6ra_gp130_site" multi:name="receptor-complex sIL-6Ralpha gp130 site" multi:speciesType="bst_sil6ra_gp130_contact"/>
+          <multi:speciesTypeInstance multi:id="sti_rc_gp130_ligand_site" multi:name="receptor-complex gp130 ligand site" multi:speciesType="bst_gp130_ligand_contact"/>
+          <multi:speciesTypeInstance multi:id="sti_rc_gp130_signal_site" multi:name="receptor-complex gp130 signalling site" multi:speciesType="bst_gp130_signal_switch"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_rc_il6_sil6ra_site" multi:bindingSite2="sti_rc_sil6ra_il6_site"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_rc_sil6ra_gp130_site" multi:bindingSite2="sti_rc_gp130_ligand_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_STAT3" multi:name="STAT3">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_stat3_y705_site" multi:name="STAT3 Y705 site" multi:speciesType="bst_stat3_y705"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_SOCS3_mRNA" multi:name="SOCS3 mRNA">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_socs3_mrna_stage_site" multi:name="SOCS3 mRNA stage site" multi:speciesType="bst_socs3_mrna_stage_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_SOCS3_protein" multi:name="SOCS3 protein">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_socs3_protein_stage_site" multi:name="SOCS3 protein stage and gp130-binding site" multi:speciesType="bst_socs3_protein_stage_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_transcription_source" multi:name="transcription source">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_transcription_source_site" multi:name="transcription source site" multi:speciesType="bst_transcription_source_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_translation_source" multi:name="translation source">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_translation_source_site" multi:name="translation source site" multi:speciesType="bst_translation_source_site"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+    <listOfSpecies>
+      <species id="IL6_sIL6Ra" name="IL-6/sIL-6Ralpha" compartment="extracellular" initialAmount="10" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IL6_sIL6Ra">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_sil6ra_gp130_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="gp130" name="gp130" compartment="plasma_membrane" initialAmount="20" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_gp130">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_gp130_ligand_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_gp130_signal_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_gp130_activity_inactive" multi:speciesFeatureType="sft_gp130_activity" multi:occur="1" multi:component="sti_gp130_signal_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_gp130_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="Rcomplex" name="Rcomplex" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_ReceptorComplex">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_rc_gp130_signal_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_Rcomplex_activity_inactive" multi:speciesFeatureType="sft_gp130_activity" multi:occur="1" multi:component="sti_rc_gp130_signal_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_gp130_inactive"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="actRcomplex" name="actRcomplex" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_ReceptorComplex">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_rc_gp130_signal_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_actRcomplex_activity_active" multi:speciesFeatureType="sft_gp130_activity" multi:occur="1" multi:component="sti_rc_gp130_signal_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_gp130_active"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="STAT3" name="STAT3" compartment="cytosol" initialAmount="100" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_STAT3">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_stat3_y705_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_STAT3_unphosphorylated" multi:speciesFeatureType="sft_stat3_phosphorylation" multi:occur="1" multi:component="sti_stat3_y705_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_stat3_U"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="pSTAT3" name="(p)STAT3" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_STAT3">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_stat3_y705_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_pSTAT3_phosphorylated" multi:speciesFeatureType="sft_stat3_phosphorylation" multi:occur="1" multi:component="sti_stat3_y705_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_stat3_P"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="transcription_source" name="SOCS3 transcription source" compartment="nucleus" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_transcription_source">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_transcription_source_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="SOCS3_mRNA_1" name="SOCS3 mRNA_1" compartment="nucleus" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_SOCS3_mRNA">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_socs3_mrna_stage_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOCS3_mRNA_1_stage" multi:speciesFeatureType="sft_socs3_mrna_stage" multi:occur="1" multi:component="sti_socs3_mrna_stage_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_socs3_mrna_1"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="SOCS3_mRNA_2" name="SOCS3 mRNA_2" compartment="nucleus" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_SOCS3_mRNA">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_socs3_mrna_stage_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOCS3_mRNA_2_stage" multi:speciesFeatureType="sft_socs3_mrna_stage" multi:occur="1" multi:component="sti_socs3_mrna_stage_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_socs3_mrna_2"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="SOCS3_mRNA" name="SOCS3 mRNA" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_SOCS3_mRNA">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_socs3_mrna_stage_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOCS3_mRNA_mature_stage" multi:speciesFeatureType="sft_socs3_mrna_stage" multi:occur="1" multi:component="sti_socs3_mrna_stage_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_socs3_mrna_mature"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="translation_source" name="SOCS3 translation source" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="true" constant="false" multi:speciesType="st_translation_source">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_translation_source_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="SOCS3_1" name="SOCS3_1" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_SOCS3_protein">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_socs3_protein_stage_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOCS3_1_stage" multi:speciesFeatureType="sft_socs3_protein_stage" multi:occur="1" multi:component="sti_socs3_protein_stage_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_socs3_1"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="SOCS3_2" name="SOCS3_2" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_SOCS3_protein">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_socs3_protein_stage_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOCS3_2_stage" multi:speciesFeatureType="sft_socs3_protein_stage" multi:occur="1" multi:component="sti_socs3_protein_stage_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_socs3_2"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="SOCS3" name="SOCS3" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_SOCS3_protein">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_socs3_protein_stage_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_SOCS3_mature_stage" multi:speciesFeatureType="sft_socs3_protein_stage" multi:occur="1" multi:component="sti_socs3_protein_stage_site">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="psv_socs3_mature"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="p3tr" name="p3tr gp130 recruitment by trans-signalling complex" value="0.01" units="litre_per_mole_per_second" constant="true"/>
+      <parameter id="p4tr" name="p4tr receptor complex dissociation" value="0.1" units="per_second" constant="true"/>
+      <parameter id="p5" name="p5 SOCS3-dependent receptor inhibition" value="0.05" units="per_second" constant="true"/>
+      <parameter id="p6" name="p6 receptor complex activation" value="0.2" units="per_second" constant="true"/>
+      <parameter id="p7" name="p7 STAT3 phosphorylation" value="0.5" units="per_second" constant="true"/>
+      <parameter id="p8" name="p8 STAT3 dephosphorylation" value="0.1" units="per_second" constant="true"/>
+      <parameter id="p9" name="p9 SOCS3 transcription induced by phosphorylated STAT3" value="0.05" units="per_second" constant="true"/>
+      <parameter id="pdelay1" name="pdelay1 SOCS3 mRNA processing delay" value="0.2" units="per_second" constant="true"/>
+      <parameter id="p10" name="p10 SOCS3 mRNA degradation" value="0.01" units="per_second" constant="true"/>
+      <parameter id="p11" name="p11 SOCS3 translation" value="0.1" units="per_second" constant="true"/>
+      <parameter id="pdelay2" name="pdelay2 SOCS3 protein processing delay" value="0.2" units="per_second" constant="true"/>
+      <parameter id="p12" name="p12 SOCS3 degradation" value="0.01" units="per_second" constant="true"/>
+      <parameter id="p13" name="p13 SOCS3 negative feedback strength" value="1" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="r_p3tr_receptor_complex_formation" name="p3tr formation of Rcomplex by gp130 recruitment" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_p3tr_IL6_sIL6Ra" species="IL6_sIL6Ra" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_p3tr_gp130" species="gp130" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_p3tr_Rcomplex" species="Rcomplex" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p3tr </ci>
+              <ci> IL6_sIL6Ra </ci>
+              <ci> gp130 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_p4tr_receptor_complex_dissociation" name="p4tr dissociation of Rcomplex" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_p4tr_Rcomplex" species="Rcomplex" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_p4tr_IL6_sIL6Ra" species="IL6_sIL6Ra" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_p4tr_gp130" species="gp130" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p4tr </ci>
+              <ci> Rcomplex </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_p6_receptor_activation" name="p6 activation of Rcomplex to actRcomplex" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_p6_Rcomplex" species="Rcomplex" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_p6_actRcomplex" species="actRcomplex" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p6 </ci>
+              <ci> Rcomplex </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_p5_p13_socs3_receptor_inhibition" name="p5 and p13 SOCS3 negative feedback inhibition of active receptor complex" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_p5_actRcomplex" species="actRcomplex" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_p5_Rcomplex" species="Rcomplex" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="msr_p5_SOCS3" species="SOCS3"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p5 </ci>
+              <ci> p13 </ci>
+              <ci> actRcomplex </ci>
+              <ci> SOCS3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_p7_STAT3_phosphorylation" name="p7 phosphorylation of STAT3 by actRcomplex" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_p7_STAT3" species="STAT3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_p7_pSTAT3" species="pSTAT3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="msr_p7_actRcomplex" species="actRcomplex"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p7 </ci>
+              <ci> actRcomplex </ci>
+              <ci> STAT3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_p8_STAT3_dephosphorylation" name="p8 dephosphorylation of phosphorylated STAT3" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_p8_pSTAT3" species="pSTAT3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_p8_STAT3" species="STAT3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p8 </ci>
+              <ci> pSTAT3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_p9_SOCS3_mRNA_1_transcription" name="p9 production of SOCS3 mRNA_1 induced by phosphorylated STAT3" reversible="false" fast="false" compartment="nucleus">
+        <listOfReactants>
+          <speciesReference id="sr_p9_transcription_source" species="transcription_source" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_p9_SOCS3_mRNA_1" species="SOCS3_mRNA_1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="msr_p9_pSTAT3" species="pSTAT3"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p9 </ci>
+              <ci> pSTAT3 </ci>
+              <ci> transcription_source </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_pdelay1_SOCS3_mRNA_1_to_mRNA_2" name="pdelay1 conversion of SOCS3 mRNA_1 to SOCS3 mRNA_2" reversible="false" fast="false" compartment="nucleus">
+        <listOfReactants>
+          <speciesReference id="sr_pdelay1_SOCS3_mRNA_1" species="SOCS3_mRNA_1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_pdelay1_SOCS3_mRNA_2" species="SOCS3_mRNA_2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> pdelay1 </ci>
+              <ci> SOCS3_mRNA_1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_pdelay1_SOCS3_mRNA_2_to_mature_mRNA" name="pdelay1 conversion of SOCS3 mRNA_2 to mature SOCS3 mRNA" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_pdelay1_SOCS3_mRNA_2_reactant" species="SOCS3_mRNA_2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_pdelay1_SOCS3_mRNA" species="SOCS3_mRNA" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> pdelay1 </ci>
+              <ci> SOCS3_mRNA_2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_p10_SOCS3_mRNA_degradation" name="p10 degradation of SOCS3 mRNA" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_p10_SOCS3_mRNA" species="SOCS3_mRNA" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p10 </ci>
+              <ci> SOCS3_mRNA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_p11_SOCS3_translation" name="p11 translation of SOCS3 mRNA into SOCS3_1" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_p11_translation_source" species="translation_source" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_p11_SOCS3_1" species="SOCS3_1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="msr_p11_SOCS3_mRNA" species="SOCS3_mRNA"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p11 </ci>
+              <ci> SOCS3_mRNA </ci>
+              <ci> translation_source </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_pdelay2_SOCS3_1_to_SOCS3_2" name="pdelay2 conversion of SOCS3_1 to SOCS3_2" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_pdelay2_SOCS3_1" species="SOCS3_1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_pdelay2_SOCS3_2" species="SOCS3_2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> pdelay2 </ci>
+              <ci> SOCS3_1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_pdelay2_SOCS3_2_to_SOCS3" name="pdelay2 conversion of SOCS3_2 to mature SOCS3" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_pdelay2_SOCS3_2_reactant" species="SOCS3_2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_pdelay2_SOCS3" species="SOCS3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> pdelay2 </ci>
+              <ci> SOCS3_2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_p12_SOCS3_degradation" name="p12 degradation of SOCS3" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_p12_SOCS3" species="SOCS3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> p12 </ci>
+              <ci> SOCS3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
