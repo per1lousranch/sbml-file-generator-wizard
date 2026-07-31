@@ -219,6 +219,12 @@ def sbml_generation_continous_chat():
     If a speciesType has more than 1 speciesTypeInstance that are not binding sites, it cannot have any speciesFeatureTypes.
 
     If a speciesType has 1 speciesTypeInstance that is a binding site, all other speciesTypeInstances must be binding sites.
+
+    bindingSites cannot have featuresTypes.
+
+    If a reaction has a single reactant and a single product, both reactant and product should refer to the same speciesType.
+
+    For images relating to an IL6 Classic Sigaling model, a reaction from RComplex to actRComplex should have the same speciesType but different features values. SOCS3 and SOCS3 mRNA are different speciesTypes.
         
     ### EXAMPLES:
     Use the below SBML multi files as guides on how to write and structure SBML multi:

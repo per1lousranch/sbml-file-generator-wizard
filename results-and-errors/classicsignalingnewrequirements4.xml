@@ -7,11 +7,15 @@
           <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
         </listOfUnits>
       </unitDefinition>
-      <unitDefinition id="litre_per_mole_per_second">
+      <unitDefinition id="per_mole_per_second">
         <listOfUnits>
-          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
           <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
           <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_mole">
+        <listOfUnits>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
         </listOfUnits>
       </unitDefinition>
     </listOfUnitDefinitions>
@@ -19,19 +23,19 @@
       <compartment id="cell" name="cell" spatialDimensions="3" size="1" units="litre" constant="true" multi:isType="false"/>
     </listOfCompartments>
     <listOfParameters>
-      <parameter id="p1" name="IL-6 binds IL-6Ralpha" value="1" units="litre_per_mole_per_second" constant="true"/>
+      <parameter id="p1" name="IL-6 binds IL-6Ralpha" value="1" units="per_mole_per_second" constant="true"/>
       <parameter id="p2" name="IL-6:IL-6Ralpha dissociation" value="0.1" units="per_second" constant="true"/>
-      <parameter id="p3cl" name="classic gp130 recruitment" value="1" units="litre_per_mole_per_second" constant="true"/>
+      <parameter id="p3cl" name="classic gp130 recruitment" value="1" units="per_mole_per_second" constant="true"/>
       <parameter id="p4cl" name="classic receptor complex dissociation" value="0.1" units="per_second" constant="true"/>
       <parameter id="p5" name="receptor complex activation" value="0.5" units="per_second" constant="true"/>
       <parameter id="p6" name="active receptor complex deactivation" value="0.1" units="per_second" constant="true"/>
-      <parameter id="p7" name="STAT3 phosphorylation" value="0.5" units="per_second" constant="true"/>
+      <parameter id="p7" name="STAT3 phosphorylation" value="0.5" units="per_mole_per_second" constant="true"/>
       <parameter id="p8" name="STAT3 dephosphorylation" value="0.2" units="per_second" constant="true"/>
-      <parameter id="p9" name="SOCS3 transcription by phosphorylated STAT3" value="0.3" units="per_second" constant="true"/>
+      <parameter id="p9" name="SOCS3 transcription by phosphorylated STAT3" value="0.3" units="per_mole_per_second" constant="true"/>
       <parameter id="p10" name="SOCS3 mRNA degradation" value="0.05" units="per_second" constant="true"/>
-      <parameter id="p11" name="SOCS3 translation" value="0.2" units="per_second" constant="true"/>
+      <parameter id="p11" name="SOCS3 translation" value="0.2" units="per_mole_per_second" constant="true"/>
       <parameter id="p12" name="SOCS3 degradation" value="0.02" units="per_second" constant="true"/>
-      <parameter id="p13" name="SOCS3 inhibition of receptor complex activation" value="1" units="litre_per_mole_per_second" constant="true"/>
+      <parameter id="p13" name="SOCS3 inhibition of receptor complex activation" value="1" units="per_mole" constant="true"/>
       <parameter id="pdelay1" name="SOCS3 mRNA delay" value="0.1" units="per_second" constant="true"/>
       <parameter id="pdelay2" name="SOCS3 protein delay" value="0.1" units="per_second" constant="true"/>
     </listOfParameters>
@@ -151,8 +155,6 @@
       </species>
       <species id="IL6_IL6Ra" name="IL-6:IL-6Ralpha" compartment="cell" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IL6_IL6Ra">
         <multi:listOfOutwardBindingSites>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_IL6_IL6Ra_IL6_site"/>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_IL6_IL6Ra_Ra_site"/>
           <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_IL6_IL6Ra_gp130_site"/>
         </multi:listOfOutwardBindingSites>
       </species>
@@ -163,10 +165,6 @@
       </species>
       <species id="Rcomplex" name="Rcomplex" compartment="cell" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Rcomplex">
         <multi:listOfOutwardBindingSites>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_Rcomplex_IL6_site"/>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_Rcomplex_Ra_IL6_site"/>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_Rcomplex_Ra_gp130_site"/>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_Rcomplex_gp130_site"/>
           <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_Rcomplex_SOCS3_site"/>
         </multi:listOfOutwardBindingSites>
         <multi:listOfSpeciesFeatures>
@@ -179,10 +177,6 @@
       </species>
       <species id="actRcomplex" name="actRcomplex" compartment="cell" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Rcomplex">
         <multi:listOfOutwardBindingSites>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_Rcomplex_IL6_site"/>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_Rcomplex_Ra_IL6_site"/>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_Rcomplex_Ra_gp130_site"/>
-          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="sti_Rcomplex_gp130_site"/>
           <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="sti_Rcomplex_SOCS3_site"/>
         </multi:listOfOutwardBindingSites>
         <multi:listOfSpeciesFeatures>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" 
+      xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" 
+      level="3" version="2" 
+      multi:required="true">
+  <model id="IL6_trans_signalling" name="IL-6 trans-signalling">
+    <listOfCompartments>
+      <compartment id="cell" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+
+    <listOfSpecies>
+      <species id="IL6" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="sIL6Ra" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="gp130" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Rcomplex" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="actRcomplex" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="STAT3" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="pSTAT3" name="(p)STAT3" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SOCS3mRNA_1" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SOCS3mRNA_2" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SOCS3mRNA" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SOCS3_1" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SOCS3_2" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="SOCS3" compartment="cell" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+
+    <listOfParameters>
+      <parameter id="k1" value="0.1" constant="true"/>
+      <parameter id="k2" value="0.1" constant="true"/>
+      <parameter id="k3" value="0.1" constant="true"/>
+      <parameter id="k4" value="0.1" constant="true"/>
+      <parameter id="k5" value="0.1" constant="true"/>
+      <parameter id="k6" value="0.1" constant="true"/>
+      <parameter id="k7" value="0.1" constant="true"/>
+      <parameter id="k8" value="0.1" constant="true"/>
+      <parameter id="k9" value="0.1" constant="true"/>
+      <parameter id="k10" value="0.1" constant="true"/>
+      <parameter id="k11" value="0.1" constant="true"/>
+      <parameter id="k12" value="0.1" constant="true"/>
+      <parameter id="k13" value="0.1" constant="true"/>
+    </listOfParameters>
+
+    <listOfReactions>
+      <!-- p4^tr: IL-6 + sIL-6Ra -> Rcomplex -->
+      <reaction id="p4_tr" name="p4_tr" reversible="false">
+        <listOfReactants>
+          <speciesReference species="IL6" stoichiometry="1" constant="true"/>
+          <speciesReference species="sIL6Ra" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Rcomplex" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k1 </ci>
+              <ci> IL6 </ci>
+              <ci> sIL6Ra </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p3^tr: Rcomplex + gp130 -> Rcomplex (binding) -->
+      <reaction id="p3_tr" name="p3_tr" reversible="false">
+        <listOfReactants>
+          <speciesReference species="gp130" stoichiometry="1" constant="true"/>
+          <speciesReference species="Rcomplex" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Rcomplex" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k2 </ci>
+              <ci> gp130 </ci>
+              <ci> Rcomplex </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p6: Rcomplex -> actRcomplex -->
+      <reaction id="p6" name="p6" reversible="false">
+        <listOfReactants>
+          <speciesReference species="Rcomplex" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="actRcomplex" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k3 </ci>
+                <ci> Rcomplex </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <cn> 1 </cn>
+                <ci> SOCS3 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p5: Inhibition of actRcomplex by SOCS3 (reverse of p6) -->
+      <reaction id="p5" name="p5" reversible="false">
+        <listOfReactants>
+          <speciesReference species="actRcomplex" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="Rcomplex" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k4 </ci>
+              <ci> actRcomplex </ci>
+              <ci> SOCS3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p13: SOCS3 inhibits actRcomplex -->
+      <reaction id="p13" name="p13" reversible="false">
+        <listOfReactants>
+          <speciesReference species="actRcomplex" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k5 </ci>
+              <ci> actRcomplex </ci>
+              <ci> SOCS3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p7: STAT3 -> (p)STAT3 (phosphorylation) -->
+      <reaction id="p7" name="p7" reversible="false">
+        <listOfReactants>
+          <speciesReference species="STAT3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="pSTAT3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k6 </ci>
+              <ci> STAT3 </ci>
+              <ci> actRcomplex </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p8: (p)STAT3 -> STAT3 (dephosphorylation) -->
+      <reaction id="p8" name="p8" reversible="false">
+        <listOfReactants>
+          <speciesReference species="pSTAT3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="STAT3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k7 </ci>
+              <ci> pSTAT3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p9: (p)STAT3 -> SOCS3 mRNA_1 (transcription) -->
+      <reaction id="p9" name="p9" reversible="false">
+        <listOfReactants>
+          <speciesReference species="pSTAT3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="SOCS3mRNA_1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k8 </ci>
+              <ci> pSTAT3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- pdelay1 (first): SOCS3 mRNA_1 -> SOCS3 mRNA_2 -->
+      <reaction id="pdelay1_1" name="pdelay1" reversible="false">
+        <listOfReactants>
+          <speciesReference species="SOCS3mRNA_1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="SOCS3mRNA_2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k9 </ci>
+              <ci> SOCS3mRNA_1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- pdelay1 (second): SOCS3 mRNA_2 -> SOCS3 mRNA -->
+      <reaction id="pdelay1_2" name="pdelay1" reversible="false">
+        <listOfReactants>
+          <speciesReference species="SOCS3mRNA_2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="SOCS3mRNA" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k9 </ci>
+              <ci> SOCS3mRNA_2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p10: SOCS3 mRNA degradation -->
+      <reaction id="p10" name="p10" reversible="false">
+        <listOfReactants>
+          <speciesReference species="SOCS3mRNA" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k10 </ci>
+              <ci> SOCS3mRNA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p11: SOCS3 mRNA -> SOCS3_1 (translation - blocked, X indicates inhibition) -->
+      <reaction id="p11" name="p11" reversible="false">
+        <listOfReactants>
+          <speciesReference species="SOCS3mRNA" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="SOCS3_1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k11 </ci>
+              <ci> SOCS3mRNA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- pdelay2 (first): SOCS3_1 -> SOCS3_2 -->
+      <reaction id="pdelay2_1" name="pdelay2" reversible="false">
+        <listOfReactants>
+          <speciesReference species="SOCS3_1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="SOCS3_2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k12 </ci>
+              <ci> SOCS3_1 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- pdelay2 (second): SOCS3_2 -> SOCS3 -->
+      <reaction id="pdelay2_2" name="pdelay2" reversible="false">
+        <listOfReactants>
+          <speciesReference species="SOCS3_2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="SOCS3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k12 </ci>
+              <ci> SOCS3_2 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- p12: SOCS3 degradation -->
+      <reaction id="p12" name="p12" reversible="false">
+        <listOfReactants>
+          <speciesReference species="SOCS3" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k13 </ci>
+              <ci> SOCS3 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
