@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="tlr4_model_1" name="TLR4 Model 1 sequential binding and drop pathway" substanceUnits="mole" timeUnits="second" extentUnits="mole">
+    <listOfUnitDefinitions>
+      <unitDefinition id="per_second">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="litre_per_mole_per_second">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="signaling_space" name="signaling space" spatialDimensions="3" size="1" units="litre" constant="true" multi:isType="false"/>
+    </listOfCompartments>
+    <multi:listOfSpeciesTypes>
+      <multi:bindingSiteSpeciesType multi:id="bs_LPS_TLR4" multi:name="LPS TLR4 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_TLR4_LPS" multi:name="TLR4 LPS binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_TLR4_TIRAP" multi:name="TLR4 TIRAP binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_TIRAP_TLR4" multi:name="TIRAP TLR4 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_TIRAP_MyD88" multi:name="TIRAP MyD88 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_MyD88_TIRAP" multi:name="MyD88 TIRAP binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_MyD88_IRAK1" multi:name="MyD88 IRAK1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_MyD88_IRAK4" multi:name="MyD88 IRAK4 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_IRAK1_MyD88" multi:name="IRAK1 MyD88 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_IRAK1_TRAF6" multi:name="IRAK1 TRAF6 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_IRAK4_MyD88" multi:name="IRAK4 MyD88 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bs_TRAF6_IRAK1" multi:name="TRAF6 IRAK1 binding site"/>
+      <multi:speciesType multi:id="st_LPS" multi:name="LPS" multi:compartment="signaling_space">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_LPS_TLR4" multi:name="LPS_TLR4_site" multi:speciesType="bs_LPS_TLR4"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TLR4" multi:name="TLR4" multi:compartment="signaling_space">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TLR4_LPS" multi:name="TLR4_LPS_site" multi:speciesType="bs_TLR4_LPS"/>
+          <multi:speciesTypeInstance multi:id="sti_TLR4_TIRAP" multi:name="TLR4_TIRAP_site" multi:speciesType="bs_TLR4_TIRAP"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TIRAP" multi:name="TIRAP" multi:compartment="signaling_space">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TIRAP_TLR4" multi:name="TIRAP_TLR4_site" multi:speciesType="bs_TIRAP_TLR4"/>
+          <multi:speciesTypeInstance multi:id="sti_TIRAP_MyD88" multi:name="TIRAP_MyD88_site" multi:speciesType="bs_TIRAP_MyD88"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_MyD88" multi:name="MyD88" multi:compartment="signaling_space">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_TIRAP" multi:name="MyD88_TIRAP_site" multi:speciesType="bs_MyD88_TIRAP"/>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_IRAK1" multi:name="MyD88_IRAK1_site" multi:speciesType="bs_MyD88_IRAK1"/>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_IRAK4" multi:name="MyD88_IRAK4_site" multi:speciesType="bs_MyD88_IRAK4"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IRAK1" multi:name="IRAK1" multi:compartment="signaling_space">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_IRAK1_MyD88" multi:name="IRAK1_MyD88_site" multi:speciesType="bs_IRAK1_MyD88"/>
+          <multi:speciesTypeInstance multi:id="sti_IRAK1_TRAF6" multi:name="IRAK1_TRAF6_site" multi:speciesType="bs_IRAK1_TRAF6"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IRAK4" multi:name="IRAK4" multi:compartment="signaling_space">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_IRAK4_MyD88" multi:name="IRAK4_MyD88_site" multi:speciesType="bs_IRAK4_MyD88"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TRAF6" multi:name="TRAF6" multi:compartment="signaling_space">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TRAF6_IRAK1" multi:name="TRAF6_IRAK1_site" multi:speciesType="bs_TRAF6_IRAK1"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TLR4_bind" multi:name="TLR4_bind">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TLR4_bind_LPS" multi:name="LPS" multi:speciesType="st_LPS"/>
+          <multi:speciesTypeInstance multi:id="sti_TLR4_bind_TLR4" multi:name="TLR4" multi:speciesType="st_TLR4"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_LPS_TLR4" multi:bindingSite2="sti_TLR4_LPS"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TIRAP_bind" multi:name="TIRAP_bind">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TIRAP_bind_LPS" multi:name="LPS" multi:speciesType="st_LPS"/>
+          <multi:speciesTypeInstance multi:id="sti_TIRAP_bind_TLR4" multi:name="TLR4" multi:speciesType="st_TLR4"/>
+          <multi:speciesTypeInstance multi:id="sti_TIRAP_bind_TIRAP" multi:name="TIRAP" multi:speciesType="st_TIRAP"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_LPS_TLR4" multi:bindingSite2="sti_TLR4_LPS"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_TLR4_TIRAP" multi:bindingSite2="sti_TIRAP_TLR4"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_MyD88_bind" multi:name="MyD88_bind">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_bind_LPS" multi:name="LPS" multi:speciesType="st_LPS"/>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_bind_TLR4" multi:name="TLR4" multi:speciesType="st_TLR4"/>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_bind_TIRAP" multi:name="TIRAP" multi:speciesType="st_TIRAP"/>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_bind_MyD88" multi:name="MyD88" multi:speciesType="st_MyD88"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_LPS_TLR4" multi:bindingSite2="sti_TLR4_LPS"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_TLR4_TIRAP" multi:bindingSite2="sti_TIRAP_TLR4"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_TIRAP_MyD88" multi:bindingSite2="sti_MyD88_TIRAP"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IRAK1_bind" multi:name="IRAK1_bind">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_IRAK1_bind_LPS" multi:name="LPS" multi:speciesType="st_LPS"/>
+          <multi:speciesTypeInstance multi:id="sti_IRAK1_bind_TLR4" multi:name="TLR4" multi:speciesType="st_TLR4"/>
+          <multi:speciesTypeInstance multi:id="sti_IRAK1_bind_TIRAP" multi:name="TIRAP" multi:speciesType="st_TIRAP"/>
+          <multi:speciesTypeInstance multi:id="sti_IRAK1_bind_MyD88" multi:name="MyD88" multi:speciesType="st_MyD88"/>
+          <multi:speciesTypeInstance multi:id="sti_IRAK1_bind_IRAK1" multi:name="IRAK1" multi:speciesType="st_IRAK1"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_LPS_TLR4" multi:bindingSite2="sti_TLR4_LPS"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_TLR4_TIRAP" multi:bindingSite2="sti_TIRAP_TLR4"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_TIRAP_MyD88" multi:bindingSite2="sti_MyD88_TIRAP"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_MyD88_IRAK1" multi:bindingSite2="sti_IRAK1_MyD88"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IRAK4_bind" multi:name="IRAK4_bind">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_IRAK4_bind_LPS" multi:name="LPS" multi:speciesType="st_LPS"/>
+          <multi:speciesTypeInstance multi:id="sti_IRAK4_bind_TLR4" multi:name="TLR4" multi:speciesType="st_TLR4"/>
+          <multi:speciesTypeInstance multi:id="sti_IRAK4_bind_TIRAP" multi:name="TIRAP" multi:speciesType="st_TIRAP"/>
+          <multi:speciesTypeInstance multi:id="sti_IRAK4_bind_MyD88" multi:name="MyD88" multi:speciesType="st_MyD88"/>
+          <multi:speciesTypeInstance multi:id="sti_IRAK4_bind_IRAK4" multi:name="IRAK4" multi:speciesType="st_IRAK4"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_LPS_TLR4" multi:bindingSite2="sti_TLR4_LPS"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_TLR4_TIRAP" multi:bindingSite2="sti_TIRAP_TLR4"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_TIRAP_MyD88" multi:bindingSite2="sti_MyD88_TIRAP"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_MyD88_IRAK4" multi:bindingSite2="sti_IRAK4_MyD88"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TRAF6_bind" multi:name="TRAF6_bind">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TRAF6_bind_LPS" multi:name="LPS" multi:speciesType="st_LPS"/>
+          <multi:speciesTypeInstance multi:id="sti_TRAF6_bind_TLR4" multi:name="TLR4" multi:speciesType="st_TLR4"/>
+          <multi:speciesTypeInstance multi:id="sti_TRAF6_bind_TIRAP" multi:name="TIRAP" multi:speciesType="st_TIRAP"/>
+          <multi:speciesTypeInstance multi:id="sti_TRAF6_bind_MyD88" multi:name="MyD88" multi:speciesType="st_MyD88"/>
+          <multi:speciesTypeInstance multi:id="sti_TRAF6_bind_IRAK1" multi:name="IRAK1" multi:speciesType="st_IRAK1"/>
+          <multi:speciesTypeInstance multi:id="sti_TRAF6_bind_TRAF6" multi:name="TRAF6" multi:speciesType="st_TRAF6"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_LPS_TLR4" multi:bindingSite2="sti_TLR4_LPS"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_TLR4_TIRAP" multi:bindingSite2="sti_TIRAP_TLR4"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_TIRAP_MyD88" multi:bindingSite2="sti_MyD88_TIRAP"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_MyD88_IRAK1" multi:bindingSite2="sti_IRAK1_MyD88"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="sti_IRAK1_TRAF6" multi:bindingSite2="sti_TRAF6_IRAK1"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+    <listOfSpecies>
+      <species id="LPS" name="LPS" compartment="signaling_space" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_LPS">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_LPS_TLR4"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TLR4" name="TLR4" compartment="signaling_space" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TLR4">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_TLR4_LPS"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_TLR4_TIRAP"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TIRAP" name="TIRAP" compartment="signaling_space" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TIRAP">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_TIRAP_TLR4"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_TIRAP_MyD88"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="MyD88" name="MyD88" compartment="signaling_space" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MyD88">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_MyD88_TIRAP"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_MyD88_IRAK1"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_MyD88_IRAK4"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="IRAK1" name="IRAK1" compartment="signaling_space" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRAK1">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_IRAK1_MyD88"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_IRAK1_TRAF6"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="IRAK4" name="IRAK4" compartment="signaling_space" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRAK4">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_IRAK4_MyD88"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TRAF6" name="TRAF6" compartment="signaling_space" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TRAF6">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_TRAF6_IRAK1"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TLR4_bind" name="TLR4_bind" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TLR4_bind">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_TLR4_TIRAP"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TLR4_drop" name="TLR4_drop" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TLR4_bind"/>
+      <species id="TIRAP_bind" name="TIRAP_bind" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TIRAP_bind">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_TIRAP_MyD88"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TIRAP_drop" name="TIRAP_drop" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TIRAP_bind"/>
+      <species id="MyD88_bind" name="MyD88_bind" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MyD88_bind">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_MyD88_IRAK1"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_MyD88_IRAK4"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="MyD88_drop" name="MyD88_drop" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MyD88_bind"/>
+      <species id="IRAK1_bind" name="IRAK1_bind" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRAK1_bind">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="bs_IRAK1_TRAF6"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="IRAK1_drop" name="IRAK1_drop" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRAK1_bind"/>
+      <species id="IRAK4_bind" name="IRAK4_bind" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRAK4_bind"/>
+      <species id="IRAK4_drop" name="IRAK4_drop" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRAK4_bind"/>
+      <species id="TRAF6_bind" name="TRAF6_bind" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TRAF6_bind"/>
+      <species id="TRAF6_drop" name="TRAF6_drop" compartment="signaling_space" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TRAF6_bind"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="r_TLR4_binding" name="LPS dependent TLR4 binding" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_TLR4_binding_LPS" species="LPS" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_TLR4_binding_TLR4" species="TLR4" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_TLR4_binding_product" species="TLR4_bind" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_bind </ci>
+              <ci> LPS </ci>
+              <ci> TLR4 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_bind" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_TLR4_drop" name="TLR4_drop formation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_TLR4_drop_reactant" species="TLR4_bind" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_TLR4_drop_product" species="TLR4_drop" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_drop </ci>
+              <ci> TLR4_bind </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_drop" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_TIRAP_binding" name="TIRAP binding" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_TIRAP_binding_TLR4_bind" species="TLR4_bind" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_TIRAP_binding_TIRAP" species="TIRAP" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_TIRAP_binding_product" species="TIRAP_bind" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_bind </ci>
+              <ci> TLR4_bind </ci>
+              <ci> TIRAP </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_bind" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_TIRAP_drop" name="TIRAP_drop formation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_TIRAP_drop_reactant" species="TIRAP_bind" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_TIRAP_drop_product" species="TIRAP_drop" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_drop </ci>
+              <ci> TIRAP_bind </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_drop" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_MyD88_binding" name="MyD88 binding" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_MyD88_binding_TIRAP_bind" species="TIRAP_bind" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_MyD88_binding_MyD88" species="MyD88" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_MyD88_binding_product" species="MyD88_bind" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_bind </ci>
+              <ci> TIRAP_bind </ci>
+              <ci> MyD88 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_bind" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_MyD88_drop" name="MyD88_drop formation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_MyD88_drop_reactant" species="MyD88_bind" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_MyD88_drop_product" species="MyD88_drop" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_drop </ci>
+              <ci> MyD88_bind </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_drop" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_IRAK1_binding" name="IRAK1 binding" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_IRAK1_binding_MyD88_bind" species="MyD88_bind" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_IRAK1_binding_IRAK1" species="IRAK1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_IRAK1_binding_product" species="IRAK1_bind" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_bind </ci>
+              <ci> MyD88_bind </ci>
+              <ci> IRAK1 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_bind" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_IRAK4_binding" name="IRAK4 binding" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_IRAK4_binding_MyD88_bind" species="MyD88_bind" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_IRAK4_binding_IRAK4" species="IRAK4" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_IRAK4_binding_product" species="IRAK4_bind" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_bind </ci>
+              <ci> MyD88_bind </ci>
+              <ci> IRAK4 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_bind" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_IRAK1_drop" name="IRAK1_drop formation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_IRAK1_drop_reactant" species="IRAK1_bind" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_IRAK1_drop_product" species="IRAK1_drop" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_drop </ci>
+              <ci> IRAK1_bind </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_drop" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_IRAK4_drop" name="IRAK4_drop formation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_IRAK4_drop_reactant" species="IRAK4_bind" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_IRAK4_drop_product" species="IRAK4_drop" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_drop </ci>
+              <ci> IRAK4_bind </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_drop" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_TRAF6_binding" name="TRAF6 binding" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_TRAF6_binding_IRAK1_bind" species="IRAK1_bind" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_TRAF6_binding_TRAF6" species="TRAF6" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_TRAF6_binding_product" species="TRAF6_bind" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_bind </ci>
+              <ci> IRAK1_bind </ci>
+              <ci> TRAF6 </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_bind" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r_TRAF6_drop" name="TRAF6_drop formation" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference id="sr_TRAF6_drop_reactant" species="TRAF6_bind" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_TRAF6_drop_product" species="TRAF6_drop" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> k_drop </ci>
+              <ci> TRAF6_bind </ci>
+            </apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k_drop" value="0.1" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
