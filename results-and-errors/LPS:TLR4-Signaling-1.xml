@@ -1,0 +1,1154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:multi="http://www.sbml.org/sbml/level3/version1/multi/version1" level="3" version="1" multi:required="true">
+  <model id="tlr4_lps_signaling_multi" name="TLR4 LPS Myddosome TRIF signaling" substanceUnits="mole" timeUnits="second" extentUnits="mole">
+    <listOfUnitDefinitions>
+      <unitDefinition id="per_second">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="litre_per_mole_per_second">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="extracellular" name="extracellular" spatialDimensions="3" size="1" units="litre" constant="true" multi:isType="false"/>
+      <compartment id="plasma_membrane" name="plasma membrane" spatialDimensions="2" constant="true" multi:isType="false"/>
+      <compartment id="cytosol" name="cytosol" spatialDimensions="3" size="1" units="litre" constant="true" multi:isType="false"/>
+      <compartment id="nucleus" name="nucleus" spatialDimensions="3" size="1" units="litre" constant="true" multi:isType="false"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="LPS" name="LPS" compartment="extracellular" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_LPS">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="lps_md2_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="lps_cd14_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TLR4" name="TLR4" compartment="plasma_membrane" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TLR4">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tlr4_md2_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tlr4_tirap_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tlr4_tram_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="MD2" name="MD-2" compartment="plasma_membrane" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MD2">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="md2_tlr4_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="md2_lps_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="CD14" name="CD14" compartment="plasma_membrane" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_CD14">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="cd14_lps_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TLR4_MD2" name="TLR4.MD-2" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TLR4_MD2"/>
+      <species id="TLR4_MD2_LPS" name="TLR4.MD-2.LPS" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TLR4_MD2_LPS"/>
+      <species id="RComplex" name="LPS.CD14.MD-2.TLR4 receptor complex" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_ReceptorComplex"/>
+      <species id="TIRAP" name="TIRAP" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TIRAP">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tirap_tlr4_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tirap_myd88_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="MyD88" name="MyD88" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MyD88">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="myd88_tirap_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="myd88_irak4_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="IRAK4" name="IRAK4" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRAK4">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="irak4_myd88_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="irak4_irak1_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="IRAK1" name="IRAK1" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRAK1">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="irak1_irak4_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="irak1_traf6_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TRAF6_inactive" name="TRAF6 inactive" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TRAF6">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="traf6_irak1_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="traf6_tak1_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_TRAF6_inactive" multi:speciesFeatureType="sft_TRAF6_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="TRAF6_inactive_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="TRAF6_active" name="TRAF6 active" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TRAF6">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="traf6_irak1_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="traf6_tak1_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_TRAF6_active" multi:speciesFeatureType="sft_TRAF6_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="TRAF6_active_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="RComplex_TIRAP" name="TLR4 receptor complex.TIRAP" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_RComplex_TIRAP"/>
+      <species id="MyD88_recruited" name="TLR4 receptor complex.TIRAP.MyD88" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MyD88_recruited"/>
+      <species id="MyD88_IRAK4" name="TLR4 receptor complex.TIRAP.MyD88.IRAK4" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MyD88_IRAK4"/>
+      <species id="Myddosome_core" name="Myddosome core with IRAK1 and IRAK4" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Myddosome_core"/>
+      <species id="Myddosome_full" name="Myddosome with TRAF6" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_Myddosome_full"/>
+      <species id="TAK1_inactive" name="TAK1 inactive" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TAK1">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tak1_tab1_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tak1_tab2_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tak1_traf6_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tak1_rip1_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_TAK1_inactive" multi:speciesFeatureType="sft_TAK1_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="TAK1_inactive_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="TAK1_active" name="TAK1 active" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TAK1">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="tak1_tab1_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="tak1_tab2_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="tak1_traf6_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="tak1_rip1_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_TAK1_active" multi:speciesFeatureType="sft_TAK1_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="TAK1_active_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="TAB1" name="TAB1" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TAB1">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tab1_tak1_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TAB2" name="TAB2" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TAB2">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tab2_tak1_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TAK1_TAB1" name="TAK1.TAB1" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TAK1_TAB1"/>
+      <species id="TAK1_TAB_complex" name="TAK1.TAB1.TAB2 complex" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TAK1_TAB_complex"/>
+      <species id="NEMO" name="NEMO" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_NEMO">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="nemo_ikkb_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="nemo_ikka_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="IKKB_inactive" name="IKKB inactive" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IKKB">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="ikkb_nemo_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_IKKB_inactive" multi:speciesFeatureType="sft_IKKB_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="IKKB_inactive_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="IKKB_active" name="IKKB active" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IKKB">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="ikkb_nemo_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_IKKB_active" multi:speciesFeatureType="sft_IKKB_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="IKKB_active_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="IKKA" name="IKKA" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IKKA">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="ikka_nemo_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="NEMO_IKKB" name="NEMO.IKKB" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_NEMO_IKKB"/>
+      <species id="IKK_complex" name="NEMO.IKKB.IKKA IKK complex" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IKK_complex"/>
+      <species id="NFkB_inactive" name="NF-kB inactive" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_NFkB">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="nfkb_ikk_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_NFkB_inactive" multi:speciesFeatureType="sft_NFkB_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="NFkB_inactive_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="NFkB_active" name="NF-kB active" compartment="nucleus" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_NFkB">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="nfkb_ikk_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_NFkB_active" multi:speciesFeatureType="sft_NFkB_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="NFkB_active_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="MAPK_inactive" name="JNK p38 MAPK inactive" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MAPK">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="mapk_tak1_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_MAPK_inactive" multi:speciesFeatureType="sft_MAPK_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="MAPK_inactive_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="MAPK_active" name="JNK p38 MAPK active" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_MAPK">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="mapk_tak1_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_MAPK_active" multi:speciesFeatureType="sft_MAPK_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="MAPK_active_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="AP1_inactive" name="AP-1 inactive" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_AP1">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="ap1_mapk_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_AP1_inactive" multi:speciesFeatureType="sft_AP1_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="AP1_inactive_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="AP1_active" name="AP-1 active" compartment="nucleus" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_AP1">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="ap1_mapk_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_AP1_active" multi:speciesFeatureType="sft_AP1_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="AP1_active_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="TRAM" name="TRAM" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TRAM">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tram_tlr4_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="tram_trif_site"/>
+        </multi:listOfOutwardBindingSites>
+      </species>
+      <species id="TRIF_inactive" name="TRIF inactive" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TRIF">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="trif_tram_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="trif_rip1_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="trif_irf3_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_TRIF_inactive" multi:speciesFeatureType="sft_TRIF_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="TRIF_inactive_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="RComplex_TRAM" name="TLR4 receptor complex.TRAM" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_RComplex_TRAM"/>
+      <species id="TRIFosome" name="TLR4 receptor complex.TRAM.TRIF" compartment="plasma_membrane" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_TRIFosome"/>
+      <species id="RIP1_inactive" name="RIP1 inactive" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_RIP1">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="rip1_trif_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="rip1_tak1_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_RIP1_inactive" multi:speciesFeatureType="sft_RIP1_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="RIP1_inactive_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="RIP1_active" name="RIP1 active" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_RIP1">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="rip1_trif_site"/>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="rip1_tak1_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_RIP1_active" multi:speciesFeatureType="sft_RIP1_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="RIP1_active_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="IRF3_inactive" name="IRF-3 inactive" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRF3">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="irf3_trif_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_IRF3_inactive" multi:speciesFeatureType="sft_IRF3_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="IRF3_inactive_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="IRF3_active" name="IRF-3 active" compartment="nucleus" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IRF3">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="irf3_trif_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_IRF3_active" multi:speciesFeatureType="sft_IRF3_activity" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="IRF3_active_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="IFN_off" name="IFN not expressed" compartment="cytosol" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IFN">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="unbound" multi:component="ifn_irf3_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_IFN_off" multi:speciesFeatureType="sft_IFN_expression" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="IFN_off_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+      <species id="IFN_on" name="IFN expressed" compartment="cytosol" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false" multi:speciesType="st_IFN">
+        <multi:listOfOutwardBindingSites>
+          <multi:outwardBindingSite multi:bindingStatus="either" multi:component="ifn_irf3_site"/>
+        </multi:listOfOutwardBindingSites>
+        <multi:listOfSpeciesFeatures>
+          <multi:speciesFeature multi:id="sf_IFN_on" multi:speciesFeatureType="sft_IFN_expression" multi:occur="1">
+            <multi:listOfSpeciesFeatureValues>
+              <multi:speciesFeatureValue multi:value="IFN_on_value"/>
+            </multi:listOfSpeciesFeatureValues>
+          </multi:speciesFeature>
+        </multi:listOfSpeciesFeatures>
+      </species>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction id="r01_tlr4_md2_binding" name="TLR4 binds MD-2" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r01_TLR4" species="TLR4" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r01_MD2" species="MD2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r01_TLR4_MD2" species="TLR4_MD2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>TLR4</ci><ci>MD2</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r02_lps_ligation" name="LPS ligates TLR4.MD-2" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r02_TLR4_MD2" species="TLR4_MD2" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r02_LPS" species="LPS" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r02_TLR4_MD2_LPS" species="TLR4_MD2_LPS" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>TLR4_MD2</ci><ci>LPS</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r03_cd14_receptor_complex" name="CD14 forms LPS-bound TLR4 receptor complex" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r03_TLR4_MD2_LPS" species="TLR4_MD2_LPS" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r03_CD14" species="CD14" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r03_RComplex" species="RComplex" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>TLR4_MD2_LPS</ci><ci>CD14</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r04_tirap_recruitment" name="TIRAP recruitment by receptor complex" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r04_RComplex" species="RComplex" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r04_TIRAP" species="TIRAP" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r04_RComplex_TIRAP" species="RComplex_TIRAP" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>RComplex</ci><ci>TIRAP</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r05_myd88_recruitment" name="MyD88 recruitment to TIRAP" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r05_RComplex_TIRAP" species="RComplex_TIRAP" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r05_MyD88" species="MyD88" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r05_MyD88_recruited" species="MyD88_recruited" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>RComplex_TIRAP</ci><ci>MyD88</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r06_irak4_recruitment" name="IRAK4 recruitment to MyD88" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r06_MyD88_recruited" species="MyD88_recruited" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r06_IRAK4" species="IRAK4" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r06_MyD88_IRAK4" species="MyD88_IRAK4" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>MyD88_recruited</ci><ci>IRAK4</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r07_irak1_recruitment" name="IRAK1 recruitment to Myddosome" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r07_MyD88_IRAK4" species="MyD88_IRAK4" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r07_IRAK1" species="IRAK1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r07_Myddosome_core" species="Myddosome_core" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>MyD88_IRAK4</ci><ci>IRAK1</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r08_traf6_recruitment" name="TRAF6 recruitment to Myddosome" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r08_Myddosome_core" species="Myddosome_core" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r08_TRAF6_inactive" species="TRAF6_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r08_Myddosome_full" species="Myddosome_full" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>Myddosome_core</ci><ci>TRAF6_inactive</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r09_traf6_activation_release" name="Myddosome activates and releases TRAF6" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r09_Myddosome_full" species="Myddosome_full" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r09_RComplex_TIRAP" species="RComplex_TIRAP" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r09_TRAF6_active" species="TRAF6_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>Myddosome_full</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r10_tak1_tab1_binding" name="TAK1 binds TAB1" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r10_TAK1_inactive" species="TAK1_inactive" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r10_TAB1" species="TAB1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r10_TAK1_TAB1" species="TAK1_TAB1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>TAK1_inactive</ci><ci>TAB1</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r11_tak1_tab_complex" name="TAB2 joins TAK1.TAB1 complex" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r11_TAK1_TAB1" species="TAK1_TAB1" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r11_TAB2" species="TAB2" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r11_TAK1_TAB_complex" species="TAK1_TAB_complex" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>TAK1_TAB1</ci><ci>TAB2</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r12_tak1_activation" name="TRAF6 and RIP1 activate TAK1" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r12_TAK1_inactive" species="TAK1_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r12_TAK1_active" species="TAK1_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_r12_TRAF6_active" species="TRAF6_active"/>
+          <modifierSpeciesReference id="mod_r12_RIP1_active" species="RIP1_active"/>
+          <modifierSpeciesReference id="mod_r12_TAK1_TAB_complex" species="TAK1_TAB_complex"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>TAK1_inactive</ci><ci>TRAF6_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r13_nemo_ikkb_binding" name="NEMO binds IKKB" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r13_NEMO" species="NEMO" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r13_IKKB_inactive" species="IKKB_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r13_NEMO_IKKB" species="NEMO_IKKB" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>NEMO</ci><ci>IKKB_inactive</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r14_ikk_complex_formation" name="IKKA joins NEMO.IKKB complex" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r14_NEMO_IKKB" species="NEMO_IKKB" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r14_IKKA" species="IKKA" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r14_IKK_complex" species="IKK_complex" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>NEMO_IKKB</ci><ci>IKKA</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r15_ikkb_activation" name="TAK1 activates IKKB in the IKK complex" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r15_IKKB_inactive" species="IKKB_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r15_IKKB_active" species="IKKB_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_r15_TAK1_active" species="TAK1_active"/>
+          <modifierSpeciesReference id="mod_r15_IKK_complex" species="IKK_complex"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>IKKB_inactive</ci><ci>TAK1_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r16_nfkb_activation" name="IKKB activates NF-kB" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r16_NFkB_inactive" species="NFkB_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r16_NFkB_active" species="NFkB_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_r16_IKKB_active" species="IKKB_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>NFkB_inactive</ci><ci>IKKB_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r17_mapk_activation" name="TAK1 activates JNK p38 MAPK" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r17_MAPK_inactive" species="MAPK_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r17_MAPK_active" species="MAPK_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_r17_TAK1_active" species="TAK1_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>MAPK_inactive</ci><ci>TAK1_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r18_ap1_activation" name="MAPK activates AP-1" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r18_AP1_inactive" species="AP1_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r18_AP1_active" species="AP1_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_r18_MAPK_active" species="MAPK_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>AP1_inactive</ci><ci>MAPK_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r19_tram_recruitment" name="TRAM recruitment by receptor complex" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r19_RComplex" species="RComplex" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r19_TRAM" species="TRAM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r19_RComplex_TRAM" species="RComplex_TRAM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>RComplex</ci><ci>TRAM</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r20_trif_recruitment" name="TRIF recruitment to TRAM" reversible="false" fast="false" compartment="plasma_membrane">
+        <listOfReactants>
+          <speciesReference id="sr_r20_RComplex_TRAM" species="RComplex_TRAM" stoichiometry="1" constant="true"/>
+          <speciesReference id="sr_r20_TRIF_inactive" species="TRIF_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r20_TRIFosome" species="TRIFosome" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>RComplex_TRAM</ci><ci>TRIF_inactive</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="1" units="litre_per_mole_per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r21_rip1_activation" name="TRIF activates RIP1" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r21_RIP1_inactive" species="RIP1_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r21_RIP1_active" species="RIP1_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_r21_TRIFosome" species="TRIFosome"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>RIP1_inactive</ci><ci>TRIFosome</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r22_irf3_activation" name="TRIF activates IRF-3" reversible="false" fast="false" compartment="cytosol">
+        <listOfReactants>
+          <speciesReference id="sr_r22_IRF3_inactive" species="IRF3_inactive" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r22_IRF3_active" species="IRF3_active" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_r22_TRIFosome" species="TRIFosome"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>IRF3_inactive</ci><ci>TRIFosome</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+      <reaction id="r23_ifn_induction" name="IRF-3 induces IFN expression" reversible="false" fast="false" compartment="nucleus">
+        <listOfReactants>
+          <speciesReference id="sr_r23_IFN_off" species="IFN_off" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference id="sr_r23_IFN_on" species="IFN_on" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference id="mod_r23_IRF3_active" species="IRF3_active"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci>k</ci><ci>IFN_off</ci><ci>IRF3_active</ci></apply>
+          </math>
+          <listOfLocalParameters>
+            <localParameter id="k" value="0.5" units="per_second"/>
+          </listOfLocalParameters>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+    <multi:listOfSpeciesTypes>
+      <multi:bindingSiteSpeciesType multi:id="bst_lps_md2" multi:name="LPS MD-2 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_lps_cd14" multi:name="LPS CD14 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tlr4_md2" multi:name="TLR4 MD-2 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tlr4_tirap" multi:name="TLR4 TIRAP binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tlr4_tram" multi:name="TLR4 TRAM binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_md2_tlr4" multi:name="MD-2 TLR4 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_md2_lps" multi:name="MD-2 LPS binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_cd14_lps" multi:name="CD14 LPS binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tirap_tlr4" multi:name="TIRAP TLR4 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tirap_myd88" multi:name="TIRAP MyD88 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_myd88_tirap" multi:name="MyD88 TIRAP binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_myd88_irak4" multi:name="MyD88 IRAK4 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_irak4_myd88" multi:name="IRAK4 MyD88 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_irak4_irak1" multi:name="IRAK4 IRAK1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_irak1_irak4" multi:name="IRAK1 IRAK4 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_irak1_traf6" multi:name="IRAK1 TRAF6 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_traf6_irak1" multi:name="TRAF6 IRAK1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_traf6_tak1" multi:name="TRAF6 TAK1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tak1_tab1" multi:name="TAK1 TAB1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tak1_tab2" multi:name="TAK1 TAB2 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tak1_traf6" multi:name="TAK1 TRAF6 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tak1_rip1" multi:name="TAK1 RIP1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tab1_tak1" multi:name="TAB1 TAK1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tab2_tak1" multi:name="TAB2 TAK1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_nemo_ikkb" multi:name="NEMO IKKB binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_nemo_ikka" multi:name="NEMO IKKA binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_ikkb_nemo" multi:name="IKKB NEMO binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_ikka_nemo" multi:name="IKKA NEMO binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_nfkb_ikk" multi:name="NF-kB IKK binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_mapk_tak1" multi:name="MAPK TAK1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_ap1_mapk" multi:name="AP-1 MAPK binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tram_tlr4" multi:name="TRAM TLR4 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_tram_trif" multi:name="TRAM TRIF binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_trif_tram" multi:name="TRIF TRAM binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_trif_rip1" multi:name="TRIF RIP1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_trif_irf3" multi:name="TRIF IRF3 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_rip1_trif" multi:name="RIP1 TRIF binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_rip1_tak1" multi:name="RIP1 TAK1 binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_irf3_trif" multi:name="IRF3 TRIF binding site"/>
+      <multi:bindingSiteSpeciesType multi:id="bst_ifn_irf3" multi:name="IFN IRF3 response site"/>
+      <multi:speciesType multi:id="st_LPS" multi:name="LPS" multi:compartment="extracellular">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="lps_md2_site" multi:name="MD-2 site" multi:speciesType="bst_lps_md2"/>
+          <multi:speciesTypeInstance multi:id="lps_cd14_site" multi:name="CD14 site" multi:speciesType="bst_lps_cd14"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TLR4" multi:name="TLR4" multi:compartment="plasma_membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="tlr4_md2_site" multi:name="MD-2 site" multi:speciesType="bst_tlr4_md2"/>
+          <multi:speciesTypeInstance multi:id="tlr4_tirap_site" multi:name="TIRAP site" multi:speciesType="bst_tlr4_tirap"/>
+          <multi:speciesTypeInstance multi:id="tlr4_tram_site" multi:name="TRAM site" multi:speciesType="bst_tlr4_tram"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_MD2" multi:name="MD-2" multi:compartment="plasma_membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="md2_tlr4_site" multi:name="TLR4 site" multi:speciesType="bst_md2_tlr4"/>
+          <multi:speciesTypeInstance multi:id="md2_lps_site" multi:name="LPS site" multi:speciesType="bst_md2_lps"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_CD14" multi:name="CD14" multi:compartment="plasma_membrane">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="cd14_lps_site" multi:name="LPS site" multi:speciesType="bst_cd14_lps"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TIRAP" multi:name="TIRAP" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="tirap_tlr4_site" multi:name="TLR4 site" multi:speciesType="bst_tirap_tlr4"/>
+          <multi:speciesTypeInstance multi:id="tirap_myd88_site" multi:name="MyD88 site" multi:speciesType="bst_tirap_myd88"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_MyD88" multi:name="MyD88" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="myd88_tirap_site" multi:name="TIRAP site" multi:speciesType="bst_myd88_tirap"/>
+          <multi:speciesTypeInstance multi:id="myd88_irak4_site" multi:name="IRAK4 site" multi:speciesType="bst_myd88_irak4"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IRAK4" multi:name="IRAK4" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="irak4_myd88_site" multi:name="MyD88 site" multi:speciesType="bst_irak4_myd88"/>
+          <multi:speciesTypeInstance multi:id="irak4_irak1_site" multi:name="IRAK1 site" multi:speciesType="bst_irak4_irak1"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IRAK1" multi:name="IRAK1" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="irak1_irak4_site" multi:name="IRAK4 site" multi:speciesType="bst_irak1_irak4"/>
+          <multi:speciesTypeInstance multi:id="irak1_traf6_site" multi:name="TRAF6 site" multi:speciesType="bst_irak1_traf6"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TRAF6" multi:name="TRAF6" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_TRAF6_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="TRAF6_inactive_value" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="TRAF6_active_value" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="traf6_irak1_site" multi:name="IRAK1 site" multi:speciesType="bst_traf6_irak1"/>
+          <multi:speciesTypeInstance multi:id="traf6_tak1_site" multi:name="TAK1 site" multi:speciesType="bst_traf6_tak1"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TAK1" multi:name="TAK1" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_TAK1_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="TAK1_inactive_value" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="TAK1_active_value" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="tak1_tab1_site" multi:name="TAB1 site" multi:speciesType="bst_tak1_tab1"/>
+          <multi:speciesTypeInstance multi:id="tak1_tab2_site" multi:name="TAB2 site" multi:speciesType="bst_tak1_tab2"/>
+          <multi:speciesTypeInstance multi:id="tak1_traf6_site" multi:name="TRAF6 site" multi:speciesType="bst_tak1_traf6"/>
+          <multi:speciesTypeInstance multi:id="tak1_rip1_site" multi:name="RIP1 site" multi:speciesType="bst_tak1_rip1"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TAB1" multi:name="TAB1" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="tab1_tak1_site" multi:name="TAK1 site" multi:speciesType="bst_tab1_tak1"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TAB2" multi:name="TAB2" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="tab2_tak1_site" multi:name="TAK1 site" multi:speciesType="bst_tab2_tak1"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_NEMO" multi:name="NEMO" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="nemo_ikkb_site" multi:name="IKKB site" multi:speciesType="bst_nemo_ikkb"/>
+          <multi:speciesTypeInstance multi:id="nemo_ikka_site" multi:name="IKKA site" multi:speciesType="bst_nemo_ikka"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IKKB" multi:name="IKKB" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_IKKB_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="IKKB_inactive_value" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="IKKB_active_value" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="ikkb_nemo_site" multi:name="NEMO site" multi:speciesType="bst_ikkb_nemo"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IKKA" multi:name="IKKA" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="ikka_nemo_site" multi:name="NEMO site" multi:speciesType="bst_ikka_nemo"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_NFkB" multi:name="NF-kB" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_NFkB_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="NFkB_inactive_value" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="NFkB_active_value" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="nfkb_ikk_site" multi:name="IKK site" multi:speciesType="bst_nfkb_ikk"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_MAPK" multi:name="JNK p38 MAPK" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_MAPK_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="MAPK_inactive_value" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="MAPK_active_value" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="mapk_tak1_site" multi:name="TAK1 site" multi:speciesType="bst_mapk_tak1"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_AP1" multi:name="AP-1" multi:compartment="nucleus">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_AP1_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="AP1_inactive_value" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="AP1_active_value" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="ap1_mapk_site" multi:name="MAPK site" multi:speciesType="bst_ap1_mapk"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TRAM" multi:name="TRAM" multi:compartment="cytosol">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="tram_tlr4_site" multi:name="TLR4 site" multi:speciesType="bst_tram_tlr4"/>
+          <multi:speciesTypeInstance multi:id="tram_trif_site" multi:name="TRIF site" multi:speciesType="bst_tram_trif"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TRIF" multi:name="TRIF" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_TRIF_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="TRIF_inactive_value" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="TRIF_active_value" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="trif_tram_site" multi:name="TRAM site" multi:speciesType="bst_trif_tram"/>
+          <multi:speciesTypeInstance multi:id="trif_rip1_site" multi:name="RIP1 site" multi:speciesType="bst_trif_rip1"/>
+          <multi:speciesTypeInstance multi:id="trif_irf3_site" multi:name="IRF-3 site" multi:speciesType="bst_trif_irf3"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_RIP1" multi:name="RIP1" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_RIP1_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="RIP1_inactive_value" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="RIP1_active_value" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="rip1_trif_site" multi:name="TRIF site" multi:speciesType="bst_rip1_trif"/>
+          <multi:speciesTypeInstance multi:id="rip1_tak1_site" multi:name="TAK1 site" multi:speciesType="bst_rip1_tak1"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IRF3" multi:name="IRF-3" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_IRF3_activity" multi:name="activity" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="IRF3_inactive_value" multi:name="inactive"/>
+              <multi:possibleSpeciesFeatureValue multi:id="IRF3_active_value" multi:name="active"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="irf3_trif_site" multi:name="TRIF site" multi:speciesType="bst_irf3_trif"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IFN" multi:name="IFN" multi:compartment="cytosol">
+        <multi:listOfSpeciesFeatureTypes>
+          <multi:speciesFeatureType multi:id="sft_IFN_expression" multi:name="expression" multi:occur="1">
+            <multi:listOfPossibleSpeciesFeatureValues>
+              <multi:possibleSpeciesFeatureValue multi:id="IFN_off_value" multi:name="off"/>
+              <multi:possibleSpeciesFeatureValue multi:id="IFN_on_value" multi:name="on"/>
+            </multi:listOfPossibleSpeciesFeatureValues>
+          </multi:speciesFeatureType>
+        </multi:listOfSpeciesFeatureTypes>
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="ifn_irf3_site" multi:name="IRF-3 response site" multi:speciesType="bst_ifn_irf3"/>
+        </multi:listOfSpeciesTypeInstances>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TLR4_MD2" multi:name="TLR4.MD-2">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TLR4_MD2_TLR4" multi:name="TLR4" multi:speciesType="st_TLR4"/>
+          <multi:speciesTypeInstance multi:id="sti_TLR4_MD2_MD2" multi:name="MD-2" multi:speciesType="st_MD2"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="tlr4_md2_site" multi:bindingSite2="md2_tlr4_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TLR4_MD2_LPS" multi:name="TLR4.MD-2.LPS">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TLR4_MD2_LPS_TLR4" multi:name="TLR4" multi:speciesType="st_TLR4"/>
+          <multi:speciesTypeInstance multi:id="sti_TLR4_MD2_LPS_MD2" multi:name="MD-2" multi:speciesType="st_MD2"/>
+          <multi:speciesTypeInstance multi:id="sti_TLR4_MD2_LPS_LPS" multi:name="LPS" multi:speciesType="st_LPS"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="tlr4_md2_site" multi:bindingSite2="md2_tlr4_site"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="md2_lps_site" multi:bindingSite2="lps_md2_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_ReceptorComplex" multi:name="LPS.CD14.MD-2.TLR4 receptor complex">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_RComplex_TLR4" multi:name="TLR4" multi:speciesType="st_TLR4"/>
+          <multi:speciesTypeInstance multi:id="sti_RComplex_MD2" multi:name="MD-2" multi:speciesType="st_MD2"/>
+          <multi:speciesTypeInstance multi:id="sti_RComplex_LPS" multi:name="LPS" multi:speciesType="st_LPS"/>
+          <multi:speciesTypeInstance multi:id="sti_RComplex_CD14" multi:name="CD14" multi:speciesType="st_CD14"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="tlr4_md2_site" multi:bindingSite2="md2_tlr4_site"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="md2_lps_site" multi:bindingSite2="lps_md2_site"/>
+          <multi:inSpeciesTypeBond multi:bindingSite1="cd14_lps_site" multi:bindingSite2="lps_cd14_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_RComplex_TIRAP" multi:name="receptor complex.TIRAP">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_RComplex_TIRAP_R" multi:name="receptor complex" multi:speciesType="st_ReceptorComplex"/>
+          <multi:speciesTypeInstance multi:id="sti_RComplex_TIRAP_TIRAP" multi:name="TIRAP" multi:speciesType="st_TIRAP"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="tlr4_tirap_site" multi:bindingSite2="tirap_tlr4_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_MyD88_recruited" multi:name="receptor complex.TIRAP.MyD88">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_recruited_R_TIRAP" multi:name="receptor complex.TIRAP" multi:speciesType="st_RComplex_TIRAP"/>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_recruited_MyD88" multi:name="MyD88" multi:speciesType="st_MyD88"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="tirap_myd88_site" multi:bindingSite2="myd88_tirap_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_MyD88_IRAK4" multi:name="receptor complex.TIRAP.MyD88.IRAK4">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_IRAK4_scaffold" multi:name="receptor complex.TIRAP.MyD88" multi:speciesType="st_MyD88_recruited"/>
+          <multi:speciesTypeInstance multi:id="sti_MyD88_IRAK4_IRAK4" multi:name="IRAK4" multi:speciesType="st_IRAK4"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="myd88_irak4_site" multi:bindingSite2="irak4_myd88_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_Myddosome_core" multi:name="Myddosome core">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_Myddosome_core_scaffold" multi:name="receptor complex.TIRAP.MyD88.IRAK4" multi:speciesType="st_MyD88_IRAK4"/>
+          <multi:speciesTypeInstance multi:id="sti_Myddosome_core_IRAK1" multi:name="IRAK1" multi:speciesType="st_IRAK1"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="irak4_irak1_site" multi:bindingSite2="irak1_irak4_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_Myddosome_full" multi:name="Myddosome with TRAF6">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_Myddosome_full_core" multi:name="Myddosome core" multi:speciesType="st_Myddosome_core"/>
+          <multi:speciesTypeInstance multi:id="sti_Myddosome_full_TRAF6" multi:name="TRAF6" multi:speciesType="st_TRAF6"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="irak1_traf6_site" multi:bindingSite2="traf6_irak1_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TAK1_TAB1" multi:name="TAK1.TAB1">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TAK1_TAB1_TAK1" multi:name="TAK1" multi:speciesType="st_TAK1"/>
+          <multi:speciesTypeInstance multi:id="sti_TAK1_TAB1_TAB1" multi:name="TAB1" multi:speciesType="st_TAB1"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="tak1_tab1_site" multi:bindingSite2="tab1_tak1_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TAK1_TAB_complex" multi:name="TAK1.TAB1.TAB2 complex">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TAK1_TAB_complex_TAK1_TAB1" multi:name="TAK1.TAB1" multi:speciesType="st_TAK1_TAB1"/>
+          <multi:speciesTypeInstance multi:id="sti_TAK1_TAB_complex_TAB2" multi:name="TAB2" multi:speciesType="st_TAB2"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="tak1_tab2_site" multi:bindingSite2="tab2_tak1_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_NEMO_IKKB" multi:name="NEMO.IKKB">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_NEMO_IKKB_NEMO" multi:name="NEMO" multi:speciesType="st_NEMO"/>
+          <multi:speciesTypeInstance multi:id="sti_NEMO_IKKB_IKKB" multi:name="IKKB" multi:speciesType="st_IKKB"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="nemo_ikkb_site" multi:bindingSite2="ikkb_nemo_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_IKK_complex" multi:name="NEMO.IKKB.IKKA IKK complex">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_IKK_complex_NEMO_IKKB" multi:name="NEMO.IKKB" multi:speciesType="st_NEMO_IKKB"/>
+          <multi:speciesTypeInstance multi:id="sti_IKK_complex_IKKA" multi:name="IKKA" multi:speciesType="st_IKKA"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="nemo_ikka_site" multi:bindingSite2="ikka_nemo_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_RComplex_TRAM" multi:name="receptor complex.TRAM">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_RComplex_TRAM_R" multi:name="receptor complex" multi:speciesType="st_ReceptorComplex"/>
+          <multi:speciesTypeInstance multi:id="sti_RComplex_TRAM_TRAM" multi:name="TRAM" multi:speciesType="st_TRAM"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="tlr4_tram_site" multi:bindingSite2="tram_tlr4_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+      <multi:speciesType multi:id="st_TRIFosome" multi:name="receptor complex.TRAM.TRIF">
+        <multi:listOfSpeciesTypeInstances>
+          <multi:speciesTypeInstance multi:id="sti_TRIFosome_R_TRAM" multi:name="receptor complex.TRAM" multi:speciesType="st_RComplex_TRAM"/>
+          <multi:speciesTypeInstance multi:id="sti_TRIFosome_TRIF" multi:name="TRIF" multi:speciesType="st_TRIF"/>
+        </multi:listOfSpeciesTypeInstances>
+        <multi:listOfInSpeciesTypeBonds>
+          <multi:inSpeciesTypeBond multi:bindingSite1="tram_trif_site" multi:bindingSite2="trif_tram_site"/>
+        </multi:listOfInSpeciesTypeBonds>
+      </multi:speciesType>
+    </multi:listOfSpeciesTypes>
+  </model>
+</sbml>
